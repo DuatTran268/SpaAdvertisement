@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "zdb0ZTCw5mAwPFL96YI7a/yQldyRr2MNV/LPQsTUrPE=",
+  "Source": "SpaCenter.WebApi",
+  "BasePath": "_content/SpaCenter.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "SpaCenter.WebApi\\wwwroot",
+      "Source": "SpaCenter.WebApi",
+      "ContentRoot": "F:\\MinhNhat12\\Third Years\\HKII\\Advanced Web Application Development\\Project Web\\SourceCode\\Group_17_Advanced_Web_Development\\src\\SpaCenter\\SpaCenter.WebApi\\wwwroot\\",
+      "BasePath": "_content/SpaCenter.WebApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

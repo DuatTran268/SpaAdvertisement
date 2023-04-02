@@ -1,0 +1,12 @@
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\bin\Debug\net7.0\SpaCenter.Web.Common.deps.json
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\bin\Debug\net7.0\SpaCenter.Web.Common.dll
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\bin\Debug\net7.0\SpaCenter.Web.Common.pdb
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\obj\Debug\net7.0\SpaCenter.Web.Common.csproj.AssemblyReference.cache
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\obj\Debug\net7.0\SpaCenter.Web.Common.GeneratedMSBuildEditorConfig.editorconfig
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\obj\Debug\net7.0\SpaCenter.Web.Common.AssemblyInfoInputs.cache
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\obj\Debug\net7.0\SpaCenter.Web.Common.AssemblyInfo.cs
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\obj\Debug\net7.0\SpaCenter.Web.Common.csproj.CoreCompileInputs.cache
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\obj\Debug\net7.0\SpaCenter.Web.Common.dll
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\obj\Debug\net7.0\refint\SpaCenter.Web.Common.dll
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\obj\Debug\net7.0\SpaCenter.Web.Common.pdb
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Web.Common\obj\Debug\net7.0\ref\SpaCenter.Web.Common.dll

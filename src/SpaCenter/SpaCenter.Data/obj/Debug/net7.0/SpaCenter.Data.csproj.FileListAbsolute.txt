@@ -1,0 +1,12 @@
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\bin\Debug\net7.0\SpaCenter.Data.deps.json
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\bin\Debug\net7.0\SpaCenter.Data.dll
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\bin\Debug\net7.0\SpaCenter.Data.pdb
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\obj\Debug\net7.0\SpaCenter.Data.csproj.AssemblyReference.cache
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\obj\Debug\net7.0\SpaCenter.Data.GeneratedMSBuildEditorConfig.editorconfig
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\obj\Debug\net7.0\SpaCenter.Data.AssemblyInfoInputs.cache
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\obj\Debug\net7.0\SpaCenter.Data.AssemblyInfo.cs
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\obj\Debug\net7.0\SpaCenter.Data.csproj.CoreCompileInputs.cache
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\obj\Debug\net7.0\SpaCenter.Data.dll
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\obj\Debug\net7.0\refint\SpaCenter.Data.dll
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\obj\Debug\net7.0\SpaCenter.Data.pdb
+F:\MinhNhat12\Third Years\HKII\Advanced Web Application Development\Project Web\SourceCode\Group_17_Advanced_Web_Development\src\SpaCenter\SpaCenter.Data\obj\Debug\net7.0\ref\SpaCenter.Data.dll
