@@ -4,6 +4,7 @@ import TopService from "../components/topservice/TopService";
 import Slide from "../components/sliderbanner/Slider";
 import './pages.scss'
 import Product from "../components/product/Product"
+import Galley from "../components/galley/Galley";
 
 
 const Home = () => {
@@ -20,6 +21,9 @@ const Home = () => {
       </div>
       <div className="top_product">
         <Product/>
+      </div>
+      <div className="galley">
+        <Galley/>
       </div>
     </div>
   );
