@@ -24,24 +24,34 @@ const TopService = () => {
   return (
     <>
       <div className="container">
-        <h1 className="text-center mt-5 mb-5">Dịch vụ nổi bật </h1>
+        <div className="service-header row pt-5 pb-3">
+          <div className="col">
+            <h3 className="service-header-title ">Dịch vụ</h3>
+          </div>
+          <Link className="service-header-more col" to={`/service`}>
+            Xem thêm
+          </Link>
+        </div>
+
         <Slider {...serviceSetting}>
           {Ddata.map((value, index) => {
             return (
               <>
                 <div className="container">
-                  <div className="row top-service" key={index}>
-                    <div className="col-sm text-center">
+                  <div className="top-service" key={index}>
+                    <div className="text-center">
                       <Link className="text-decoration-none" to={`/service`}>
                         <h5 className="top-service-title mb-3">{value.name}</h5>
                       </Link>
-                      <Link className="top-service-image" to={`/service`}>
-                        <img
-                          src={value.image}
-                          alt="item top service"
-                          className="top-service-img rounded-circle rounded mx-auto d-block"
-                        />
-                      </Link>
+                      <div className="top-service-image rounded-circle">
+                        <Link to={`/service`}>
+                          <img
+                            src={value.image}
+                            alt="item top service"
+                            className="top-service-img "
+                          />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -3,43 +3,64 @@ const Ddata = [
     id: 1,
     name: "Điều trị mụn",
     image: "https://saigonsmilespa.com.vn/FileUpload/Images/lamtrangda_.jpg",
-    imageUrl: "dieu-tri-mun",
+    urlSlug: "dieu-tri-mun",
+    description: "Product is a",
+    price: 123,
+
   },
   {
     id: 2,
     name: "Giảm béo",
     image: "https://saigonsmilespa.com.vn/FileUpload/Images/lamtrangda_.jpg",
-    imageUrl: "giam-beo",
+    urlSlug: "giam-beo",
+    description: "Product is a",
+    price: 123,
+
   },
   {
     id: 3,
     name: "Trẻ hoá da",
     image: "https://saigonsmilespa.com.vn/FileUpload/Images/lamtrangda_.jpg",
-    imageUrl: "tre-hoa-da",
+    urlSlug: "tre-hoa-da",
+    description: "Product is a",
+    price: 123,
+
   },
   {
     id: 4,
     name: "Trị nám",
     image: "https://saigonsmilespa.com.vn/FileUpload/Images/lamtrangda_.jpg",
-    imageUrl: "tri-nam",
+    urlSlug: "tri-nam",
+    description: "Product is a",
+    price: 123,
+
   },
   {
     id: 5,
     name: "Làm trắng da",
     image: "https://saigonsmilespa.com.vn/FileUpload/Images/lamtrangda_.jpg",
-    imageUrl: "lam-trang",
+    urlSlug: "lam-trang",
+    description: "Product is a",
+    price: 123,
+
   },
   {
     id: 6,
     name: "Massage toàn thân",
     image: "https://saigonsmilespa.com.vn/FileUpload/Images/lamtrangda_.jpg",
-    imageUrl: "massage-all-body",
+    urlSlug: "massage-all-body",
+    description: "Product is a",
+    price: 123,
+
   },
   {
+
     id: 7,
     name: "Massage mặt",
     image: "https://saigonsmilespa.com.vn/FileUpload/Images/lamtrangda_.jpg",
-    imageUrl: "massage-face",
+    urlSlug: "massage-face",
+    description: "Product is a",
+    price: 123,
   },
 ]
 

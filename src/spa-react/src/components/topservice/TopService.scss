@@ -1,8 +1,23 @@
-.text-center{
-  color: red;
-}
-.top-service{
+
+.service-header{
+  align-items: center;
+
+  &-title{
+    color: red;
+  }
+
+  &-more{
+    text-decoration: none;
+    display: flex;
+    flex-direction: row-reverse;
+  }
   
+}
+
+
+.top-service{
+  cursor: grab;
+  margin: 0 20px;
   &-title{
     color: red;
     font-style:oblique;
@@ -13,17 +28,20 @@
     -webkit-box-orient: vertical;
 
   }
-  
-  &-img{
-    width: 160px;
+
+  &-image{
     overflow: hidden;
     object-fit: cover;
-    transition: all .2s ease-out;
-    border: 2px solid pink;
+    border: 3px solid pink;
+    
+  }
+  &-img{
+    width: 100%;
+    transition: all 0.5s ease-in-out;
 
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
   }
-
+  
 }
