@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BookService from "../components/booking/Bookservice";
 import TopService from "../components/topservice/TopService";
 import Slide from "../components/sliderbanner/Slider";
@@ -8,6 +8,10 @@ import Galley from "../components/galley/Galley";
 
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Trang chủ";
+  }, [])
+
   return (
     <div>
       <div className="home_slide">
