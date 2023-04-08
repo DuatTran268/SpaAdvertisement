@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import logo from './images/logo.png';
 import MainMenu from "./MainMenu";
 import Cart from "./Cart";
+import SearchForm from "./SearchForm";
 
 
 const Header = () => {
@@ -27,7 +28,7 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
             <MainMenu />
-            {/* <SearchForm /> */}
+            <SearchForm />
             <Cart/>
           </div>
         </div>

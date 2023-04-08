@@ -21,7 +21,7 @@ function App() {
           <Route path="/product" element={<Product/>}/>
           <Route path="/contact" element={<Contact/>}/>
           <Route path="/cart" element={<Cart/>}/>
-          <Route path="*" element={<NotFound/>}/>
+          <Route path="/*" element={<NotFound/>}/>
         </Routes>
       </Layout>
     </BrowserRouter>
