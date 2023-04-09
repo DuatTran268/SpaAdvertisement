@@ -1,19 +1,12 @@
 import React, { useEffect } from "react";
-
-
+import AboutStatic from "../components/About/AboutStatic";
 
 const About = () => {
   useEffect(() => {
-    document.title = "Giới thiệu"
-  }, [])
+    document.title = "Giới thiệu";
+  }, []);
 
-  return (
-    <>
-      <h1>Đây là trang giới thiệu trung tâm</h1>
-    </>
-  );
-
-}
-
+  return <AboutStatic />;
+};
 
 export default About;
