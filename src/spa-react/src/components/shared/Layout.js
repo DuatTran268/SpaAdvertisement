@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header";
-
+import Footer from "./Footer"
 const Layout = ({children}) => {
   return (
     <>
@@ -8,7 +8,7 @@ const Layout = ({children}) => {
       <div className="">
           {children}
       </div>
-      {/* footer */}
+      <Footer/>
     </>
   );
 };

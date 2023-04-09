@@ -1,0 +1,33 @@
+.footer{
+  background-color: pink;
+  margin-top: 2rem;
+  
+  &-info-title{
+    color: black;
+    padding-bottom: 1rem;
+  }
+
+  &-info-contact-item{
+    margin-bottom: 1rem;
+  }
+
+  &-text-link{
+  text-decoration: none;
+  }
+
+  &-fa-icon{
+    margin-right: 1rem;
+  }
+
+  &-copyright{
+    text-decoration: none;
+    padding-left: 0.3rem;
+    color: black;
+    &:hover{
+      color: red;
+    }
+  }
+
+}
+
+
