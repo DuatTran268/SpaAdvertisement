@@ -9,8 +9,6 @@ const FooterAds = () => {
         width="270"
         height="200"
         scrolling="no"
-        frameborder="0"
-        allowfullscreen="true"
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
         title="page"
       ></iframe>

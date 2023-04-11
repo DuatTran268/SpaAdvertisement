@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
-
+import ServiceList from "../components/serviceslist/servicelist";
+import ServiceType from "../components/servicestype/servicetype";
 
 const Service = () => {
   useState(() =>{
@@ -9,7 +9,7 @@ const Service = () => {
 
   return (
     <>
-      <h1>Đây là trang Dịch vụ</h1>
+      <ServiceType/>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import AboutStatic from "../components/About/AboutStatic";
+import AboutStatic from "../components/about/AboutStatic";
 
 const About = () => {
   useEffect(() => {

@@ -28,9 +28,7 @@ const AboutStatic = () => {
         height="600px"
         src="https://www.youtube.com/embed/OicqINiiXOU"
         title="YouTube video player"
-        frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
       ></iframe>
 
       <p className="text-paragraph">
