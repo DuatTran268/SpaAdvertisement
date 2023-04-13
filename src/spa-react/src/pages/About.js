@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import AboutStatic from "../components/About/AboutStatic";
+import AboutStatic from "../components/staticabout/AboutStatic";
 const About = () => {
   useEffect(() => {
     document.title = "Giới thiệu";
