@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -13,6 +13,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SpaCenter.Core\SpaCenter.Core.csproj" />
+    <ProjectReference Include="..\SpaCenter.Web.Common\SpaCenter.Web.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Seeders\" />
   </ItemGroup>
 
 </Project>

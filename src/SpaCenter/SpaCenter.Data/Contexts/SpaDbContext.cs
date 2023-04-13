@@ -4,14 +4,15 @@ namespace SpaCenter.Data.Contexts
 {
     public class SpaDbContext : DbContext
     {
-        public SpaDbContext()
-        {
-        }
+        public SpaDbContext(DbContextOptions options) : base(options) { }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.ApplyConfigurationsFromAssembly(
-        //        typeof(CategoryMap).Assembly);
-        //}
+        #region DbSet
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.ApplyConfigurationsFromAssembly(
+            //    typeof().Assembly);
+        }
+        #endregion
+
     }
 }

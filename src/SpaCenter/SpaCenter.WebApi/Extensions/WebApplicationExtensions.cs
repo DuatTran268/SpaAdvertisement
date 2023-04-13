@@ -14,7 +14,7 @@ namespace SpaCenter.WebApi.Extensions
             builder.Services.AddMemoryCache();
 
             builder.Services.AddDbContext<SpaDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB")));
 
             builder.Services.AddScoped<ITimeProvider, LocalTimeProvider>();
             builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
