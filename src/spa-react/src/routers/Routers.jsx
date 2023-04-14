@@ -8,6 +8,9 @@ import Home from "../pages/Home";
 import Product from "../pages/Product";
 import Service from "../pages/Service";
 import NotFound from "../components/shared/NotFound";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+import ServicePost from "../components/servicepost/ServicePost";
 
 const Routers = () => {
   return (
@@ -21,7 +24,12 @@ const Routers = () => {
           <Route path="/product" element={<Product/>}/>
           <Route path="/contact" element={<Contact/>}/>
           <Route path="/cart" element={<Cart/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/service/post" element={<ServicePost/>}/>
+          
           <Route path="/*" element={<NotFound/>}/>
+
         </Routes>
 
         {/* router admin define in here */}

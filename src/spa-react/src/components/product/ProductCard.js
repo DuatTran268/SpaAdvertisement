@@ -13,10 +13,10 @@ const ProductCard = ({ Dproduct, addToCard }) => {
 
   return (
     <div className="row g-4">
-      {DataProduct.map((productItem) => {
+      {DataProduct.map((productItem, index) => {
         return (
           <div className="product col-sm-3  gy-4 ">
-            <div className="prodcut-wrap">
+            <div className="prodcut-wrap" key={index}>
               <div className="product-image">
                 <img src={productItem.image} alt={productItem} />
               </div>

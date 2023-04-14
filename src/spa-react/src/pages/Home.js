@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import BookService from "../components/booking/Bookservice";
+import BookService from "../components/booking/RegisterSupport";
 import TopService from "../components/topservice/TopService";
 import Slide from "../components/sliderbanner/Slider";
 import './pages.scss'
