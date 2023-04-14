@@ -2,6 +2,7 @@ import React from "react";
 import "./servicelist.scss";
 import typeservice from "../../data/Dservicelist";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const ServiceList = () => {
   const [selected, setSelected] = useState(null);
@@ -28,9 +29,11 @@ const ServiceList = () => {
                   <div className="row d-flex align-items-center">
                     <div className="price col-6 text-danger">{item.price} VNĐ</div>
                     <div className="list-service-button col-6">
-                      <button className="btn btn-success " onClick={() => {alert("Chưa book được")}}>
+                    <Link to={`/service/booking`}>
+                      <button className="btn btn-success ">
                         Book now
                       </button>
+                    </Link>
                     </div>
                   </div>
                 </div>

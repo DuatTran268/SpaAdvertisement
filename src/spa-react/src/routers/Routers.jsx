@@ -11,6 +11,7 @@ import NotFound from "../components/shared/NotFound";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import ServicePost from "../components/servicepost/ServicePost";
+import Booking from "../components/booking/Booking";
 
 const Routers = () => {
   return (
@@ -27,6 +28,7 @@ const Routers = () => {
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/service/post" element={<ServicePost/>}/>
+          <Route path="/service/booking" element={<Booking/>}/>
           
           <Route path="/*" element={<NotFound/>}/>
 
