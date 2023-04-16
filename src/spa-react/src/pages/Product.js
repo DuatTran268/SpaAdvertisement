@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 
 
 const Product = () => {
@@ -8,9 +9,13 @@ const Product = () => {
   })
 
   return (
+    <div>
+    <Header/>
     <h1>
       Đây là trang sản phẩm
     </h1>
+    <Footer/>
+    </div>
   )
 }
 

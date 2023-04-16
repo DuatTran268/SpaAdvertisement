@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import './App.css';
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+
 import Layout from "../components/shared/Layout";
 import About from "../pages/About";
 import Cart from "../pages/Carts";
@@ -8,25 +8,45 @@ import Home from "../pages/Home";
 import Product from "../pages/Product";
 import Service from "../pages/Service";
 import NotFound from "../components/shared/NotFound";
+import AdminHome from "../pages/admin/home/Home";
+import AdminLogin from "../pages/admin/login/Login";
+import AdminList from "../pages/admin/list/User";
+import AdminProduct from "../pages/admin/list/Product";
+import AdminCart from "../pages/admin/list/Cart";
+import "../pages/admin/style/dark.scss"
+import { useContext } from "react";
+import { DarkModeContext } from "../components/admin/context/darkModeReducer";
 
-const Routers = () => {
+
+
+function Routers() {
+  const {darkMode} = useContext(DarkModeContext)
   return (
     <BrowserRouter>
-      <Layout>
+        <div className={darkMode ? "app dark" : "app"}>
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/home" element={<Home/>}/>
-          <Route path="/about-us" element={<About/>}/>
-          <Route path="/service" element={<Service/>}/>
-          <Route path="/product" element={<Product/>}/>
-          <Route path="/contact" element={<Contact/>}/>
-          <Route path="/cart" element={<Cart/>}/>
-          <Route path="/*" element={<NotFound/>}/>
-        </Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/cart" element={<Cart />} />
+          
+          {/* <Route path="/" element={<AdminLogin/>}> */}
+          
+          <Route  path="/admin" element={<AdminHome/>}/>
+          <Route path="/admin/users" element={<AdminList/>}/>
+          <Route path="/admin/products" element={<AdminProduct/>}/>
+          <Route path="/admin/cart" element={<AdminCart/>}/>
+          {/* </Route> */}
+          
 
-        {/* router admin define in here */}
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+        </div>
         
-      </Layout>
+      
     </BrowserRouter>
   );
 }

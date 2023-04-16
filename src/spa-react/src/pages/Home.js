@@ -5,7 +5,8 @@ import Slide from "../components/sliderbanner/Slider";
 import './pages.scss'
 import Product from "../components/product/Product"
 import Galley from "../components/galley/Galley";
-
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 
 const Home = () => {
   useEffect(() => {
@@ -14,6 +15,7 @@ const Home = () => {
 
   return (
     <div>
+      <Header/>
       <div className="home_slide">
         <Slide />
         <div className="home_slide-service">
@@ -29,6 +31,7 @@ const Home = () => {
       <div className="galley">
         <Galley/>
       </div>
+      <Footer/>
     </div>
   );
 };
