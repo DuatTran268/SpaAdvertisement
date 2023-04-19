@@ -8,6 +8,7 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import { DarkModeContext } from "../context/darkModeReducer";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -23,26 +24,17 @@ const Navbar = () => {
         </div>
         <div className="items">
           <div className="item">
-          <LanguageOutlinedIcon className="icon"/>
-              English
-          </div>
-          <div className="item">
             <DarkModeOutlinedIcon className="icon" onClick={()=> dispatch({type:"TOGGLE"})}/>
           </div>
-          <div className="item">
-            <FullscreenExitOutlinedIcon className="icon"/>
-          </div>
-          <div className="item">
+          {/* <div className="item">
             <NotificationsNoneOutlinedIcon className="icon"/>
             <div className="counter">1</div>
           </div>
           <div className="item">
             <ChatBubbleOutlineOutlinedIcon className="icon"/>
             <div className="counter">2</div>
-          </div>
-          <div className="item">
-            <FormatListBulletedOutlinedIcon className="icon"/>
-          </div>
+          </div> */}
+          <Link to={"/admin/setting"} style={{textDecoration:"none"}}>
           <div className="item">
             <img
               src="https://tse2.mm.bing.net/th?id=OIP.Lfc-ED0sVK9GOkjPJjB2cwAAAA&pid=Api&P=0"
@@ -50,6 +42,7 @@ const Navbar = () => {
               className="avatar"
             />
           </div>
+          </Link>
         </div>
       </div>
     </div>

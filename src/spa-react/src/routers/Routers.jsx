@@ -16,6 +16,8 @@ import AdminCart from "../pages/admin/list/Cart";
 import "../pages/admin/style/dark.scss"
 import { useContext } from "react";
 import { DarkModeContext } from "../components/admin/context/darkModeReducer";
+import AdminSetting from "../pages/admin/setting/Setting";
+import AdminBooking from "../pages/admin/booking/Booking";
 
 
 
@@ -39,6 +41,8 @@ function Routers() {
           <Route path="/admin/users" element={<AdminList/>}/>
           <Route path="/admin/products" element={<AdminProduct/>}/>
           <Route path="/admin/cart" element={<AdminCart/>}/>
+          <Route path="/admin/setting" element={<AdminSetting/>}/>
+          <Route path="/admin/booking" element={<AdminBooking/>}/>
           {/* </Route> */}
           
 

@@ -54,10 +54,12 @@ const Sidebar = () => {
                 <span>Đơn hàng</span>
             </li>
             </Link>
+            <Link to={'/admin/booking'} style={{textDecoration:"none"}}>
             <li>
               <LocalShippingOutlinedIcon className="icon"/>
-                <span>Delivery</span>
+                <span>Booking</span>
             </li>
+            </Link>
             <p className="title">USEFUL</p>
             <li>
               <NotificationsNoneOutlinedIcon className="icon"/>
@@ -65,22 +67,15 @@ const Sidebar = () => {
             </li>
             <p className="title">SERVICE</p>
             <li>
-              <SettingsSystemDaydreamOutlinedIcon className="icon"/>
-                <span>System Health</span>
-            </li>
-            <li>
               <PsychologyOutlinedIcon className="icon"/>
                 <span>Logs</span>
             </li>
+            <Link to={"/admin/setting"} style={{textDecoration:"none"}}>
             <li>
               <SettingsSuggestOutlinedIcon className="icon"/>
                 <span>Setting</span>
             </li>
-            <p className="title">USER</p>
-            <li>
-              <AccountCircleOutlinedIcon className="icon"/>
-                <span>Profile</span>
-            </li>
+            </Link>
             <Link to={"/"} style={{textDecoration:"none"}}>
              <li>
               <LogoutOutlinedIcon className="icon"/>
