@@ -22,7 +22,7 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import ServicePost from "../components/servicepost/ServicePost";
 import Booking from "../components/booking/Booking";
-
+import ProductDetails from "../components/productdetails/ProductDetails";
 
 function Routers() {
   const {darkMode} = useContext(DarkModeContext)
@@ -42,6 +42,7 @@ function Routers() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/service/post" element={<ServicePost/>}/>
           <Route path="/service/booking" element={<Booking/>}/>
+          <Route path="/product/detail" element={<ProductDetails/>}/>
 
 
           <Route path="/" element={<AdminLogin/>}/>
