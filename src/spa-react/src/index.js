@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { DarkModeContextProvider } from './components/admin/context/darkModeReducer';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <DarkModeContextProvider>
     <App />
+    </DarkModeContextProvider>
   </React.StrictMode>
 );
 

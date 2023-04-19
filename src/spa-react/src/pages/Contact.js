@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 
 
 const Contact = () => {
@@ -8,7 +9,11 @@ const Contact = () => {
   }, [])
 
   return (
-    <h1>Đây là trang liên hệ</h1>
+    <div>
+      <Header/>
+      <h1>Đây là trang liên hệ</h1>
+      <Footer/>
+    </div>
   );
 }
 

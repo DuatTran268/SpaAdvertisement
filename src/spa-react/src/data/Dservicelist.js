@@ -5,7 +5,7 @@
 //     urlSlug: 'dich-vu-mun',
 //     description : 'Các dịch vụ về mụn',
 //     status : false,
-//     type_service : [
+//     typeService : [
 //       {
 //         id : 1,
 //         name: "Nặn mụn",
@@ -61,7 +61,7 @@
 //     urlSlug: 'dich-vu-da',
 //     description : 'Các dịch vụ về da',
 //     status : false,
-//     type_service : [
+//     typeService : [
 //       {
 //         id : 1,
 //         name: "Làm trắng da",
