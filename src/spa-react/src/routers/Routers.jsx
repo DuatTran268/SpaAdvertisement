@@ -18,7 +18,10 @@ import { useContext } from "react";
 import { DarkModeContext } from "../components/admin/context/darkModeReducer";
 import AdminSetting from "../pages/admin/setting/Setting";
 import AdminBooking from "../pages/admin/booking/Booking";
-
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+import ServicePost from "../components/servicepost/ServicePost";
+import Booking from "../components/booking/Booking";
 
 
 function Routers() {
@@ -35,9 +38,13 @@ function Routers() {
           <Route path="/product" element={<Product />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
-          
-          {/* <Route path="/" element={<AdminLogin/>}> */}
-          
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/service/post" element={<ServicePost/>}/>
+          <Route path="/service/booking" element={<Booking/>}/>
+
+
+          <Route path="/" element={<AdminLogin/>}/>
           <Route  path="/admin" element={<AdminHome/>}/>
           <Route path="/admin/users" element={<AdminList/>}/>
           <Route path="/admin/products" element={<AdminProduct/>}/>
