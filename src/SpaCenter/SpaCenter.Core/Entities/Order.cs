@@ -11,11 +11,17 @@ namespace SpaCenter.Core.Entities
         public int Id { get; set; }
 
         // Tên sản phẩm or tên dịch vụ
+        [Required]
+        [MaxLength(256)]
         public string Name { get; set; }
 
+        [Range(0, 100)]
         public int Quantity { get; set; }
-        public decimal Price { get; set; }
-        public decimal TotalMoney { get; set; }
+
+        [Range(0, double.MaxValue)]
+        public double Price { get; set; }
+
+        public double TotalMoney { get; set; }
         public string ImageUrl { get; set; }
         public DateTime BookingDate { get; set; }
         public DateTime? CreatedDate { get; set; }
@@ -26,21 +32,28 @@ namespace SpaCenter.Core.Entities
         [StringLength(256)]
         public string PaymentMethod { get; set; }
 
-        public int PaymentStatus { get; set; }
+        public string PaymentStatus { get; set; }
 
-        public int TransactionID { get; set; }
+        public int TransactionId { get; set; }
 
-        [ForeignKey("TransactionID")]
+        [ForeignKey("TransactionId")]
         public virtual Transaction Transaction { get; set; }
 
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
 
-        [ForeignKey("ProductID")]
+        [ForeignKey("ProductId")]
         public virtual Product Products { get; set; }
 
-        public int ServiceID { get; set; }
+        public int ServiceId { get; set; }
 
-        [ForeignKey("ServiceID")]
+        [ForeignKey("ServiceId")]
         public virtual Service Services { get; set; }
+
+        [StringLength(450)]
+        [Column(TypeName = "nvarchar")]
+        public string CustomerId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public virtual User User { set; get; }
     }
 }

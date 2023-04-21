@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpaCenter.Core.Entities
 {
+    // Gần giống bảng chi tiết đơn hàng ^^
     [Table("Transactions")]
     public class Transaction : Auditable
     {
@@ -15,17 +16,23 @@ namespace SpaCenter.Core.Entities
         public string CustomerEmail { get; set; }
         public string CustomerPhone { get; set; }
         public string CustomerAddress { get; set; }
-        public decimal TotalMoney { get; set; }
+
+        [Range(0, double.MaxValue)]
+        public double TotalMoney { get; set; }
+
+        [Range(0, 100)]
         public int Quantity { get; set; }
+
         public string Note { get; set; }
-        public int ServiceID { get; set; }
 
-        [ForeignKey("ServiceID")]
-        public virtual Service Services { get; set; }
 
-        public int ProductID { get; set; }
+        [MaxLength(450)]
+        [Column(TypeName = "nvarchar")]
+        public string UserId { get; set; }
 
-        [ForeignKey("ProductID")]
-        public virtual Product Products { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User Users { get; set; }
+
+        public virtual IEnumerable<Order> Orders { get; set; }
     }
 }

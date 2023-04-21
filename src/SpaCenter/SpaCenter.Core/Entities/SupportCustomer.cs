@@ -20,11 +20,13 @@ namespace SpaCenter.Core.Entities
         public string Facebook { get; set; }
 
         public bool Status { get; set; }
-        public int ContactID { get; set; }
+        public int ContactId { get; set; }
 
-        [ForeignKey("ContactID")]
+        [ForeignKey("ContactId")]
         public virtual Contact Contacts { get; set; }
 
         public int? DisplayOrder { get; set; }
+        public bool? isRead { get; set; }
+        public string Message { get; set; }
     }
 }

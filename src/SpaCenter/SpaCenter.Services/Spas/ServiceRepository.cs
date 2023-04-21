@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaCenter.Data.Mappings
+namespace SpaCenter.Services.Spas
 {
-    internal class ServiceMap
+    internal class ServiceRepository
     {
     }
 }

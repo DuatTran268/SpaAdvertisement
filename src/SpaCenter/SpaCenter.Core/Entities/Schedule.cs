@@ -15,8 +15,9 @@ namespace SpaCenter.Core.Entities
         public string PhoneNumber { get; set; }
         public DateTime BookingDate { get; set; }
         public string Note { get; set; }
-        public int TypeServiceID { get; set; }
-        [ForeignKey("TypeServiceID")]
+        public double TotalPrice { get; set; }
+        public int TypeServiceId { get; set; }
+        [ForeignKey("TypeServiceId")]
         public virtual TypeService TypeServices { get; set; }
     }
 }

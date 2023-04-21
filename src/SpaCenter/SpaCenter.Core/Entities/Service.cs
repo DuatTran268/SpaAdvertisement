@@ -14,17 +14,15 @@ namespace SpaCenter.Core.Entities
         [Required]
         public string Name { get; set; }
 
-        public decimal Price { get; set; }
         public int? Sale { get; set; }
         public string ImageUrl { get; set; }
-        public string Content { get; set; }
+        public string UrlSlug { get; set; }
         public string Description { get; set; }
-        public int TypeServiceID { get; set; }
+        public int TypeServiceId { get; set; }
 
-        [ForeignKey("TypeServiceID")]
+        [ForeignKey("TypeServiceId")]
         public virtual TypeService TypeServices { get; set; }
 
         public virtual IEnumerable<Order> Orders { get; set; }
-        public virtual IEnumerable<Transaction> Transactions { get; set; }
     }
 }
