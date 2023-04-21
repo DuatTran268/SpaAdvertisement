@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaCenter.Data", "SpaCenter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaCenter.Services", "SpaCenter.Services\SpaCenter.Services.csproj", "{DDAADCE2-EC3F-4245-A556-D19123A360C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaCenter.WebApi", "SpaCenter.WebApi\SpaCenter.WebApi.csproj", "{A7E03D42-0103-41E6-AA5E-28D996FD567A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{DDAADCE2-EC3F-4245-A556-D19123A360C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDAADCE2-EC3F-4245-A556-D19123A360C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDAADCE2-EC3F-4245-A556-D19123A360C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7E03D42-0103-41E6-AA5E-28D996FD567A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7E03D42-0103-41E6-AA5E-28D996FD567A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7E03D42-0103-41E6-AA5E-28D996FD567A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7E03D42-0103-41E6-AA5E-28D996FD567A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

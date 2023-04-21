@@ -6,4 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SpaCenter.Core\SpaCenter.Core.csproj" />
+    <ProjectReference Include="..\SpaCenter.Data\SpaCenter.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Manages\" />
+    <Folder Include="Media\" />
+    <Folder Include="Timing\" />
+    <Folder Include="Rss\" />
+  </ItemGroup>
+
 </Project>
