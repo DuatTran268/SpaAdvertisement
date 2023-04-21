@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SpaCenter.Core\SpaCenter.Core.csproj" />
+    <ProjectReference Include="..\SpaCenter.Data\SpaCenter.Data.csproj" />
+    <ProjectReference Include="..\SpaCenter.Services\SpaCenter.Services.csproj" />
+  </ItemGroup>
+
+</Project>
