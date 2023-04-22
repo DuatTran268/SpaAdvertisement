@@ -1,105 +1,94 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using SpaCenter.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
 using SpaCenter.Data.Contexts;
+using SpaCenter.Data.Seeders;
+using SpaCenter.Services.Manages.Roles;
+using SpaCenter.Services.Manages.Services;
 using SpaCenter.Services.Media;
-using SpaCenter.Services.Spas;
-using SpaCenter.Services.Timing;
-using System.Text;
+using TatBlog.Services.Timing;
 
 namespace SpaCenter.WebApi.Extensions
 {
-    // Configure các dịch vụ sử dụng trong WebApi
-    public static class WebApplicationExtensions
-    {
-        public static WebApplicationBuilder ConfigureServices(
-            this WebApplicationBuilder builder)
-        {
-            builder.Services.AddMemoryCache();
+	public static class WebApplicationExtensions
+	{
+		public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddMemoryCache();
 
-            builder.Services.AddIdentity<User, IdentityRole>()
-               .AddEntityFrameworkStores<SpaDbContext>().AddDefaultTokenProviders();
+			builder.Services.AddDbContext<SpaDbContext>(options => options.UseSqlServer(
+				builder.Configuration.GetConnectionString("DefaultConnection"
+				)));
 
-            builder.Services.AddDbContext<SpaDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("SpaCenter")));
+			builder.Services.AddScoped<IDataSeeder, DataSeeder>();
+			builder.Services.AddScoped<ITimeProvider, LocalTimeProvider>();
+			builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
+			
+			
+			// remember add scoped
+			builder.Services.AddScoped<IRoleRepositoty, RoleRepository>();
+			builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
-            //builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-            builder.Services.AddScoped<ITimeProvider, LocalTimeProvider>();
-            builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
-            return builder;
-        }
-        
-        public static WebApplicationBuilder ConfigureSwaggerOpenApi(
-            this WebApplicationBuilder builder)
-        {
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
-            return builder;
-        }
 
-        public static WebApplicationBuilder ConfigureAuthentication(
-           this WebApplicationBuilder builder)
-        {
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new
-                    Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = builder.Configuration["JWT:ValidAudience"],
-                    ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
-                };
-            });
+			builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 
-            return builder;
-        }
+			return builder;
+		}
 
-        public static WebApplicationBuilder ConfigureCors(
-            this WebApplicationBuilder builder)
-        {
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("SpaCenter", policyBuilder => policyBuilder
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
-            });
+		public static WebApplicationBuilder ConfigureCors(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("SpaCenterApp",
+					policyBuilder => policyBuilder
+					.AllowAnyOrigin()
+					.AllowAnyHeader()
+					.AllowAnyMethod());
+			});
 
-            return builder;
-        }
+			return builder;
+		}
 
-        public static WebApplication SetupRequestPipeline(
-           this WebApplication app)
-        {
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+		public static WebApplicationBuilder ConfigureSwaggerOpenApi(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen();
+			return builder;
+		}
 
-            app.UseStaticFiles();
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+		public static WebApplication SetUpRequestPipeline(this WebApplication app)
+		{
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseSwagger();
+				app.UseSwaggerUI();
 
-            //app.UseCors("SpaCenter");
+			}
 
-            return app;
-        }
-    }
+			app.UseStaticFiles();
+			app.UseHttpsRedirection();
+			app.UseCors("SpaCenterApp");
+
+			return app;
+
+		}
+
+		public static IApplicationBuilder UseDataSeeder(
+	   this IApplicationBuilder app)
+		{
+			using var scope = app.ApplicationServices.CreateScope();
+			try
+			{
+				scope.ServiceProvider
+				  .GetRequiredService<IDataSeeder>()
+				  .Initialize();
+			}
+			catch (Exception ex)
+			{
+				scope.ServiceProvider
+					.GetRequiredService<ILogger<Program>>()
+					.LogError(ex, "Could not insert data into database");
+			}
+			return app;
+		}
+	}
 }

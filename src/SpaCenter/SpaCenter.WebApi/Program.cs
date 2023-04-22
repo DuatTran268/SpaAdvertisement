@@ -1,32 +1,28 @@
-using SpaCenter.Data.Contexts;
-using SpaCenter.Data.Seeders;
+using SpaCenter.API.Mapsters;
 using SpaCenter.WebApi.Endpoints;
 using SpaCenter.WebApi.Extensions;
-using SpaCenter.WebApi.Mapsters;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder
-        .ConfigureCors()
+    // add service to container
+    builder.ConfigureCors()
+        //.ConfigureNLog()
         .ConfigureServices()
-        .ConfigureSwaggerOpenApi()
-        .ConfigureMapster();
-        //.ConfigureAuthentication();
+        .ConfigureMapster()
+        .ConfigureSwaggerOpenApi();
+    //.ConfigureFluentValidation();
 }
 
 var app = builder.Build();
 {
-    app.SetupRequestPipeline();
+    // config the http request pipeline
+    app.SetUpRequestPipeline();
+    app.UseDataSeeder();
 
-    //Configure API endpoits 
-    app.MapProductEndpoints();
+    // config API endpoints
+    app.MapRoleEndpoints();
     app.MapServiceEndpoints();
-    
+
     app.Run();
+    //
 }
-
-var context = new SpaDbContext();
-
-var seeder = new DataSeeder(context);
-
-seeder.Initialize();

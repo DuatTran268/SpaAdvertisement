@@ -1,28 +1,20 @@
-﻿using SpaCenter.Core.Constracts;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using SpaCenter.Core.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SpaCenter.Core.Entities
 {
-    [Table("Services")]
-    public class Service : Auditable
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+	public class Service : IEntity
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string UrlSlug { get; set; }
+		public string ShortDescription { get; set; }
+		public bool Status { get; set; }
 
-        [Required]
-        public string Name { get; set; }
-
-        public int? Sale { get; set; }
-        public string ImageUrl { get; set; }
-        public string UrlSlug { get; set; }
-        public string Description { get; set; }
-        public int TypeServiceId { get; set; }
-
-        [ForeignKey("TypeServiceId")]
-        public virtual TypeService TypeServices { get; set; }
-
-        public virtual IEnumerable<Order> Orders { get; set; }
-    }
+		public IList<ServiceType> ServiceTypes { get; set; }
+	}
 }

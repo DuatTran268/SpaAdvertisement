@@ -1,10 +1,8 @@
-﻿
-namespace SpaCenter.Services.Timing
-{
-    public class UtcTimeProvider : ITimeProvider
-    {
-        public DateTime Now => DateTime.UtcNow;
+﻿namespace TatBlog.Services.Timing;
 
-        public DateTime Today => DateTime.UtcNow.Date;
-    }
+public class UtcTimeProvider : ITimeProvider
+{
+	public DateTime Now => DateTime.UtcNow;
+
+	public DateTime Today => DateTime.UtcNow.Date;
 }

@@ -1,12 +1,12 @@
 ﻿namespace SpaCenter.WebApi.Models
 {
-    public class ValidationFailureResponse
-    {
-        public IEnumerable<string> Errors { get; set; }
-        public ValidationFailureResponse(
-            IEnumerable<string> errorMessages)
-        {
-            Errors = errorMessages;
-        }
-    }
+	public class ValidationFailureResponse
+	{
+		public IEnumerable<string> Errors { get; set; }
+
+		public ValidationFailureResponse(IEnumerable<string> errorMessages)
+		{
+			Errors = errorMessages;
+		}
+	}
 }

@@ -1,10 +1,8 @@
-﻿
-namespace SpaCenter.Services.Timing
-{
-    public interface ITimeProvider
-    {
-        DateTime Now { get; }
+﻿namespace TatBlog.Services.Timing;
 
-        DateTime Today { get; }
-    }
+public interface ITimeProvider
+{
+	DateTime Now { get; }
+
+	DateTime Today { get; }
 }

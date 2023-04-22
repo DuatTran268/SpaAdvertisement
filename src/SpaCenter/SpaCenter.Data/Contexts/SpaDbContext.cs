@@ -1,45 +1,44 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SpaCenter.Core.Entities;
+using SpaCenter.Data.Mappings;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SpaCenter.Data.Contexts
+namespace SpaCenter.Data.Contexts;
+
+public class SpaDbContext : DbContext
 {
-    public class SpaDbContext : IdentityDbContext<User>
-    {
-        #region DbSet
+	public DbSet<Role> Roles { get; set; }
+	public DbSet<User> Users { get;set; }
+	public DbSet<Booking> Bookings { get; set; }
+	public DbSet<Service> Services { get; set; }
+	public DbSet<ServiceType> ServiceTypes { get; set; }
+	public DbSet<ServiceTypeBooking> ServiceTypesBooking { get; set; }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Service> Services { get; set; }
-        public DbSet<TypeService> Types { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<Schedule> Schedules { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<SupportCustomer> SupportCustomers { get; set; }
-        public DbSet<Feedback> Feedbacks { get; set; }
 
-        #endregion DbSet
+	//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	//{
+	//	optionsBuilder.UseSqlServer("Server=DESKTOP-JS68JVN\\SQLEXPRESS;Database=SpaCenter;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=True");
 
-        public SpaDbContext(DbContextOptions options) : base(options)
-        {
-        }
+	//}
 
-        public SpaDbContext()
-        {
-        }
 
-        public static SpaDbContext Create()
-        {
-            return new SpaDbContext();
-        }
+	public SpaDbContext(DbContextOptions<SpaDbContext> options) : base(options)
+	{
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //modelBuilder.ApplyConfigurationsFromAssembly(typeof(Service).Assembly);
-            //modelBuilder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId }).ToTable("UserRoles");
-            base.OnModelCreating(modelBuilder);
-        }
-    }
+	}
+
+	public SpaDbContext()
+	{
+	}
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		modelBuilder.ApplyConfigurationsFromAssembly(typeof(ServiceMap).Assembly);
+	}
+	
+
 }

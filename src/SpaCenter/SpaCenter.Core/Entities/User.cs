@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using SpaCenter.Core.Contracts;
 
 namespace SpaCenter.Core.Entities
 {
-    public class User : IdentityUser
+    public class User : IEntity
     {
-        [MaxLength(256)]
-        public string FullName { set; get; }
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public string Password { get; set; }
+        public string UrlSlug { get; set; }
+        public string Email { get; set; }
 
-        [MaxLength(256)]
-        public string Address { set; get; }
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
 
-        public virtual IEnumerable<Transaction> Transactions { set; get; }
-        public virtual IEnumerable<Order> Orders { set; get; }
+        public IList<Booking> Bookings { get; set; }
     }
 }
