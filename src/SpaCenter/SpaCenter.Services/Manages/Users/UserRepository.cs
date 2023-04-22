@@ -34,5 +34,24 @@ namespace SpaCenter.Services.Manages.Users
 
 			}).ToListAsync(cancellationToken);
 		}
+
+		// get user by id
+		public async Task<User> GetUserByIdAsync(int userId)
+		{
+			return await _context.Set<User>().FindAsync(userId);
+		}
+		public async Task<User> GetCachedUserByIdAsync(int userId)
+		{
+			return await _memoryCache.GetOrCreateAsync($"user.by-id.{userId}",
+				(async (entry) =>
+				{
+					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+					return await this.GetUserByIdAsync(userId);
+				}));
+		}
+
+
+
+
 	}
 }
