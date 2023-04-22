@@ -26,8 +26,7 @@ public class ServiceTypeMap : IEntityTypeConfiguration<ServiceType>
 			.IsRequired();
 
 		builder.Property(st => st.ImageUrl)
-			.HasMaxLength(200)
-			.IsRequired();
+			.HasMaxLength(200);
 
 		builder.Property(st => st.ShortDescription)
 			.HasMaxLength(100)

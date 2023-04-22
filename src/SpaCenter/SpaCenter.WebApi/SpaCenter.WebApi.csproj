@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,6 +20,15 @@
     <ProjectReference Include="..\SpaCenter.Core\SpaCenter.Core.csproj" />
     <ProjectReference Include="..\SpaCenter.Data\SpaCenter.Data.csproj" />
     <ProjectReference Include="..\SpaCenter.Services\SpaCenter.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Endpoints\" />
+    <Folder Include="Filters\" />
+    <Folder Include="Mapsters\" />
+    <Folder Include="Models\" />
+    <Folder Include="Validations\" />
+    <Folder Include="wwwroot\uploads\pictures\" />
   </ItemGroup>
 
 </Project>

@@ -25,6 +25,10 @@ public class BookingMap : IEntityTypeConfiguration<Booking>
 			.HasMaxLength(100)
 			.IsRequired();
 
+		builder.Property(b => b.UrlSlug)
+			.HasMaxLength(100)
+			.IsRequired();
+
 		builder.Property(b => b.PhoneNumber)
 			.HasMaxLength(100)
 			.IsRequired();
@@ -37,7 +41,7 @@ public class BookingMap : IEntityTypeConfiguration<Booking>
 			.IsRequired();
 
 		builder.Property(b => b.PriceTotal)
-			.HasMaxLength(20)
+			.HasMaxLength(30)
 			.IsRequired();
 
 		builder.Property(b => b.Status)

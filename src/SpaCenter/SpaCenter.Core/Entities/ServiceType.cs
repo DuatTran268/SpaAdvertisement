@@ -17,8 +17,8 @@ namespace SpaCenter.Core.Entities
 		public string Description { get; set; }
 		public string Price { get; set; }
 		public bool Status { get; set; }
-
 		public int ServiceId { get; set; }
+
 		public Service Service { get; set; }
 		public IList<ServiceTypeBooking> ServiceTypeBookings { get; set; }
 

@@ -19,24 +19,26 @@ public class BlogDbContext : DbContext
 	public DbSet<ServiceTypeBooking> ServiceTypesBooking { get; set; }
 
 
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	{
-		optionsBuilder.UseSqlServer("Server=DESKTOP-JS68JVN\\SQLEXPRESS;Database=SpaCenter;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=True");
+	//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	//{
+	//	optionsBuilder.UseSqlServer("Server=DESKTOP-JS68JVN\\SQLEXPRESS;Database=SpaCenter;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=True");
 
+	//}
+
+
+	public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
+	{
+
+	}
+
+	public BlogDbContext()
+	{
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.ApplyConfigurationsFromAssembly(typeof(ServiceMap).Assembly);
 	}
-
-	//public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
-	//{
-
-	//}
-	//public BlogDbContext()
-	//{
-
-	//}
+	
 
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SpaCenter.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,6 +49,7 @@ namespace SpaCenter.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UrlSlug = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -71,7 +72,7 @@ namespace SpaCenter.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     UrlSlug = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ShortDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Price = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -96,11 +97,12 @@ namespace SpaCenter.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    UrlSlug = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     datetime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NoteMessage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    PriceTotal = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    PriceTotal = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },

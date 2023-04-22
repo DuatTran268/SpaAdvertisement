@@ -12,11 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Manages\" />
+    <Folder Include="Manages\Services\" />
+    <Folder Include="Manages\Users\" />
+    <Folder Include="Manages\Roles\" />
     <Folder Include="Media\" />
-    <Folder Include="Timing\" />
     <Folder Include="Rss\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.2" />
   </ItemGroup>
 
 </Project>
