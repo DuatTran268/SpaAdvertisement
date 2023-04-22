@@ -11,7 +11,7 @@ using SpaCenter.Data.Contexts;
 
 namespace SpaCenter.Data.Migrations
 {
-    [DbContext(typeof(BlogDbContext))]
+    [DbContext(typeof(SpaDbContext))]
     [Migration("20230422075131_Initial")]
     partial class Initial
     {

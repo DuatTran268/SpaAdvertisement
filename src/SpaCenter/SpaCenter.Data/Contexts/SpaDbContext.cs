@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SpaCenter.Data.Contexts;
 
-public class BlogDbContext : DbContext
+public class SpaDbContext : DbContext
 {
 	public DbSet<Role> Roles { get; set; }
 	public DbSet<User> Users { get;set; }
@@ -26,12 +26,12 @@ public class BlogDbContext : DbContext
 	//}
 
 
-	public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
+	public SpaDbContext(DbContextOptions<SpaDbContext> options) : base(options)
 	{
 
 	}
 
-	public BlogDbContext()
+	public SpaDbContext()
 	{
 	}
 

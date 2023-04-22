@@ -10,7 +10,7 @@ using SpaCenter.Data.Contexts;
 
 namespace SpaCenter.Data.Migrations
 {
-    [DbContext(typeof(BlogDbContext))]
+    [DbContext(typeof(SpaDbContext))]
     partial class BlogDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

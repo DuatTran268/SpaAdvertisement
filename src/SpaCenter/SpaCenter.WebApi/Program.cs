@@ -1,3 +1,5 @@
+using SpaCenter.API.Mapsters;
+using SpaCenter.WebApi.Endpoints;
 using SpaCenter.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 	builder.ConfigureCors()
 		//.ConfigureNLog()
 		.ConfigureServices()
+		.ConfigureMapster()
 		.ConfigureSwaggerOpenApi();
-		//.ConfigureMapster()
 		//.ConfigureFluentValidation();
 
 
@@ -18,10 +20,13 @@ var app = builder.Build();
 {
 	// config the http request pipeline
 	app.SetUpRequestPipeline();
-
 	app.UseDataSeeder();
+
+
+
 	// config API endpoints
-	
+	app.MapRoleEndpoints();
+
 	app.Run();
 	// 
 }

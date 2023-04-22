@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpaCenter.Data.Contexts;
 using SpaCenter.Data.Seeders;
+using SpaCenter.Services.Manages.Roles;
+using SpaCenter.Services.Media;
 using TatBlog.Services.Timing;
 
 namespace SpaCenter.WebApi.Extensions
@@ -11,13 +13,17 @@ namespace SpaCenter.WebApi.Extensions
 		{
 			builder.Services.AddMemoryCache();
 
-			builder.Services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(
+			builder.Services.AddDbContext<SpaDbContext>(options => options.UseSqlServer(
 				builder.Configuration.GetConnectionString("DefaultConnection"
 				)));
 
 			builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 			builder.Services.AddScoped<ITimeProvider, LocalTimeProvider>();
-			//builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
+			builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
+			
+			
+			// remember add scoped
+			builder.Services.AddScoped<IRoleRepositoty, RoleRepository>();
 
 
 

@@ -10,9 +10,9 @@ namespace SpaCenter.Data.Seeders;
 
 public class DataSeeder : IDataSeeder
 {
-	private readonly BlogDbContext _dbContext;
+	private readonly SpaDbContext _dbContext;
 
-	public DataSeeder(BlogDbContext dbContext)
+	public DataSeeder(SpaDbContext dbContext)
 	{
 		_dbContext = dbContext;
 	}

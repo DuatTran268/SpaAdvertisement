@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Manages\Services\" />
     <Folder Include="Manages\Users\" />
-    <Folder Include="Manages\Roles\" />
     <Folder Include="Media\" />
     <Folder Include="Rss\" />
   </ItemGroup>
