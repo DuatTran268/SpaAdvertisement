@@ -53,17 +53,14 @@ public class DataSeeder : IDataSeeder
 			}
 		};
 
-		var addRole = new List<Role>();
 		// update database
 		foreach (var role in roles)
 		{
 			if (!_dbContext.Roles.Any(r => r.Name == role.Name))
 			{
-				addRole.Add(role);
+				_dbContext.Roles.Add(role);
 			}
 		}
-		_dbContext.AddRange(addRole);
-
 		_dbContext.SaveChanges();
 		return roles;
 	}
