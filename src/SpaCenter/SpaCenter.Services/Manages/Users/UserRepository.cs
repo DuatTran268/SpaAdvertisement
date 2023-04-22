@@ -50,8 +50,25 @@ namespace SpaCenter.Services.Manages.Users
 				}));
 		}
 
+		// create or update author
+		public async Task<bool> CreateOrUpdateUserAsync(User user, CancellationToken cancellationToken = default)
+		{
+			if (user.Id > 0) 
+			{
+				_context.Users.Update(user);
+				_memoryCache.Remove($"user.by-id.{user.Id}");
+			}
+			else
+			{
+				_context.Users.Add(user);
+			}
+			return await _context.SaveChangesAsync(cancellationToken) > 0;
+		}
 
-
-
+		public async Task<bool> CheckSlugExistedAsync(int userId, string slug, CancellationToken cancellationToken = default)
+		{
+			return await _context.Users
+				.AnyAsync(u => u.Id != userId && u.UrlSlug == slug, cancellationToken);
+		}
 	}
 }

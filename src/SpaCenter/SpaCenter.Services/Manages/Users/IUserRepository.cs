@@ -17,6 +17,11 @@ namespace SpaCenter.Services.Manages.Users
 		Task<User> GetUserByIdAsync(int userId);
 		Task<User> GetCachedUserByIdAsync(int userId);
 	
-	
+		//  add new user
+		Task<bool> CreateOrUpdateUserAsync(
+			User user, CancellationToken cancellationToken = default);
+
+		// check slug existed ( kiem tra slug da ton tai hay chua)
+		Task<bool> CheckSlugExistedAsync(int userId, string slug, CancellationToken cancellationToken = default);
 	}
 }

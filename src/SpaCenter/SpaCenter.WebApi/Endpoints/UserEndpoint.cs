@@ -1,7 +1,10 @@
 ﻿using MapsterMapper;
 using SpaCenter.Core.DTO;
+using SpaCenter.Core.Entities;
 using SpaCenter.Services.Manages.Users;
+using SpaCenter.WebApi.Filters;
 using SpaCenter.WebApi.Models;
+using SpaCenter.WebApi.Models.Users;
 using System.Net;
 
 namespace SpaCenter.WebApi.Endpoints;
@@ -19,6 +22,14 @@ public static class UserEndpoint
 		routeGroupBuilder.MapGet("/{id:int}", GetUserById)
 			.WithName("GetUserById")
 			.Produces<ApiResponse<UserItem>>();
+
+		routeGroupBuilder.MapPost("/", CreateUserAsync)
+			.WithName("CreateUserAsync")
+			.AddEndpointFilter<ValidatorFilter<UserEditModel>>()
+			.Produces(401)
+			.Produces<ApiResponse<UserItem>>();
+
+
 
 		return app;
 
@@ -40,5 +51,21 @@ public static class UserEndpoint
 		return user == null
 			? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy user id = {id}"))
 			: Results.Ok(ApiResponse.Success(mapper.Map<UserItem>(user)));
+	}
+
+	// create new user
+	private static async Task<IResult> CreateUserAsync(
+		UserEditModel model, IUserRepository userRepository, IMapper mapper
+		)
+	{
+		if (await userRepository.CheckSlugExistedAsync(0, model.UrlSlug))
+		{
+			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
+		}
+
+		var user = mapper.Map<User>(model);
+		await userRepository.CreateOrUpdateUserAsync(user);
+
+		return Results.Ok(ApiResponse.Success(mapper.Map<UserItem>(user), HttpStatusCode.Created));
 	}
 }
