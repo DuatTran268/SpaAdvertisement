@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using SpaCenter.Core.Contracts;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
 using SpaCenter.Data.Contexts;
+using SpaCenter.Services.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,24 @@ namespace SpaCenter.Services.Manages.Roles
 				Name = d.Name,
 				ShortDescription= d.ShortDescription,
 			}).ToListAsync(cancellationToken);
+		}
+
+		// get by id
+	
+		public async Task<Role> GetCachedRoleByIdAsync(int authorId)
+		{
+			return await _memoryCache.GetOrCreateAsync(
+			$"role.by-id.{authorId}",
+			(async (entry) =>
+			{
+				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+				return await this.GetRoleByIdAsync(authorId);
+			}));
+		}
+
+		public async Task<Role> GetRoleByIdAsync(int roleId)
+		{
+			return await _context.Set<Role>().FindAsync(roleId);
 		}
 	}
 }
