@@ -27,6 +27,8 @@ var app = builder.Build();
 	// config API endpoints
 	app.MapRoleEndpoints();
 
+	app.MapUserEndpoint();
+
 	app.Run();
 	// 
 }

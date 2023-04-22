@@ -2,6 +2,7 @@
 using SpaCenter.Data.Contexts;
 using SpaCenter.Data.Seeders;
 using SpaCenter.Services.Manages.Roles;
+using SpaCenter.Services.Manages.Users;
 using SpaCenter.Services.Media;
 using TatBlog.Services.Timing;
 
@@ -24,6 +25,7 @@ namespace SpaCenter.WebApi.Extensions
 			
 			// remember add scoped
 			builder.Services.AddScoped<IRoleRepositoty, RoleRepository>();
+			builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 
