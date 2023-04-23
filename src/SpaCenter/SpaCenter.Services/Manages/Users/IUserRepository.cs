@@ -23,5 +23,10 @@ namespace SpaCenter.Services.Manages.Users
 
 		// check slug existed ( kiem tra slug da ton tai hay chua)
 		Task<bool> CheckSlugExistedAsync(int userId, string slug, CancellationToken cancellationToken = default);
+	
+		// delete user by id
+		Task<bool> DeleteUserByIdAsync(int userId, CancellationToken cancellationToken = default);
+
+	
 	}
 }

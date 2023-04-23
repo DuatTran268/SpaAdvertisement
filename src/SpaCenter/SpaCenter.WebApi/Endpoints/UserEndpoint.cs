@@ -36,6 +36,12 @@ public static class UserEndpoint
 			.Produces(401)
 			.Produces<ApiResponse<UserDto>>();
 
+		routeGroupBuilder.MapDelete("/{id:int}", DeleteUserById)
+			.WithName("DeleteUserById")
+			.Produces(401)
+			.Produces<ApiResponse<string>>();
+
+
 		return app;
 
 	}
@@ -106,5 +112,13 @@ public static class UserEndpoint
 			: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy user có id {id}")); 
 
 
+	}
+
+	// delete user by id
+	private static async Task<IResult> DeleteUserById(int id, IUserRepository userRepository)
+	{
+		return await userRepository.DeleteUserByIdAsync(id)
+			? Results.Ok(ApiResponse.Success($"Đã xoá user có id = {id}"))
+			: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy user có id = {id}"));
 	}
 }

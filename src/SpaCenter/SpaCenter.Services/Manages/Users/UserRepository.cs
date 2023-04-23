@@ -70,5 +70,12 @@ namespace SpaCenter.Services.Manages.Users
 			return await _context.Users
 				.AnyAsync(u => u.Id != userId && u.UrlSlug == slug, cancellationToken);
 		}
+
+		public async Task<bool> DeleteUserByIdAsync(int userId, CancellationToken cancellationToken = default)
+		{
+			return await _context.Users
+				.Where(u => u.Id == userId)
+				.ExecuteDeleteAsync(cancellationToken) > 0;
+		}
 	}
 }
