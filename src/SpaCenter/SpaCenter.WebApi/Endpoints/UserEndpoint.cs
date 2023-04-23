@@ -1,6 +1,7 @@
 ﻿using MapsterMapper;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
+using SpaCenter.Services.Manages.Roles;
 using SpaCenter.Services.Manages.Users;
 using SpaCenter.WebApi.Filters;
 using SpaCenter.WebApi.Models;
@@ -29,7 +30,11 @@ public static class UserEndpoint
 			.Produces(401)
 			.Produces<ApiResponse<UserItem>>();
 
-
+		routeGroupBuilder.MapPut("/{id:int}", UpdateUserAsync)
+			.WithName("UpdateUserAsync")
+			.AddEndpointFilter<ValidatorFilter<UserEditModel>>()
+			.Produces(401)
+			.Produces<ApiResponse<UserDto>>();
 
 		return app;
 
@@ -67,5 +72,39 @@ public static class UserEndpoint
 		await userRepository.CreateOrUpdateUserAsync(user);
 
 		return Results.Ok(ApiResponse.Success(mapper.Map<UserItem>(user), HttpStatusCode.Created));
+	}
+
+	// update user
+	private static async Task<IResult> UpdateUserAsync(
+		int id, UserEditModel model, 
+		IUserRepository userRepository, 
+		IRoleRepositoty roleRepositoty,
+		IMapper mapper)
+	{
+		var user = await userRepository.GetUserByIdAsync(id);
+		if (user == null)
+		{
+			return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, 
+				$"Không tìm thấy id '{id}' của user"));
+		}
+		if (await roleRepositoty.GetRoleByIdAsync(model.RoleId) == null)
+		{
+			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+				$"Không tìm thấy role có id '{model.RoleId}'"));
+		}
+		if (await userRepository.CheckSlugExistedAsync(0, model.UrlSlug))
+		{
+			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, 
+				$"Slug '{model.UrlSlug}' đã được sử dụng"));
+		}
+
+		mapper.Map(model, user);
+		user.Id = id;
+
+		return await userRepository.CreateOrUpdateUserAsync(user)
+			? Results.Ok(ApiResponse.Success($"Thay đổi thành công user có id = {id}"))
+			: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy user có id {id}")); 
+
+
 	}
 }
