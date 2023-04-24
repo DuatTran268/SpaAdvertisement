@@ -23,11 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
+<!--<<<<<<< HEAD-->
     <Folder Include="Filters\" />
-    <Folder Include="Validations\" />
-=======
->>>>>>> f56841d4a1268554318c6a6b0eb418906236845b
+<!--=======-->
     <Folder Include="wwwroot\uploads\pictures\" />
   </ItemGroup>
 

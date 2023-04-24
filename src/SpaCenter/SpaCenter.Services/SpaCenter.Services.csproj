@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -12,15 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <Folder Include="Manages\Users\" />
-=======
->>>>>>> f56841d4a1268554318c6a6b0eb418906236845b
     <Folder Include="Media\" />
     <Folder Include="Rss\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="SlugGenerator" Version="2.0.2" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.2" />
   </ItemGroup>
 

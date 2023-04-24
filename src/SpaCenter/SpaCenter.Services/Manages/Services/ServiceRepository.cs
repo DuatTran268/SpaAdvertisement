@@ -19,14 +19,26 @@ namespace SpaCenter.Services.Manages.Services
             _memoryCache = memoryCache;
         }
 
-        public Task<bool> AddOrUpdateAsync(Service service, CancellationToken cancellationToken = default)
+        public async Task<bool> AddOrUpdateAsync(Service service, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (service.Id > 0)
+            {
+                _context.Services.Update(service);
+                _memoryCache.Remove($"author.by-id.{service.Id}");
+            }
+            else
+            {
+                _context.Services.Add(service);
+            }
+
+            return await _context.SaveChangesAsync(cancellationToken) > 0;
         }
 
-        public Task<bool> DeleteAuthorAsync(int serviceId, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAuthorAsync(int serviceId, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.Services
+             .Where(x => x.Id == serviceId)
+             .ExecuteDeleteAsync(cancellationToken) > 0;
         }
 
         public async Task<IList<Service>> GetAllService(CancellationToken cancellationToken = default)
@@ -98,9 +110,10 @@ namespace SpaCenter.Services.Manages.Services
              .FirstOrDefaultAsync(a => a.UrlSlug == slug, cancellationToken);
         }
 
-        public Task<bool> IsServiceSlugExistedAsync(int serviceId, string slug, CancellationToken cancellationToken = default)
+        public async Task<bool> IsServiceSlugExistedAsync(int serviceId, string slug, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.Services
+            .AnyAsync(x => x.Id != serviceId && x.UrlSlug == slug, cancellationToken);
         }
     }
 }
