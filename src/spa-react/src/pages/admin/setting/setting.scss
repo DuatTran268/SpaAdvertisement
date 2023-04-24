@@ -1,0 +1,127 @@
+.setting{
+    padding: 40px 30px;
+    padding-bottom: 50px;
+    background-color: #04502c4d;
+}
+
+.setting_wrapper{
+    padding: 20px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
+    border-radius: 10px;
+    background-color: whitesmoke;
+}
+
+.setting__title{
+    color: #000000;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    padding: 10px;
+}
+
+.setting__top{
+    display: flex;
+    align-items: center;
+    column-gap: 2.7rem;
+    margin-bottom: 1.5rem;
+}
+
+.setting__btn{
+    border: none;
+    padding: 7px 25px;
+    background: transparent;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #7421f8;
+
+    &:hover{
+        background-color: #9786ee75;
+    }
+}
+
+.active__btn{
+    background: #9786ee75;
+}
+.profile__title{
+    color: gray;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.profile__desc{
+    color: gray;
+    margin-bottom: 2rem;
+}
+label{
+    color: rgb(17, 13, 13);
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.form__group div {
+    display: flex;
+    flex-direction: column;
+    margin-block-start: auto;
+}
+
+.form__group{
+    display: flex;
+    align-items: center;
+    
+    column-gap: 2rem;
+    margin-bottom: 1rem;    
+}
+
+.form__group div input{
+    width: 30rem;
+    padding: 12px 20px;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid gray;
+    color: #05000c;
+    font-size: 1rem;
+}
+
+.form__group div input::placeholder{
+    color: gray;
+    font-style: 9rem;
+}
+
+.form__group div input:focus{
+    outline: none;
+}
+
+.profile-img__desc{
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.profile__img-btns{
+    display: flex;
+    flex-direction: row !important;
+    column-gap: 2rem;
+    
+}
+
+.dlt__btn, .update__btn {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #cc0738;
+    font-style: 0.9rem;
+    cursor: pointer;
+    padding: 7px 25px;
+}
+.dlt__btn{
+    &:hover{
+        background-color: #cc073848;
+    }
+}
+
+.update__btn{
+    color: #08a059;
+    
+    &:hover{
+        background-color: #08a05950;
+    }
+}

@@ -1,0 +1,23 @@
+$cl-bg: pink;
+
+.home_slide{
+  
+  position: relative;
+  width: 100%;
+
+  &-service{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $cl-bg;
+    padding: 20px 30px;
+    border-radius: 10px;
+  }
+
+
+}
+
+.top_product{
+  background: #f6f9fc;
+}

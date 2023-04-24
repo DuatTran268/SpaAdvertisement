@@ -27,8 +27,13 @@ namespace SpaCenter.Services.Manages.Roles
 		// get role not required
 		public async Task<IList<RoleItem>> GetRoleNotRequired(CancellationToken cancellationToken = default)
 		{
+<<<<<<< HEAD
 			IQueryable<Role> departments = _context.Set<Role>();
 			return await departments.OrderBy(d => d.Name).Select(d => new RoleItem()
+=======
+			IQueryable<Role> roles = _context.Set<Role>();
+			return await roles.OrderBy(d => d.Name).Select(d => new RoleItem()
+>>>>>>> f56841d4a1268554318c6a6b0eb418906236845b
 			{
 				Id = d.Id,
 				Name = d.Name,

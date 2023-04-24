@@ -2,7 +2,11 @@
 using SpaCenter.Data.Contexts;
 using SpaCenter.Data.Seeders;
 using SpaCenter.Services.Manages.Roles;
+<<<<<<< HEAD
 using SpaCenter.Services.Manages.Services;
+=======
+using SpaCenter.Services.Manages.Users;
+>>>>>>> f56841d4a1268554318c6a6b0eb418906236845b
 using SpaCenter.Services.Media;
 using TatBlog.Services.Timing;
 
@@ -25,7 +29,11 @@ namespace SpaCenter.WebApi.Extensions
 			
 			// remember add scoped
 			builder.Services.AddScoped<IRoleRepositoty, RoleRepository>();
+<<<<<<< HEAD
 			builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+=======
+			builder.Services.AddScoped<IUserRepository, UserRepository>();
+>>>>>>> f56841d4a1268554318c6a6b0eb418906236845b
 
 
 
@@ -42,7 +50,12 @@ namespace SpaCenter.WebApi.Extensions
 					policyBuilder => policyBuilder
 					.AllowAnyOrigin()
 					.AllowAnyHeader()
+<<<<<<< HEAD
 					.AllowAnyMethod());
+=======
+					.AllowAnyMethod()
+					);
+>>>>>>> f56841d4a1268554318c6a6b0eb418906236845b
 			});
 
 			return builder;

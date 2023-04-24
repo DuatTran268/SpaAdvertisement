@@ -12,7 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="Manages\Users\" />
+=======
+>>>>>>> f56841d4a1268554318c6a6b0eb418906236845b
     <Folder Include="Media\" />
     <Folder Include="Rss\" />
   </ItemGroup>

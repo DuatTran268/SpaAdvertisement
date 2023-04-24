@@ -1,0 +1,46 @@
+
+.service-header{
+  align-items: center;
+  &-title{
+    color: red;
+  }
+
+  &-more{
+    text-decoration: none;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+}
+
+
+.top-service{
+  cursor: grab;
+  margin: 0 20px;
+  &-title{
+    color: red;
+    font-style:oblique;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1; 
+    -webkit-box-orient: vertical;
+
+  }
+
+  &-image{
+    overflow: hidden;
+    object-fit: cover;
+    border: 3px solid pink;
+    
+  }
+  &-img{
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+
+    &:hover{
+      transform: scale(1.1);
+    }
+  }
+  
+}
