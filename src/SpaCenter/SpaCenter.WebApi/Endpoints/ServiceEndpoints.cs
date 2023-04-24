@@ -18,11 +18,15 @@ namespace SpaCenter.WebApi.Endpoints
                 .WithName("GetServices")
                 .Produces<ApiResponse<PaginationResult<ServiceItem>>>();
 
-            // get role by id
             routeGroupBuilder.MapGet("/{id:int}", GetServiceById)
                 .WithName("GetServiceById")
                 .Produces<ApiResponse<ServiceItem>>();
 
+            routeGroupBuilder.MapPost("/", AddService)
+                          .AddEndpointFilter<ValidatorFilter<ServiceEditModel>>()
+                          .WithName("AddNewService")
+                          .Produces(401)
+                          .Produces<ApiResponse<ServiceItem>>();
             return app;
         }
 
@@ -40,10 +44,10 @@ namespace SpaCenter.WebApi.Endpoints
         {
             var service = await serviceRepository.GetServiceByIdAsync(id);
 
-            return service == null ? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
+            return service == null 
+                ? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
                 $"Không tìm thấy thông tin dịch vụ có mã số {id}"))
-                :
-                Results.Ok(ApiResponse.Success(mapper.Map<ServiceItem>(service)));
+                : Results.Ok(ApiResponse.Success(mapper.Map<ServiceItem>(service)));
         }
 
     }
