@@ -6,6 +6,9 @@ namespace SpaCenter.Services.Manages.Services
 {
     public interface IServiceRepository
     {
+        Task<IList<ServiceItem>> GetServiceNotRequiredAsync(
+            CancellationToken cancellationToken = default);
+
         Task<Service> GetServiceBySlugAsync(string slug, CancellationToken cancellationToken = default);
 
         Task<Service> GetCachedServiceBySlugAsync(string slug, CancellationToken cancellationToken = default);

@@ -19,7 +19,21 @@ namespace SpaCenter.Services.Manages.Services
             _memoryCache = memoryCache;
         }
 
-        public async Task<bool> AddOrUpdateAsync(Service service, CancellationToken cancellationToken = default)
+
+		public  async Task<IList<ServiceItem>> GetServiceNotRequiredAsync(CancellationToken cancellationToken = default)
+		{
+            IQueryable<Service> services = _context.Set<Service>();
+            return await services.OrderBy(s => s.Name).Select(s => new ServiceItem()
+            {
+                Id = s.Id,
+                Name = s.Name,
+                UrlSlug = s.UrlSlug,
+                ShortDescription = s.ShortDescription,
+            }).ToListAsync(cancellationToken);
+		}
+
+
+		public async Task<bool> AddOrUpdateAsync(Service service, CancellationToken cancellationToken = default)
         {
             if (service.Id > 0)
             {
@@ -110,7 +124,7 @@ namespace SpaCenter.Services.Manages.Services
              .FirstOrDefaultAsync(a => a.UrlSlug == slug, cancellationToken);
         }
 
-        public async Task<bool> IsServiceSlugExistedAsync(int serviceId, string slug, CancellationToken cancellationToken = default)
+		public async Task<bool> IsServiceSlugExistedAsync(int serviceId, string slug, CancellationToken cancellationToken = default)
         {
             return await _context.Services
             .AnyAsync(x => x.Id != serviceId && x.UrlSlug == slug, cancellationToken);

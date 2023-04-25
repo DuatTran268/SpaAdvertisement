@@ -17,7 +17,11 @@ namespace SpaCenter.WebApi.Endpoints
         {
             var routeGroupBuilder = app.MapGroup("/api/services");
 
-            routeGroupBuilder.MapGet("/", GetServices)
+            routeGroupBuilder.MapGet("/", GetServiceNotRequired)
+                .WithName("GetServiceNotRequired")
+                .Produces<ApiResponse<ServiceItem>>();
+
+            routeGroupBuilder.MapGet("/required", GetServices)
                 .WithName("GetServices")
                 .Produces<ApiResponse<PaginationResult<ServiceItem>>>();
 
@@ -45,6 +49,15 @@ namespace SpaCenter.WebApi.Endpoints
         }
 
         //Method xử lý yêu cầu tìm danh sách các dịch vụ
+        private static async Task<IResult> GetServiceNotRequired(
+            IServiceRepository serviceRepository
+            )
+        {
+            var serviceList = await serviceRepository.GetServiceNotRequiredAsync();
+            return Results.Ok(ApiResponse.Success(serviceList));
+        }
+
+
         private static async Task<IResult> GetServices([AsParameters] ServiceFilterModel model, IServiceRepository serviceRepository)
         {
             var serviceList = await serviceRepository.GetPagedServicesAsync(model, model.Name);
