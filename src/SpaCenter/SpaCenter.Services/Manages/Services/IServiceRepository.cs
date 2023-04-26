@@ -26,5 +26,8 @@ namespace SpaCenter.Services.Manages.Services
         Task<bool> DeleteAuthorAsync(int serviceId, CancellationToken cancellationToken = default);
 
         Task<bool> IsServiceSlugExistedAsync(int serviceId, string slug, CancellationToken cancellationToken = default);
+
+        // Top các dịch vụ được ưa chuộng nhất tại Spa
+        Task<IList<ServiceItem>> TopServicesAsync(int numService, CancellationToken cancellationToken = default);
     }
 }

@@ -115,5 +115,22 @@ namespace SpaCenter.Services.Manages.Services
             return await _context.Services
             .AnyAsync(x => x.Id != serviceId && x.UrlSlug == slug, cancellationToken);
         }
+
+        // Top các dịch vụ được ưa chuộng nhất tại Spa
+        public async Task<IList<ServiceItem>> TopServicesAsync(int numService, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Service>()
+           .Include(p => p.ServiceTypes)
+           .Select(x => new ServiceItem()
+           {
+               Id = x.Id,
+               Name = x.Name,
+               UrlSlug = x.UrlSlug,
+               FavoredCount = x.ServiceTypes.Count(p => p.Status)
+           })
+           .OrderByDescending(x => x.FavoredCount)
+           .Take(numService)
+           .ToListAsync(cancellationToken);
+        }
     }
 }

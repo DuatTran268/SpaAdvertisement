@@ -41,7 +41,18 @@ namespace SpaCenter.WebApi.Endpoints
                          .Produces(401)
                          .Produces<ApiResponse<string>>();
 
+            routeGroupBuilder.MapGet("/top/{limit:int}", GetTopServicesAsync)
+                         .WithName("GetTopServicesAsync")
+                         .Produces<PagedList<Service>>();
+
             return app;
+        }
+        // Top những dịch vụ được ưu chuộng nhất
+        private static async Task<IResult> GetTopServicesAsync(int limit, IServiceRepository serviceRepository)
+        {
+            var author = await serviceRepository.TopServicesAsync(limit);
+
+            return Results.Ok(ApiResponse.Success(author));
         }
 
         //Method xử lý yêu cầu tìm danh sách các dịch vụ
