@@ -24,6 +24,7 @@ var app = builder.Build();
     app.MapRoleEndpoints();
     app.MapUserEndpoint();
     app.MapServiceEndpoints();
+    app.MapServiceTypeEndpoints();
 
     app.Run();
     //

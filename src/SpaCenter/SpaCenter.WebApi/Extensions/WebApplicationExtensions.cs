@@ -3,6 +3,7 @@ using SpaCenter.Data.Contexts;
 using SpaCenter.Data.Seeders;
 using SpaCenter.Services.Manages.Roles;
 using SpaCenter.Services.Manages.Services;
+using SpaCenter.Services.Manages.ServiceTypes;
 using SpaCenter.Services.Manages.Users;
 using SpaCenter.Services.Media;
 using TatBlog.Services.Timing;
@@ -14,10 +15,8 @@ namespace SpaCenter.WebApi.Extensions
         public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddMemoryCache();
-
             builder.Services.AddDbContext<SpaDbContext>(options => options.UseSqlServer(
-                builder.Configuration.GetConnectionString("DefaultConnection"
-                )));
+                builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IDataSeeder, DataSeeder>();
             builder.Services.AddScoped<ITimeProvider, LocalTimeProvider>();
@@ -26,6 +25,7 @@ namespace SpaCenter.WebApi.Extensions
             // remember add scoped
             builder.Services.AddScoped<IRoleRepositoty, RoleRepository>();
             builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+            builder.Services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             builder.Services.AddScoped<IDataSeeder, DataSeeder>();
