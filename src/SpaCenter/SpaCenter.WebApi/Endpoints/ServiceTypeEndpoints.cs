@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using SpaCenter.Core.Collections;
 using SpaCenter.Core.DTO;
@@ -8,6 +9,7 @@ using SpaCenter.Services.Manages.ServiceTypes;
 using SpaCenter.Services.Media;
 using SpaCenter.WebApi.Filters;
 using SpaCenter.WebApi.Models;
+using SpaCenter.WebApi.Models.Services;
 using SpaCenter.WebApi.Models.ServiceTypes;
 using System.Net;
 
@@ -19,7 +21,11 @@ namespace SpaCenter.WebApi.Endpoints
         {
             var routeGroupBuilder = app.MapGroup("/api/servicetypes");
 
-            routeGroupBuilder.MapGet("/", GetServiceTypes)
+			routeGroupBuilder.MapGet("/", GetAllServiceTypeAsync)
+			   .WithName("GetAllServiceTypeAsync")
+			   .Produces<ApiResponse<PaginationResult<ServiceTypeDto>>>();
+
+			routeGroupBuilder.MapGet("/required", GetServiceTypes)
                     .WithName("GetServiceTypes")
                     .Produces<ApiResponse<PaginationResult<ServiceTypeItem>>>();
 
@@ -49,7 +55,22 @@ namespace SpaCenter.WebApi.Endpoints
                     .Produces(401)
                     .Produces<ApiResponse<string>>();
 
-            return app;
+			routeGroupBuilder.MapGet("random/{limit:int}", GetNLimitServiceTypeAsync)
+
+			    .WithName("GetNLimitServiceTypeAsync")
+			    .Produces<ApiResponse<IList<ServiceTypeDto>>>();
+
+			return app;
+        }
+
+        private static async Task<IResult> GetAllServiceTypeAsync(
+            IServiceTypeRepository serviceTypeRepository
+            )
+        {
+            var serviceType = await serviceTypeRepository.GetServiceTypeAsync(
+                serviceTypes => serviceTypes.ProjectToType<ServiceTypeDto>());
+
+            return Results.Ok(ApiResponse.Success(serviceType));
         }
 
         private static async Task<IResult> GetServiceTypes([AsParameters] ServiceTypeFilterModel model, IServiceTypeRepository typeRepository)
@@ -139,5 +160,17 @@ namespace SpaCenter.WebApi.Endpoints
             HttpStatusCode.NoContent))
             : Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Không tìm thấy loại dịch vụ này"));
         }
+
+        // get ramdom litmit service type
+        public static async Task<IResult> GetNLimitServiceTypeAsync(
+            int limit, IServiceTypeRepository serviceTypeRepository,
+            ILogger<IResult> logger)
+        {
+            var randomServiceType = await serviceTypeRepository.GetLimitNServiceTypeAsync(
+                limit, st => st.ProjectToType<ServiceTypeDto>());
+
+            return Results.Ok(ApiResponse.Success(randomServiceType));
+        }
+
     }
 }

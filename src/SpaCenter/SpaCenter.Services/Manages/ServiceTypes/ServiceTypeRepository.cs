@@ -41,7 +41,7 @@ namespace SpaCenter.Services.Manages.ServiceTypes
             .ExecuteDeleteAsync(cancellationToken) > 0;
         }
 
-        public async Task<ServiceType> GetCachedTypeByIdAsync(int typpeId)
+		public async Task<ServiceType> GetCachedTypeByIdAsync(int typpeId)
         {
             return await _memoryCache.GetOrCreateAsync(
             $"servicetype.by-id.{typpeId}",
@@ -84,8 +84,16 @@ namespace SpaCenter.Services.Manages.ServiceTypes
                })
                .ToPagedListAsync(pagingParams, cancellationToken);
         }
+		public async Task<IList<T>> GetServiceTypeAsync<T>(Func<IQueryable<ServiceType>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		{
+            IQueryable<ServiceType> servicetypes = _context.Set<ServiceType>()
+                .OrderBy(st => st.Id);
 
-        public async Task<ServiceType> GetTypeByIdAsync(int typpeId)
+            return await mapper(servicetypes).ToListAsync(cancellationToken);
+
+		}
+
+		public async Task<ServiceType> GetTypeByIdAsync(int typpeId)
         {
             return await _context.Set<ServiceType>().FindAsync(typpeId);
         }
@@ -105,5 +113,18 @@ namespace SpaCenter.Services.Manages.ServiceTypes
                     a => imageUrl),
                     cancellationToken) > 0;
         }
-    }
+
+		// get random limit service type
+
+		public async Task<IList<T>> GetLimitNServiceTypeAsync<T>(int n, Func<IQueryable<ServiceType>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		{
+            IQueryable<ServiceType> rdServiceTypeQuery = _context.Set<ServiceType>()
+				//.OrderBy(st => st.Id) // lay theo id moi nhat
+				.OrderBy(c => Guid.NewGuid())
+				.Take(n);
+
+            return await mapper(rdServiceTypeQuery).ToListAsync(cancellationToken);
+		}
+
+	}
 }

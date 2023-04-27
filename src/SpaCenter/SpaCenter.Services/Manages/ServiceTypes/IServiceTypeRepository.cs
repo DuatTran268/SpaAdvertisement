@@ -6,7 +6,10 @@ namespace SpaCenter.Services.Manages.ServiceTypes
 {
     public interface IServiceTypeRepository
     {
-        Task<ServiceType> GetTypeByIdAsync(int typpeId);
+		Task<IList<T>> GetServiceTypeAsync<T>(
+		   Func<IQueryable<ServiceType>, IQueryable<T>> mapper,
+		   CancellationToken cancellationToken = default);
+		Task<ServiceType> GetTypeByIdAsync(int typpeId);
 
         Task<ServiceType> GetCachedTypeByIdAsync(int typpeId);
 
@@ -23,6 +26,13 @@ namespace SpaCenter.Services.Manages.ServiceTypes
         Task<bool> IsTypeSlugExistedAsync(int typpeId, string slug, CancellationToken cancellationToken = default);
 
         Task<bool> SetImageUrlAsync(int typpeId, string imageUrl,
+            CancellationToken cancellationToken = default);
+
+        // get random service type 
+        Task<IList<T>> GetLimitNServiceTypeAsync<T>(
+            int n,
+            Func<IQueryable<ServiceType>,
+            IQueryable<T>> mapper,
             CancellationToken cancellationToken = default);
     }
 }
