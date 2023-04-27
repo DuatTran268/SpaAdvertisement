@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.Mvc;
 using SpaCenter.Core.Collections;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
@@ -51,7 +52,13 @@ namespace SpaCenter.WebApi.Endpoints
             //             .WithName("GetTopServicesAsync")
             //             .Produces<PagedList<Service>>();
 
-            return app;
+            routeGroupBuilder.MapGet("/slug/{slug:regex(^[a-z0-9_-]+$)}", GetServiceTypeBySlugOfService)
+                .WithName("GetServiceTypeBySlugOfService")
+                .Produces<ApiResponse<PaginationResult<ServiceDto>>>();
+
+
+
+			return app;
         }
         // Top những dịch vụ được ưu chuộng nhất
         //private static async Task<IResult> GetTopServicesAsync(int limit, IServiceRepository serviceRepository)
@@ -145,6 +152,28 @@ namespace SpaCenter.WebApi.Endpoints
             ? Results.Ok(ApiResponse.Success("Đã xóa dịch vụ",
             HttpStatusCode.NoContent))
             : Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Không tìm thấy dịch vụ này"));
+        }
+
+        // get service type by slug service
+        private static async Task<IResult> GetServiceTypeBySlugOfService(
+            [FromRoute] string slug, [AsParameters] PagingModel pagingModel,
+            IServiceRepository serviceRepository)
+        {
+            var serviceQuery = new ServiceQuery()
+            {
+                ServiceSlug = slug
+            };
+
+            var serviceList = await serviceRepository.GetPagedServiceAsync(
+                serviceQuery, pagingModel,
+                service => service.ProjectToType<ServiceDto>());
+
+            var pagingnationResult = new PaginationResult<ServiceDto>(serviceList);
+
+            return serviceList == null
+                ? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tồn tại slug '{slug}' "))
+                : Results.Ok(ApiResponse.Success(pagingnationResult));
+
         }
     }
 }
