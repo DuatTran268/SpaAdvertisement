@@ -35,7 +35,7 @@ function Routers() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
           
-          {/* <Route path="/" element={<AdminLogin/>}> */}
+          <Route path="/" element={<AdminLogin/>}/>
           
           <Route  path="/admin" element={<AdminHome/>}/>
           <Route path="/admin/users" element={<AdminList/>}/>
