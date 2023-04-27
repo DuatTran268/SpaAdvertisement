@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using SpaCenter.Core.Collections;
 using SpaCenter.Core.DTO;
@@ -19,11 +20,12 @@ namespace SpaCenter.WebApi.Endpoints
 
             routeGroupBuilder.MapGet("/", GetServiceNotRequired)
                 .WithName("GetServiceNotRequired")
-                .Produces<ApiResponse<ServiceItem>>();
+                .Produces<ApiResponse<PaginationResult<ServiceDto>>>();
+
 
             routeGroupBuilder.MapGet("/required", GetServices)
                 .WithName("GetServices")
-                .Produces<ApiResponse<PaginationResult<ServiceItem>>>();
+                .Produces<ApiResponse<ServiceDto>>();
 
             routeGroupBuilder.MapGet("/{id:int}", GetServiceById)
                 .WithName("GetServiceById")
@@ -45,35 +47,45 @@ namespace SpaCenter.WebApi.Endpoints
                          .Produces(401)
                          .Produces<ApiResponse<string>>();
 
-            routeGroupBuilder.MapGet("/top/{limit:int}", GetTopServicesAsync)
-                         .WithName("GetTopServicesAsync")
-                         .Produces<PagedList<Service>>();
+            //routeGroupBuilder.MapGet("/top/{limit:int}", GetTopServicesAsync)
+            //             .WithName("GetTopServicesAsync")
+            //             .Produces<PagedList<Service>>();
 
             return app;
         }
         // Top những dịch vụ được ưu chuộng nhất
-        private static async Task<IResult> GetTopServicesAsync(int limit, IServiceRepository serviceRepository)
-        {
-            var author = await serviceRepository.TopServicesAsync(limit);
+        //private static async Task<IResult> GetTopServicesAsync(int limit, IServiceRepository serviceRepository)
+        //{
+        //    var author = await serviceRepository.TopServicesAsync(limit);
 
-            return Results.Ok(ApiResponse.Success(author));
-        }
+        //    return Results.Ok(ApiResponse.Success(author));
+        //}
 
         //Method xử lý yêu cầu tìm danh sách các dịch vụ
         private static async Task<IResult> GetServiceNotRequired(
             IServiceRepository serviceRepository
             )
         {
-            var serviceList = await serviceRepository.GetServiceNotRequiredAsync();
-            return Results.Ok(ApiResponse.Success(serviceList));
+            //var serviceList = await serviceRepository.GetServiceNotRequiredAsync();
+            //return Results.Ok(ApiResponse.Success(serviceList));
+            var service = await serviceRepository.GetServiceAsync(
+                services => services.ProjectToType<ServiceDto>());
+            return Results.Ok(ApiResponse.Success(service));
+
         }
 
 
-        private static async Task<IResult> GetServices([AsParameters] ServiceFilterModel model, IServiceRepository serviceRepository)
+        private static async Task<IResult> GetServices(
+            [AsParameters] ServiceFilterModel model, 
+            IServiceRepository serviceRepository, 
+            IMapper mapper)
         {
-            var serviceList = await serviceRepository.GetPagedServicesAsync(model, model.Name);
+            var serviceQuery = mapper.Map<ServiceQuery>(model);
 
-            var paginationResult = new PaginationResult<ServiceItem>(serviceList);
+            var serviceList = await serviceRepository.GetPagedServiceAsync<ServiceDto>(serviceQuery, model,
+                services => services.ProjectToType<ServiceDto>());
+
+			var paginationResult = new PaginationResult<ServiceDto>(serviceList);
 
             return Results.Ok(ApiResponse.Success(paginationResult));
         }

@@ -33,6 +33,17 @@ namespace SpaCenter.Services.Manages.Services
 		}
 
 
+		public async Task<IList<T>> GetServiceAsync<T>(Func<IQueryable<Service>, 
+            IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		{
+            IQueryable<Service> services = _context.Set<Service>()
+                .Include(st => st.ServiceTypes)
+                .OrderBy(s => s.Id)
+                ;
+            return await mapper(services).ToListAsync(cancellationToken);
+		}
+
+
 		public async Task<bool> AddOrUpdateAsync(Service service, CancellationToken cancellationToken = default)
         {
             if (service.Id > 0)
@@ -130,21 +141,45 @@ namespace SpaCenter.Services.Manages.Services
             .AnyAsync(x => x.Id != serviceId && x.UrlSlug == slug, cancellationToken);
         }
 
-        // Top các dịch vụ được ưa chuộng nhất tại Spa
-        public async Task<IList<ServiceItem>> TopServicesAsync(int numService, CancellationToken cancellationToken = default)
+		public async Task<IPagedList<T>> GetPagedServiceAsync<T>(ServiceQuery query, IPagingParams pagingParams, Func<IQueryable<Service>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		{
+            IQueryable<Service> serviceFindQuery = FilterService(query);
+            IQueryable<T> queryResult = mapper(serviceFindQuery);
+            return await queryResult.ToPagedListAsync(pagingParams, cancellationToken);
+
+		}
+        private IQueryable<Service> FilterService(ServiceQuery query)
         {
-            return await _context.Set<Service>()
-           .Include(p => p.ServiceTypes)
-           .Select(x => new ServiceItem()
-           {
-               Id = x.Id,
-               Name = x.Name,
-               UrlSlug = x.UrlSlug,
-               FavoredCount = x.ServiceTypes.Count(p => p.Status)
-           })
-           .OrderByDescending(x => x.FavoredCount)
-           .Take(numService)
-           .ToListAsync(cancellationToken);
+            IQueryable<Service> serviceQuery = _context.Set<Service>()
+                .Include(s => s.ServiceTypes);
+            {
+                if (!string.IsNullOrEmpty(query.Name))
+                {
+                    serviceQuery = serviceQuery.Where(st => st.Name.Contains(query.Name)
+                    || st.ShortDescription.Contains(query.Name)
+                    || st.UrlSlug.Contains(query.Name)
+                    );
+                }
+
+                return serviceQuery;
+            }
         }
-    }
+
+		//// Top các dịch vụ được ưa chuộng nhất tại Spa
+		//public async Task<IList<ServiceItem>> TopServicesAsync(int numService, CancellationToken cancellationToken = default)
+		//{
+		//    return await _context.Set<Service>()
+		//   .Include(p => p.ServiceTypes)
+		//   .Select(x => new ServiceItem()
+		//   {
+		//       Id = x.Id,
+		//       Name = x.Name,
+		//       UrlSlug = x.UrlSlug,
+		//       //FavoredCount = x.ServiceTypes.Count(p => p.Status)
+		//   })
+		//   .OrderByDescending(x => x.FavoredCount)
+		//   .Take(numService)
+		//   .ToListAsync(cancellationToken);
+		//}
+	}
 }

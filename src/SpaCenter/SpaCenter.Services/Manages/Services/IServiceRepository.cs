@@ -6,6 +6,19 @@ namespace SpaCenter.Services.Manages.Services
 {
     public interface IServiceRepository
     {
+        Task<IList<T>> GetServiceAsync<T>(
+            Func<IQueryable<Service>, IQueryable<T>> mapper, 
+            CancellationToken cancellationToken = default);
+
+        Task<IPagedList<T>> GetPagedServiceAsync<T>(
+            ServiceQuery query , 
+            IPagingParams pagingParams,
+            Func<IQueryable<Service>,
+                IQueryable<T>> mapper,
+            CancellationToken cancellationToken = default);
+
+
+
         Task<IList<ServiceItem>> GetServiceNotRequiredAsync(
             CancellationToken cancellationToken = default);
 
@@ -31,6 +44,6 @@ namespace SpaCenter.Services.Manages.Services
         Task<bool> IsServiceSlugExistedAsync(int serviceId, string slug, CancellationToken cancellationToken = default);
 
         // Top các dịch vụ được ưa chuộng nhất tại Spa
-        Task<IList<ServiceItem>> TopServicesAsync(int numService, CancellationToken cancellationToken = default);
+        //Task<IList<ServiceItem>> TopServicesAsync(int numService, CancellationToken cancellationToken = default);
     }
 }

@@ -13,16 +13,21 @@ namespace SpaCenter.API.Mapsters
     {
         public void Register(TypeAdapterConfig config)
         {
+            config.NewConfig<UserEditModel, User>();
             config.NewConfig<User, UserItem>()
                 .Map(dest => dest.Id, src => src.Id);
+            
             config.NewConfig<Role, RoleDto>();
-
-            config.NewConfig<UserEditModel, User>();
+            
+            
             config.NewConfig<Service, ServiceDto>();
             config.NewConfig<Service, ServiceItem>()
-                .Map(dest => dest.FavoredCount,
-                src => src.ServiceTypes == null ? 0 : src.ServiceTypes.Count);
-            config.NewConfig<ServiceEditModel, Service>();
+                .Map(dest => dest.Id, src => src.Id);
+            //.Map(dest => dest.FavoredCount,
+            //src => src.ServiceTypes == null ? 0 : src.ServiceTypes.Count);
+            config.NewConfig<ServiceEditModel, Service>()
+                .Ignore(dest => dest.ServiceTypes);
+
 
             config.NewConfig<ServiceType, ServiceTypeDto>();
             config.NewConfig<ServiceType, ServiceTypeItem>()
