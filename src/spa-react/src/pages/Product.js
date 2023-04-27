@@ -1,22 +1,27 @@
 import React, { useEffect } from "react";
 import Header from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
-
+import ProductCard from "../components/product/ProductCard";
 
 const Product = () => {
   useEffect(() => {
-    document.title = "Sản phẩm"
-  })
+    document.title = "Sản phẩm";
+  });
 
   return (
     <div>
-    <Header/>
-    <h1>
-      Đây là trang sản phẩm
-    </h1>
-    <Footer/>
+      <Header />
+
+      <h3 className="text-success mb-3 mt-5 text-center">
+        Mua sản phẩm đi bạn
+      </h3>
+      <div className="container mb-5">
+        <ProductCard />
+      </div>
+
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default Product;

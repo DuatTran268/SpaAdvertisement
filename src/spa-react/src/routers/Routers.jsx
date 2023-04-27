@@ -18,8 +18,11 @@ import { useContext } from "react";
 import { DarkModeContext } from "../components/admin/context/darkModeReducer";
 import AdminSetting from "../pages/admin/setting/Setting";
 import AdminBooking from "../pages/admin/booking/Booking";
-
-
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+import ServicePost from "../components/servicepost/ServicePost";
+import Booking from "../components/booking/Booking";
+import ProductDetails from "../components/productdetails/ProductDetails";
 
 function Routers() {
   const {darkMode} = useContext(DarkModeContext)
@@ -27,6 +30,7 @@ function Routers() {
     <BrowserRouter>
         <div className={darkMode ? "app dark" : "app"}>
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about-us" element={<About />} />
@@ -34,10 +38,17 @@ function Routers() {
           <Route path="/product" element={<Product />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
-          
+
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/service/post" element={<ServicePost/>}/>
+          <Route path="/service/booking" element={<Booking/>}/>
+          <Route path="/product/detail" element={<ProductDetails/>}/>
+
+
           <Route path="/" element={<AdminLogin/>}/>
-          
-          <Route  path="/admin" element={<AdminHome/>}/>
+          <Route path="/admin" element={<AdminHome/>}/>
+
           <Route path="/admin/users" element={<AdminList/>}/>
           <Route path="/admin/products" element={<AdminProduct/>}/>
           <Route path="/admin/cart" element={<AdminCart/>}/>

@@ -34,17 +34,17 @@ const TopService = () => {
         </div>
 
         <Slider {...serviceSetting}>
-          {Ddata.map((value) => {
+          {Ddata.map((value, index) => {
             return (
               <>
-                <div className="container">
+                <div className="container"  key={index}>
                   <div className="top-service">
                     <div className="text-center">
-                      <Link className="text-decoration-none" to={`/service`}>
+                      <Link className="text-decoration-none" to={`/service/post`}>
                         <h5 className="top-service-title mb-3">{value.name}</h5>
                       </Link>
                       <div className="top-service-image rounded-circle">
-                        <Link to={`/service`}>
+                        <Link to={`/service/post`}>
                           <img
                             src={value.image}
                             alt="item top service"

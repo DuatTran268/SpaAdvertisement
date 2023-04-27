@@ -7,7 +7,7 @@ const Cart = ({CartItem}) =>{
   return(
     <div>
       <Link className="text-danger cart" to={'/cart'}>
-        <FontAwesomeIcon icon={faBagShopping} fontSize={20} className="bg-success"/>
+        <FontAwesomeIcon icon={faBagShopping} fontSize={26}/>
         {/* <span>{CartItem.length === 0 ? "" : CartItem.length}</span> */}
       </Link>
 
