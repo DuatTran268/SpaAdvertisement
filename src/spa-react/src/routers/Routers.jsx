@@ -46,7 +46,7 @@ function Routers() {
 
 
           <Route path="/" element={<AdminLogin/>}/>
-          <Route  path="/admin" element={<AdminHome/>}/>
+          <Route path="/admin" element={<AdminHome/>}/>
           <Route path="/admin/users" element={<AdminList/>}/>
           <Route path="/admin/products" element={<AdminProduct/>}/>
           <Route path="/admin/cart" element={<AdminCart/>}/>
