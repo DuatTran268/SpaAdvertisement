@@ -29,7 +29,7 @@ namespace SpaCenter.WebApi.Endpoints
 
             routeGroupBuilder.MapGet("/{id:int}", GetServiceById)
                 .WithName("GetServiceById")
-                .Produces<ApiResponse<ServiceItem>>();
+                .Produces<ApiResponse<PaginationResult<ServiceDto>>>();
 
             routeGroupBuilder.MapPost("/", AddService)
                           .AddEndpointFilter<ValidatorFilter<ServiceEditModel>>()
@@ -90,14 +90,16 @@ namespace SpaCenter.WebApi.Endpoints
             return Results.Ok(ApiResponse.Success(paginationResult));
         }
 
-        private static async Task<IResult> GetServiceById(int id, IServiceRepository serviceRepository, IMapper mapper)
+        private static async Task<IResult> GetServiceById(
+            int id, IServiceRepository serviceRepository, IMapper mapper)
         {
             var service = await serviceRepository.GetServiceByIdAsync(id);
+            var serviceQuery = mapper.Map<ServiceDto>(service);
 
-            return service == null
+            return serviceQuery == null
                 ? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
                 $"Không tìm thấy thông tin dịch vụ có mã số {id}"))
-                : Results.Ok(ApiResponse.Success(mapper.Map<ServiceItem>(service)));
+                : Results.Ok(ApiResponse.Success(mapper.Map<ServiceDto>(service)));
         }
 
         private static async Task<IResult> AddService(ServiceEditModel model, IValidator<ServiceEditModel> validator,

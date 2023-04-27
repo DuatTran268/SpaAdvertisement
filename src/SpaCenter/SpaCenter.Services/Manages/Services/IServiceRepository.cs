@@ -26,7 +26,7 @@ namespace SpaCenter.Services.Manages.Services
 
         Task<Service> GetCachedServiceBySlugAsync(string slug, CancellationToken cancellationToken = default);
 
-        Task<Service> GetServiceByIdAsync(int serviceId);
+        Task<Service> GetServiceByIdAsync(int serviceId, CancellationToken cancellationToken = default);
 
         Task<IPagedList<ServiceItem>> GetPagedServicesAsync(IPagingParams pagingParams, string name = null,
         CancellationToken cancellationToken = default);

@@ -8,6 +8,6 @@ namespace SpaCenter.WebApi.Models.Services
         public string Name { get; set; }
         public string UrlSlug { get; set; }
         public string ShortDescription { get; set; }
-        public IList<ServiceTypeDto> serviceTypes { get; set; }
+        public IList<ServiceTypeDto> ServiceTypes { get; set; }
     }
 }

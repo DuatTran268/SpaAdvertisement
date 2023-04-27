@@ -124,9 +124,10 @@ namespace SpaCenter.Services.Manages.Services
             return await mapper(serviceQuery).ToPagedListAsync(pagingParams, cancellationToken);
         }
 
-        public async Task<Service> GetServiceByIdAsync(int serviceId)
+        public async Task<Service> GetServiceByIdAsync(int serviceId, CancellationToken cancellationToken = default)
         {
-            return await _context.Set<Service>().FindAsync(serviceId);
+            return await _context.Set<Service>().Include(s => s.ServiceTypes).
+                FirstOrDefaultAsync(x => x.Id == serviceId, cancellationToken);
         }
 
         public async Task<Service> GetServiceBySlugAsync(string slug, CancellationToken cancellationToken = default)
