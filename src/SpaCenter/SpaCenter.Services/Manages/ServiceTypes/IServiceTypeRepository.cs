@@ -42,5 +42,8 @@ namespace SpaCenter.Services.Manages.ServiceTypes
             Func<IQueryable<ServiceType>,
             IQueryable<T>> mapper,
             CancellationToken cancellationToken = default);
+
+        // get service type detail by slug
+        Task<ServiceType> GetDetailServiceTypeBySlugAsync(string slug, CancellationToken cancellationToken = default);
     }
 }

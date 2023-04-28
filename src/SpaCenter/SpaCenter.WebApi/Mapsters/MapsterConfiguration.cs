@@ -30,6 +30,7 @@ namespace SpaCenter.API.Mapsters
 
 
             config.NewConfig<ServiceType, ServiceTypeDto>();
+            config.NewConfig<ServiceType, ServiceTypeDetail>();
             config.NewConfig<ServiceType, ServiceTypeItem>()
                 .Map(dest => dest.Id, src => src.Id);
             config.NewConfig<ServiceTypeEditModel, ServiceType>();

@@ -65,6 +65,11 @@ namespace SpaCenter.WebApi.Endpoints
 				.WithName("GetServiceTypeBySlug")
 				.Produces<ApiResponse<PaginationResult<ServiceTypeDto>>>();
 
+			routeGroupBuilder.MapGet("/slugDetail/{slug:regex(^[a-z0-9_-]+$)}", GetDetailServiceTypeBySlug)
+				.WithName("GetDetailServiceTypeBySlug")
+				.Produces<ApiResponse<ServiceTypeDetail>>();
+
+
 			return app;
 		}
 
@@ -199,6 +204,19 @@ namespace SpaCenter.WebApi.Endpoints
 				: Results.Ok(ApiResponse.Success(pagingnationResult));
 		}
 
+		// get detail service type by slug
+		private static async Task<IResult> GetDetailServiceTypeBySlug(
+			[FromRoute] string slug,
+			IServiceTypeRepository serviceTypeRepository,
+			IMapper mapper
+			)
+		{
+			var serviceTypeList = await serviceTypeRepository.GetDetailServiceTypeBySlugAsync(slug);
+
+			return serviceTypeList == null
+				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy slug = {slug}"))
+				: Results.Ok(ApiResponse.Success(mapper.Map<ServiceTypeDetail>(serviceTypeList)));
+		}
 
 	}
 }

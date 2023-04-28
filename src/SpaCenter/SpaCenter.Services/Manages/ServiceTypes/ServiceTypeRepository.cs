@@ -156,5 +156,17 @@ namespace SpaCenter.Services.Manages.ServiceTypes
 			}
 
 		}
+
+		public async Task<ServiceType> GetDetailServiceTypeBySlugAsync(string slug, CancellationToken cancellationToken = default)
+		{
+            IQueryable<ServiceType> serviceTypesQuery = _context.Set<ServiceType>();
+            {
+                if (!string.IsNullOrEmpty(slug))
+                {
+                    serviceTypesQuery = serviceTypesQuery.Where(st => st.UrlSlug == slug);
+                }
+                return await serviceTypesQuery.FirstOrDefaultAsync(cancellationToken);
+            }
+		}
 	}
 }
