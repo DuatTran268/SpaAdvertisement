@@ -1,6 +1,5 @@
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Layout from "../components/shared/Layout";
 import About from "../pages/About";
 import Cart from "../pages/Carts";
 import Contact from "../pages/Contact";
@@ -35,12 +34,12 @@ function Routers() {
           <Route path="/home" element={<Home />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/service" element={<Service />} />
+          <Route path="/service/:slug" element={<ServicePost />} />
           <Route path="/product" element={<Product />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/service/post" element={<ServicePost/>}/>
           <Route path="/service/booking" element={<Booking/>}/>
           <Route path="/product/detail" element={<ProductDetails/>}/>
 
