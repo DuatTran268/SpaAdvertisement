@@ -126,5 +126,35 @@ namespace SpaCenter.Services.Manages.ServiceTypes
             return await mapper(rdServiceTypeQuery).ToListAsync(cancellationToken);
 		}
 
+		public async Task<IPagedList<T>> GetPagedServiceTypeAsync<T>(ServiceTypeQuery query, IPagingParams pagingParams, Func<IQueryable<ServiceType>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		{
+			IQueryable<ServiceType> serviceTypeFindQuery = FilterServiceType(query);
+			IQueryable<T> queryResult = mapper(serviceTypeFindQuery);
+			return await queryResult.ToPagedListAsync(pagingParams, cancellationToken);
+		}
+
+        private IQueryable<ServiceType> FilterServiceType(ServiceTypeQuery query)
+        {
+            IQueryable<ServiceType> serviceTypeQuery = _context.Set<ServiceType>();
+            {
+				if (!string.IsNullOrEmpty(query.Name))
+				{
+					serviceTypeQuery = serviceTypeQuery.Where(st => st.Name.Contains(query.Name)
+					|| st.ShortDescription.Contains(query.Name)
+					|| st.Description.Contains(query.Name)
+					|| st.UrlSlug.Contains(query.Name)
+					);
+				}
+
+				if (!string.IsNullOrWhiteSpace(query.ServiceTypeSlug))
+                {
+                    serviceTypeQuery = serviceTypeQuery.Where(stq => stq.UrlSlug == query.ServiceTypeSlug);
+                }
+
+                return serviceTypeQuery;
+
+			}
+
+		}
 	}
 }
