@@ -59,7 +59,7 @@ namespace SpaCenter.Services.Manages.Services
             return await _context.SaveChangesAsync(cancellationToken) > 0;
         }
 
-        public async Task<bool> DeleteAuthorAsync(int serviceId, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteServiceAsync(int serviceId, CancellationToken cancellationToken = default)
         {
             return await _context.Services
              .Where(x => x.Id == serviceId)
@@ -157,7 +157,7 @@ namespace SpaCenter.Services.Manages.Services
                 {
                     serviceQuery = serviceQuery.Where(st => st.Name.Contains(query.Name)
                     || st.ShortDescription.Contains(query.Name)
-                    || st.UrlSlug.Contains(query.Name)
+                    || st.UrlSlug.Contains(query.UrlSlug)
                     );
                 }
 

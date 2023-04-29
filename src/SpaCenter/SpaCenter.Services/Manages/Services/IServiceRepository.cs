@@ -7,17 +7,15 @@ namespace SpaCenter.Services.Manages.Services
     public interface IServiceRepository
     {
         Task<IList<T>> GetServiceAsync<T>(
-            Func<IQueryable<Service>, IQueryable<T>> mapper, 
+            Func<IQueryable<Service>, IQueryable<T>> mapper,
             CancellationToken cancellationToken = default);
 
         Task<IPagedList<T>> GetPagedServiceAsync<T>(
-            ServiceQuery query , 
+            ServiceQuery query,
             IPagingParams pagingParams,
             Func<IQueryable<Service>,
                 IQueryable<T>> mapper,
             CancellationToken cancellationToken = default);
-
-
 
         Task<IList<ServiceItem>> GetServiceNotRequiredAsync(
             CancellationToken cancellationToken = default);
@@ -39,7 +37,7 @@ namespace SpaCenter.Services.Manages.Services
 
         Task<bool> AddOrUpdateAsync(Service service, CancellationToken cancellationToken = default);
 
-        Task<bool> DeleteAuthorAsync(int serviceId, CancellationToken cancellationToken = default);
+        Task<bool> DeleteServiceAsync(int serviceId, CancellationToken cancellationToken = default);
 
         Task<bool> IsServiceSlugExistedAsync(int serviceId, string slug, CancellationToken cancellationToken = default);
 

@@ -22,7 +22,6 @@ namespace SpaCenter.WebApi.Endpoints
                 .WithName("GetServiceNotRequired")
                 .Produces<ApiResponse<PaginationResult<ServiceDto>>>();
 
-
             routeGroupBuilder.MapGet("/required", GetServices)
                 .WithName("GetServices")
                 .Produces<ApiResponse<ServiceDto>>();
@@ -53,6 +52,7 @@ namespace SpaCenter.WebApi.Endpoints
 
             return app;
         }
+
         // Top những dịch vụ được ưu chuộng nhất
         //private static async Task<IResult> GetTopServicesAsync(int limit, IServiceRepository serviceRepository)
         //{
@@ -62,22 +62,19 @@ namespace SpaCenter.WebApi.Endpoints
         //}
 
         //Method xử lý yêu cầu tìm danh sách các dịch vụ
-        private static async Task<IResult> GetServiceNotRequired(
-            IServiceRepository serviceRepository
-            )
+        
+        private static async Task<IResult> GetServiceNotRequired(IServiceRepository serviceRepository)
         {
             //var serviceList = await serviceRepository.GetServiceNotRequiredAsync();
             //return Results.Ok(ApiResponse.Success(serviceList));
             var service = await serviceRepository.GetServiceAsync(
                 services => services.ProjectToType<ServiceDto>());
             return Results.Ok(ApiResponse.Success(service));
-
         }
 
-
         private static async Task<IResult> GetServices(
-            [AsParameters] ServiceFilterModel model, 
-            IServiceRepository serviceRepository, 
+            [AsParameters] ServiceFilterModel model,
+            IServiceRepository serviceRepository,
             IMapper mapper)
         {
             var serviceQuery = mapper.Map<ServiceQuery>(model);
@@ -85,7 +82,7 @@ namespace SpaCenter.WebApi.Endpoints
             var serviceList = await serviceRepository.GetPagedServiceAsync<ServiceDto>(serviceQuery, model,
                 services => services.ProjectToType<ServiceDto>());
 
-			var paginationResult = new PaginationResult<ServiceDto>(serviceList);
+            var paginationResult = new PaginationResult<ServiceDto>(serviceList);
 
             return Results.Ok(ApiResponse.Success(paginationResult));
         }
@@ -139,7 +136,7 @@ namespace SpaCenter.WebApi.Endpoints
 
         private static async Task<IResult> DeleteService(int id, IServiceRepository serviceRepository)
         {
-            return await serviceRepository.DeleteAuthorAsync(id)
+            return await serviceRepository.DeleteServiceAsync(id)
             ? Results.Ok(ApiResponse.Success("Đã xóa dịch vụ",
             HttpStatusCode.NoContent))
             : Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, "Không tìm thấy dịch vụ này"));
