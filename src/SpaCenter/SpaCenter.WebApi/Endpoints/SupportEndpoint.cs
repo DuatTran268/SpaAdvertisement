@@ -45,6 +45,10 @@ namespace SpaCenter.WebApi.Endpoints
 			   .Produces(401)
 			   .Produces<ApiResponse<string>>();
 
+			routeGroupBuilder.MapDelete("/{id:int}", DeleteSupportAsync)
+				.WithName("DeleteSupportAsync")
+				.Produces(401)
+				.Produces<ApiResponse<string>>();
 
 			return app;
 		}
@@ -107,6 +111,16 @@ namespace SpaCenter.WebApi.Endpoints
 			return await supportRepository.AddOrUpdateSupportAsync(support)
 		   ? Results.Ok(ApiResponse.Success("Đã cập nhật khách hàng cần hỗ trợ", HttpStatusCode.NoContent))
 		   : Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khách hàng có id = {id}"));
+		}
+
+		// delete support
+		private static async Task<IResult> DeleteSupportAsync(int id, 
+			ISupportRepository supportRepository)
+		{
+			return await supportRepository.DeleteSupportAsync(id)
+				? Results.Ok(ApiResponse.Success("Xoá thành công khách hàng cần hỗ trợ", HttpStatusCode.NoContent))
+				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khách hàng có id = {id} để xoá"));
+
 		}
 	}
 }

@@ -32,5 +32,7 @@ namespace SpaCenter.Services.Manages.Supports
 		// add or update 
 		Task<bool> AddOrUpdateSupportAsync(Support support, CancellationToken cancellationToken = default);
 
+		// delete support
+		Task<bool> DeleteSupportAsync(int supportId, CancellationToken cancellationToken = default);
 	}
 }

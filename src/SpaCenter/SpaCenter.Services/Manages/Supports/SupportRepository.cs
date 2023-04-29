@@ -103,5 +103,11 @@ namespace SpaCenter.Services.Manages.Supports
 
 			return await _context.SaveChangesAsync(cancellationToken) > 0;
 		}
+
+		public async Task<bool> DeleteSupportAsync(int supportId, CancellationToken cancellationToken = default)
+		{
+			return await _context.Supports.Where(x => x.Id == supportId)
+				.ExecuteDeleteAsync(cancellationToken) > 0;
+		}
 	}
 }
