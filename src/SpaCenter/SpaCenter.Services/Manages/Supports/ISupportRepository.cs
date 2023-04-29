@@ -24,5 +24,10 @@ namespace SpaCenter.Services.Manages.Supports
 			Func<IQueryable<Support>,
 				IQueryable<T>> mapper,
 			CancellationToken cancellationToken = default);
+
+		// get by fullName
+		Task<IPagedList<SupportItem>> GetSupportPagedAsync(
+			IPagingParams pagingParams, string fullName = null, CancellationToken cancellationToken = default);
+
 	}
 }

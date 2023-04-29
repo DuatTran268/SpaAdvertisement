@@ -7,6 +7,7 @@ using SpaCenter.Core.DTO;
 using SpaCenter.Services.Manages.Supports;
 using SpaCenter.WebApi.Models;
 using SpaCenter.WebApi.Models.Services;
+using SpaCenter.WebApi.Models.Supports;
 using System.Net;
 
 namespace SpaCenter.WebApi.Endpoints
@@ -17,17 +18,17 @@ namespace SpaCenter.WebApi.Endpoints
 		{
 			var routeGroupBuilder = app.MapGroup("/api/supports");
 
-			routeGroupBuilder.MapGet("/", GetSupportNotRequired)
-			.WithName("GetSupportNotRequiredAsync")
-			.Produces<ApiResponse<SupportItem>>();
+			routeGroupBuilder.MapGet("/getall", GetSupportNotRequired)
+				.WithName("GetSupportNotRequiredAsync")
+				.Produces<ApiResponse<SupportItem>>();
 
 			routeGroupBuilder.MapGet("/{id:int}", GetSupportById)
 				.WithName("GetSupportById")
 				.Produces<ApiResponse<SupportItem>>();
 
-			routeGroupBuilder.MapGet("/slug/{slug:regex(^[a-z0-9_-]+$)}", GetSupportBySlug)
-				.WithName("GetSupportBySlug")
-				.Produces<ApiResponse<PaginationResult<SupportItem>>>();
+			routeGroupBuilder.MapGet("/", GetSupportAsync)
+				.WithName("GetSupportAsync")
+				.Produces<ApiResponse<IList<SupportItem>>>();
 			return app;
 		}
 
@@ -51,23 +52,13 @@ namespace SpaCenter.WebApi.Endpoints
 		}
 
 		// get by url slug
-		private static async Task<IResult> GetSupportBySlug(
-			[FromRoute] string slug, [AsParameters] PagingModel pagingModel,
+		private static async Task<IResult> GetSupportAsync(
+			[AsParameters] SupportFilterModel model,
 			ISupportRepository supportRepository)
 		{
-			var supportQuery = new SupportQuery()
-			{
-				SupportSlug = slug,
-			};
-
-			var supportList = await supportRepository.GetPagedSupportAsync(
-				supportQuery, pagingModel, support => support.ProjectToType<SupportItem>());
-
-			var pagingnationResult = new PaginationResult<SupportItem>(supportList);
-
-			return supportList == null
-				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tồn tại slug = {slug} nhập vào"))
-				: Results.Ok(ApiResponse.Success(pagingnationResult));
+			var departmentList = await supportRepository.GetSupportPagedAsync(model, model.FullName);
+			var pagingnationResult = new PaginationResult<SupportItem>(departmentList);
+			return Results.Ok(ApiResponse.Success(pagingnationResult));
 
 		}
 	}

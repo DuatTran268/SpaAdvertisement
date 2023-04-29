@@ -13,11 +13,11 @@ namespace SpaCenter.WebApi.Validations
 				.MaximumLength(20)
 				.WithMessage("Fullname không quá 20 ký tự");
 
-			RuleFor(sp => sp.UrlSlug)
-				.NotEmpty()
-				.WithMessage("UrlSlug không được để trống")
-				.MaximumLength(20)
-				.WithMessage("UrlSlug không quá 20 ký tự");
+			//RuleFor(sp => sp.UrlSlug)
+			//	.NotEmpty()
+			//	.WithMessage("UrlSlug không được để trống")
+			//	.MaximumLength(20)
+			//	.WithMessage("UrlSlug không quá 20 ký tự");
 
 			RuleFor(sp => sp.PhoneNumber)
 				.NotEmpty()

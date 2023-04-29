@@ -75,5 +75,19 @@ namespace SpaCenter.Services.Manages.Supports
 
 			return supportQuery;
 		}
+
+		public async Task<IPagedList<SupportItem>> GetSupportPagedAsync(IPagingParams pagingParams, string fullName = null, CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<Support>()
+				.AsNoTracking()
+				.WhereIf(!string.IsNullOrWhiteSpace(fullName), 
+				sp => sp.FullName.Contains(fullName))
+				.Select(sp => new SupportItem()
+				{
+					Id= sp.Id,
+					FullName= sp.FullName,
+					PhoneNumber = sp.PhoneNumber,
+				}).ToPagedListAsync(pagingParams, cancellationToken);
+		}
 	}
 }

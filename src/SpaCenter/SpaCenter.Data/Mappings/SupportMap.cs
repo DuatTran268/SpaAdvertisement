@@ -22,7 +22,6 @@ namespace SpaCenter.Data.Mappings
 				.HasMaxLength(20);
 
 			builder.Property(sp => sp.UrlSlug)
-				.IsRequired()
 				.HasMaxLength(20);
 
 			builder.Property(sp => sp.PhoneNumber)
