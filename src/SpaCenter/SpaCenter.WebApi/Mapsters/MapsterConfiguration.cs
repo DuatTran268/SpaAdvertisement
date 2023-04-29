@@ -4,6 +4,7 @@ using SpaCenter.Core.Entities;
 using SpaCenter.WebApi.Models.Roles;
 using SpaCenter.WebApi.Models.Services;
 using SpaCenter.WebApi.Models.ServiceTypes;
+using SpaCenter.WebApi.Models.Supports;
 using SpaCenter.WebApi.Models.Users;
 
 namespace SpaCenter.API.Mapsters
@@ -34,6 +35,12 @@ namespace SpaCenter.API.Mapsters
             config.NewConfig<ServiceType, ServiceTypeItem>()
                 .Map(dest => dest.Id, src => src.Id);
             config.NewConfig<ServiceTypeEditModel, ServiceType>();
+
+            // config support
+            config.NewConfig<Support, SupportDto>();
+            config.NewConfig<SupportEditModel, Support>();
+
+
         }
     }
 }
