@@ -1,3 +1,5 @@
+import { faCartShopping, faPlus, faSubtract, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -38,17 +40,18 @@ const Carts = () => {
           </h5>
           <table className="table table-light table-hover m-0">
             <tbody>
+              <tr className="text-success">
+                <td>Hình ảnh</td>
+                <td>Tên sản phẩm</td>
+                <td>Giá</td>
+                <td>Số lượng</td>
+                <td></td>
+                <td>Xoá</td>
+              </tr>
               {items.map((item, index) => {
                 return (
                   <>
-                    <tr>
-                      <td>Hình ảnh</td>
-                      <td>Tên sản phẩm</td>
-                      <td>Giá</td>
-                      <td>Số lượng</td>
-                      <td></td>
-                    </tr>
-                    <tr key={index}>
+                    <tr key={index} className="align-middle">
                       <td>
                         <img
                           src={item.image}
@@ -57,31 +60,34 @@ const Carts = () => {
                         />
                       </td>
                       <td>{item.name}</td>
-                      <td>{item.price}</td>
-                      <td>Số lượng: ({item.quantity})</td>
+                      <td>{item.price} USD</td>
+                      <td>{item.quantity}</td>
                       <td>
-                        <Button
+                        <FontAwesomeIcon icon={faSubtract}
                           className="btn btn-info ms-2"
                           onClick={() =>
                             updateItemQuantity(item.id, item.quantity - 1)
                           }
                         >
                           -{" "}
-                        </Button>
-                        <Button
+                        </FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faPlus}
                           className="btn btn-info ms-2"
                           onClick={() =>
                             updateItemQuantity(item.id, item.quantity + 1)
                           }
                         >
                           +{" "}
-                        </Button>
-                        <Button
+                        </FontAwesomeIcon>
+                      </td>
+                      <td>
+                        <FontAwesomeIcon
+                          icon={faTrash}
                           onClick={() => removeItem(item.id)}
-                          className="btn btn-danger ms-2"
+                          className="text-danger ms-2"
                         >
                           Xoá
-                        </Button>
+                        </FontAwesomeIcon>
                       </td>
                     </tr>
                   </>
@@ -95,9 +101,13 @@ const Carts = () => {
         </div>
         <div className="col-auto">
           <Button className="btn btn-danger m-2" onClick={() => emptyCart()}>
-            Xoá hết giỏ hàng
+            Xoá tất cả 
+            <FontAwesomeIcon icon={faTrash} className="ms-2"/>
           </Button>
-          <Button>Đặt ngay</Button>
+          <Button className="btn btn-success">
+          Đặt ngay
+            <FontAwesomeIcon icon={faCartShopping} className="ms-2"/>
+          </Button>
         </div>
       </div>
     </section>

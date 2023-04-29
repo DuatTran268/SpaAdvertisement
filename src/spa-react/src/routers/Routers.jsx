@@ -41,7 +41,7 @@ function Routers() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/service/booking" element={<Booking/>}/>
-          <Route path="/product/detail" element={<ProductDetails/>}/>
+          <Route path="/product/:slug" element={<ProductDetails/>}/>
 
 
           <Route path="/" element={<AdminLogin/>}/>
