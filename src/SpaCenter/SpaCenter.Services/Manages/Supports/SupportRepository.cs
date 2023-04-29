@@ -22,7 +22,7 @@ namespace SpaCenter.Services.Manages.Supports
 			_memoryCache = memoryCache;
 		}
 		// write code
-		public async Task<IList<SupportItem>> GetSupportNotRequired(CancellationToken cancellationToken = default)
+		public async Task<IList<SupportItem>> GetSupportNotRequiredAsync(CancellationToken cancellationToken = default)
 		{
 			IQueryable<Support> supports = _context.Set<Support>();
 			return await supports.OrderBy(sp => sp.FullName)
@@ -34,7 +34,20 @@ namespace SpaCenter.Services.Manages.Supports
 					Status = sp.Status
 				}).ToListAsync(cancellationToken);
 		}
+		public async Task<Support> GetSupportByIdAsync(int supportId)
+		{
+			return await _context.Set<Support>().FindAsync(supportId);
 
+		}
+		public async Task<Support> GetCachedSupportByIdAsync(int supportId)
+		{
+			return await _memoryCache.GetOrCreateAsync($"support.by-id.{supportId}",
+				(async (entry) =>
+				{
+					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+					return await this.GetSupportByIdAsync(supportId);
+				}));
+		}
 
 	}
 }

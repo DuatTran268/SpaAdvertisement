@@ -38,6 +38,8 @@ namespace SpaCenter.API.Mapsters
 
             // config support
             config.NewConfig<Support, SupportDto>();
+            config.NewConfig<Support, SupportItem>()
+                .Map(dest => dest.Id, src => src.Id);
             config.NewConfig<SupportEditModel, Support>();
 
 
