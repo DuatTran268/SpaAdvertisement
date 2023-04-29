@@ -42,6 +42,22 @@ namespace SpaCenter.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Supports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UrlSlug = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Supports", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -176,6 +192,9 @@ namespace SpaCenter.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ServiceTypeBookings");
+
+            migrationBuilder.DropTable(
+                name: "Supports");
 
             migrationBuilder.DropTable(
                 name: "Bookings");

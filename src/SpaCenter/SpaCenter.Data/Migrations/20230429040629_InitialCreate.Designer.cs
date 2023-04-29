@@ -12,7 +12,7 @@ using SpaCenter.Data.Contexts;
 namespace SpaCenter.Data.Migrations
 {
     [DbContext(typeof(SpaDbContext))]
-    [Migration("20230422121947_InitialCreate")]
+    [Migration("20230429040629_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -221,6 +221,39 @@ namespace SpaCenter.Data.Migrations
                     b.HasIndex("ServiceTypeId");
 
                     b.ToTable("ServiceTypeBookings", (string)null);
+                });
+
+            modelBuilder.Entity("SpaCenter.Core.Entities.Support", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("UrlSlug")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Supports", (string)null);
                 });
 
             modelBuilder.Entity("SpaCenter.Core.Entities.User", b =>

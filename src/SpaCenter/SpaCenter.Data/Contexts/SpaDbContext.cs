@@ -12,6 +12,7 @@ public class SpaDbContext : DbContext
     public DbSet<Service> Services { get; set; }
     public DbSet<ServiceType> ServiceTypes { get; set; }
     public DbSet<ServiceTypeBooking> ServiceTypesBooking { get; set; }
+    public DbSet<Support> Supports { get; set; }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{
