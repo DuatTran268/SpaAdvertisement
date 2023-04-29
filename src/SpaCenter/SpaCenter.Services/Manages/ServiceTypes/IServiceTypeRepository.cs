@@ -21,7 +21,10 @@ namespace SpaCenter.Services.Manages.ServiceTypes
 
         Task<ServiceType> GetCachedTypeByIdAsync(int typpeId);
 
-        Task<IPagedList<ServiceTypeItem>> GetPagedTypeAsync(IPagingParams pagingParams, string name = null,
+        Task<IPagedList<ServiceTypeItem>> GetPagedTypeAsync(
+            IPagingParams pagingParams,
+            string name = null,
+            string price = null,
             CancellationToken cancellationToken = default);
 
         Task<IPagedList<T>> GetPagedServiceTypesAsync<T>(Func<IQueryable<ServiceType>, IQueryable<T>> mapper, IPagingParams pagingParams,

@@ -77,7 +77,7 @@ namespace SpaCenter.WebApi.Endpoints
 			[AsParameters] SupportFilterModel model,
 			ISupportRepository supportRepository)
 		{
-			var departmentList = await supportRepository.GetSupportPagedAsync(model, model.FullName);
+			var departmentList = await supportRepository.GetSupportPagedAsync(model, model.FullName, model.PhoneNumber);
 			var pagingnationResult = new PaginationResult<SupportItem>(departmentList);
 			return Results.Ok(ApiResponse.Success(pagingnationResult));
 

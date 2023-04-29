@@ -28,7 +28,8 @@ namespace SpaCenter.WebApi.Endpoints
 
 			routeGroupBuilder.MapGet("/required", GetServiceTypes)
 					.WithName("GetServiceTypes")
-					.Produces<ApiResponse<PaginationResult<ServiceTypeItem>>>();
+					.Produces<ApiResponse<IList<ServiceTypeItem>>>();
+
 
 			routeGroupBuilder.MapGet("/{id:int}", GetServicesById)
 					.WithName("GetServiceTypesById")
@@ -83,9 +84,11 @@ namespace SpaCenter.WebApi.Endpoints
 			return Results.Ok(ApiResponse.Success(serviceType));
 		}
 
-		private static async Task<IResult> GetServiceTypes([AsParameters] ServiceTypeFilterModel model, IServiceTypeRepository typeRepository)
+		private static async Task<IResult> GetServiceTypes(
+			[AsParameters] ServiceTypeFilterModel model, 
+			IServiceTypeRepository typeRepository)
 		{
-			var servicetypeList = await typeRepository.GetPagedTypeAsync(model, model.Name);
+			var servicetypeList = await typeRepository.GetPagedTypeAsync(model, model.Name, model.Price);
 
 			var paginationResult = new PaginationResult<ServiceTypeItem>(servicetypeList);
 

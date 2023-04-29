@@ -27,7 +27,10 @@ namespace SpaCenter.Services.Manages.Supports
 
 		// get by fullName
 		Task<IPagedList<SupportItem>> GetSupportPagedAsync(
-			IPagingParams pagingParams, string fullName = null, CancellationToken cancellationToken = default);
+			IPagingParams pagingParams, 
+			string fullName = null, 
+			string phoneNumber = null, 
+			CancellationToken cancellationToken = default);
 
 		// add or update 
 		Task<bool> AddOrUpdateSupportAsync(Support support, CancellationToken cancellationToken = default);

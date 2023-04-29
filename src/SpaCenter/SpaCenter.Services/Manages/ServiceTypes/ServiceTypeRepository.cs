@@ -66,12 +66,18 @@ namespace SpaCenter.Services.Manages.ServiceTypes
                 .ToPagedListAsync(pagingParams, cancellationToken);
         }
 
-        public async Task<IPagedList<ServiceTypeItem>> GetPagedTypeAsync(IPagingParams pagingParams, string name = null, CancellationToken cancellationToken = default)
+        public async Task<IPagedList<ServiceTypeItem>> GetPagedTypeAsync(
+            IPagingParams pagingParams, 
+            string name = null, 
+            string price = null, 
+            CancellationToken cancellationToken = default)
         {
             return await _context.Set<ServiceType>()
                .AsNoTracking()
                .WhereIf(!string.IsNullOrWhiteSpace(name),
                    x => x.Name.Contains(name))
+               .WhereIf(!string.IsNullOrWhiteSpace(price),
+                   x => x.Price.Contains(price))
                .Select(a => new ServiceTypeItem()
                {
                    Id = a.Id,
