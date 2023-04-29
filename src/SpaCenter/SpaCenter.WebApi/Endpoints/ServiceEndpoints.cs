@@ -109,7 +109,8 @@ namespace SpaCenter.WebApi.Endpoints
                 : Results.Ok(ApiResponse.Success(mapper.Map<ServiceDto>(service)));
         }
 
-        private static async Task<IResult> AddService(ServiceEditModel model, IValidator<ServiceEditModel> validator,
+        private static async Task<IResult> AddService(
+            ServiceEditModel model, IValidator<ServiceEditModel> validator,
             IServiceRepository serviceRepository, IMapper mapper)
         {
             if (await serviceRepository.IsServiceSlugExistedAsync(0, model.UrlSlug))

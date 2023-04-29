@@ -349,21 +349,18 @@ public class DataSeeder : IDataSeeder
 			new()
 			{
 				FullName = "CustomerA",
-				UrlSlug = "customer-a",
 				PhoneNumber = "0966668888",
                 Status = false
 			},
 			new()
 			{
 				FullName = "CustomerB",
-				UrlSlug = "customer-b",
 				PhoneNumber = "0922228888",
 				Status = false
 			},
 			new()
 			{
 				FullName = "CustomerC",
-				UrlSlug = "customer-c",
 				PhoneNumber = "0933336666",
 				Status = false
 			}
@@ -372,7 +369,7 @@ public class DataSeeder : IDataSeeder
 
 		foreach (var support in supports)
 		{
-			if (!_dbContext.Supports.Any(c => c.Id == support.Id && c.UrlSlug == support.UrlSlug))
+			if (!_dbContext.Supports.Any(c => c.Id == support.Id))
 			{
 				_dbContext.Supports.Add(support);
 			}

@@ -9,6 +9,5 @@ namespace SpaCenter.Core.DTO
 	public class SupportQuery
 	{
 		public string FullName { get; set; } = "";
-		public string SupportSlug { get; set; } = "";
 	}
 }

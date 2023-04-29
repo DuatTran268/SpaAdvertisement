@@ -32,7 +32,6 @@ namespace SpaCenter.Services.Manages.Supports
 				{
 					Id = sp.Id,
 					FullName = sp.FullName,
-					UrlSlug = sp.UrlSlug,
 					PhoneNumber = sp.PhoneNumber,
 					Status = sp.Status
 				}).ToListAsync(cancellationToken);
@@ -52,29 +51,29 @@ namespace SpaCenter.Services.Manages.Supports
 				}));
 		}
 
-		public async Task<IPagedList<T>> GetPagedSupportAsync<T>(SupportQuery query, IPagingParams pagingParams, Func<IQueryable<Support>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
-		{
-			IQueryable<Support> supportFindQuery = FilterSupport(query);
-			IQueryable<T> queryResult = mapper(supportFindQuery);
-			return await queryResult.ToPagedListAsync(pagingParams, cancellationToken);
-		}
-		private IQueryable<Support> FilterSupport(SupportQuery query)
-		{
-			IQueryable<Support> supportQuery = _context.Set<Support>();
-			if (!string.IsNullOrEmpty(query.FullName))
-			{
-				supportQuery = supportQuery.Where(sp => sp.FullName
-				.Contains(query.FullName)
-				|| sp.UrlSlug.Contains(query.SupportSlug)
-				);
-			}
-			if (!string.IsNullOrWhiteSpace(query.SupportSlug))
-			{
-				supportQuery = supportQuery.Where(sp => sp.UrlSlug == query.SupportSlug);
-			}
+		//public async Task<IPagedList<T>> GetPagedSupportAsync<T>(SupportQuery query, IPagingParams pagingParams, Func<IQueryable<Support>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		//{
+		//	IQueryable<Support> supportFindQuery = FilterSupport(query);
+		//	IQueryable<T> queryResult = mapper(supportFindQuery);
+		//	return await queryResult.ToPagedListAsync(pagingParams, cancellationToken);
+		//}
+		//private IQueryable<Support> FilterSupport(SupportQuery query)
+		//{
+		//	IQueryable<Support> supportQuery = _context.Set<Support>();
+		//	if (!string.IsNullOrEmpty(query.FullName))
+		//	{
+		//		supportQuery = supportQuery.Where(sp => sp.FullName
+		//		.Contains(query.FullName)
+		//		|| sp.UrlSlug.Contains(query.SupportSlug)
+		//		);
+		//	}
+		//	if (!string.IsNullOrWhiteSpace(query.SupportSlug))
+		//	{
+		//		supportQuery = supportQuery.Where(sp => sp.UrlSlug == query.SupportSlug);
+		//	}
 
-			return supportQuery;
-		}
+		//	return supportQuery;
+		//}
 
 		public async Task<IPagedList<SupportItem>> GetSupportPagedAsync(IPagingParams pagingParams, string fullName = null, CancellationToken cancellationToken = default)
 		{
@@ -88,6 +87,21 @@ namespace SpaCenter.Services.Manages.Supports
 					FullName= sp.FullName,
 					PhoneNumber = sp.PhoneNumber,
 				}).ToPagedListAsync(pagingParams, cancellationToken);
+		}
+
+		public async Task<bool> AddOrUpdateSupportAsync(Support support, CancellationToken cancellationToken = default)
+		{
+			if (support.Id > 0)
+			{
+				_context.Supports.Update(support);
+				_memoryCache.Remove($"support.by-id.{support.Id}");
+			}
+			else
+			{
+				_context.Supports.Add(support);
+			}
+
+			return await _context.SaveChangesAsync(cancellationToken) > 0;
 		}
 	}
 }
