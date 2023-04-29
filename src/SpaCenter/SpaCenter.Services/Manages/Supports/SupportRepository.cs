@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using SpaCenter.Core.Contracts;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
 using SpaCenter.Data.Contexts;
+using SpaCenter.Services.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,7 @@ namespace SpaCenter.Services.Manages.Supports
 				{
 					Id = sp.Id,
 					FullName = sp.FullName,
+					UrlSlug = sp.UrlSlug,
 					PhoneNumber = sp.PhoneNumber,
 					Status = sp.Status
 				}).ToListAsync(cancellationToken);
@@ -49,5 +52,28 @@ namespace SpaCenter.Services.Manages.Supports
 				}));
 		}
 
+		public async Task<IPagedList<T>> GetPagedSupportAsync<T>(SupportQuery query, IPagingParams pagingParams, Func<IQueryable<Support>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		{
+			IQueryable<Support> supportFindQuery = FilterSupport(query);
+			IQueryable<T> queryResult = mapper(supportFindQuery);
+			return await queryResult.ToPagedListAsync(pagingParams, cancellationToken);
+		}
+		private IQueryable<Support> FilterSupport(SupportQuery query)
+		{
+			IQueryable<Support> supportQuery = _context.Set<Support>();
+			if (!string.IsNullOrEmpty(query.FullName))
+			{
+				supportQuery = supportQuery.Where(sp => sp.FullName
+				.Contains(query.FullName)
+				|| sp.UrlSlug.Contains(query.SupportSlug)
+				);
+			}
+			if (!string.IsNullOrWhiteSpace(query.SupportSlug))
+			{
+				supportQuery = supportQuery.Where(sp => sp.UrlSlug == query.SupportSlug);
+			}
+
+			return supportQuery;
+		}
 	}
 }

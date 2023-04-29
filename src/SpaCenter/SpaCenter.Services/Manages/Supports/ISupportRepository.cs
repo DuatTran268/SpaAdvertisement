@@ -1,4 +1,5 @@
-﻿using SpaCenter.Core.DTO;
+﻿using SpaCenter.Core.Contracts;
+using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,12 @@ namespace SpaCenter.Services.Manages.Supports
 		// get by id
 		Task<Support> GetSupportByIdAsync(int supportId);
 		Task<Support> GetCachedSupportByIdAsync(int supportId);
+
+		Task<IPagedList<T>> GetPagedSupportAsync<T>(
+			SupportQuery query,
+			IPagingParams pagingParams,
+			Func<IQueryable<Support>,
+				IQueryable<T>> mapper,
+			CancellationToken cancellationToken = default);
 	}
 }

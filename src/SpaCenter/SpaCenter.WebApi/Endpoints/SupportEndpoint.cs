@@ -1,7 +1,13 @@
-﻿using MapsterMapper;
+﻿using Mapster;
+using MapsterMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using SpaCenter.Core.Collections;
 using SpaCenter.Core.DTO;
 using SpaCenter.Services.Manages.Supports;
 using SpaCenter.WebApi.Models;
+using SpaCenter.WebApi.Models.Services;
+using System.Net;
 
 namespace SpaCenter.WebApi.Endpoints
 {
@@ -19,6 +25,9 @@ namespace SpaCenter.WebApi.Endpoints
 				.WithName("GetSupportById")
 				.Produces<ApiResponse<SupportItem>>();
 
+			routeGroupBuilder.MapGet("/slug/{slug:regex(^[a-z0-9_-]+$)}", GetSupportBySlug)
+				.WithName("GetSupportBySlug")
+				.Produces<ApiResponse<PaginationResult<SupportItem>>>();
 			return app;
 		}
 
@@ -41,6 +50,25 @@ namespace SpaCenter.WebApi.Endpoints
 				: Results.Ok(ApiResponse.Success(mapper.Map<SupportItem>(support)));
 		}
 
+		// get by url slug
+		private static async Task<IResult> GetSupportBySlug(
+			[FromRoute] string slug, [AsParameters] PagingModel pagingModel,
+			ISupportRepository supportRepository)
+		{
+			var supportQuery = new SupportQuery()
+			{
+				SupportSlug = slug,
+			};
 
+			var supportList = await supportRepository.GetPagedSupportAsync(
+				supportQuery, pagingModel, support => support.ProjectToType<SupportItem>());
+
+			var pagingnationResult = new PaginationResult<SupportItem>(supportList);
+
+			return supportList == null
+				? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tồn tại slug = {slug} nhập vào"))
+				: Results.Ok(ApiResponse.Success(pagingnationResult));
+
+		}
 	}
 }
