@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using SpaCenter.Core.Collections;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
+using SpaCenter.Services.Manages.Services;
 using SpaCenter.Services.Manages.Supports;
 using SpaCenter.WebApi.Filters;
 using SpaCenter.WebApi.Models;
@@ -34,10 +35,16 @@ namespace SpaCenter.WebApi.Endpoints
 				.Produces<ApiResponse<IList<SupportItem>>>();
 
 			routeGroupBuilder.MapPost("/", AddNewSupport)
-						  .AddEndpointFilter<ValidatorFilter<SupportEditModel>>()
-						  .WithName("AddNewSupport")
-						  .Produces(401)
-						  .Produces<ApiResponse<SupportItem>>();
+				.AddEndpointFilter<ValidatorFilter<SupportEditModel>>()
+				.WithName("AddNewSupport")
+				.Produces(401)
+				.Produces<ApiResponse<SupportItem>>();
+
+			routeGroupBuilder.MapPut("/{id:int}", UpdateSupport)
+			   .WithName("UpdateSupport")
+			   .Produces(401)
+			   .Produces<ApiResponse<string>>();
+
 
 			return app;
 		}
@@ -82,6 +89,24 @@ namespace SpaCenter.WebApi.Endpoints
 
 			return Results.Ok(ApiResponse.Success(
 			   mapper.Map<SupportItem>(support), HttpStatusCode.Created));
+		}
+
+		// update support
+		private static async Task<IResult> UpdateSupport(
+			int id, SupportEditModel model, IValidator<SupportEditModel> validator,
+			ISupportRepository supportRepository, IMapper mapper)
+		{
+			var validationResult = await validator.ValidateAsync(model);
+			if (!validationResult.IsValid)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, validationResult));
+			}
+
+			var support = mapper.Map<Support>(model);
+			support.Id = id;
+			return await supportRepository.AddOrUpdateSupportAsync(support)
+		   ? Results.Ok(ApiResponse.Success("Đã cập nhật khách hàng cần hỗ trợ", HttpStatusCode.NoContent))
+		   : Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khách hàng có id = {id}"));
 		}
 	}
 }
