@@ -14,5 +14,6 @@ namespace SpaCenter.Core.DTO
         public string PriceTotal { get; set; }
         public bool Status { get; set; }
         public int UserId { get; set; }
+        public IList<ServiceTypeBooking> ServiceTypeBookings { get; set; }
     }
 }

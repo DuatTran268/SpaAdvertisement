@@ -1,4 +1,5 @@
-﻿using SpaCenter.WebApi.Models.ServiceTypes;
+﻿using SpaCenter.WebApi.Models.ServiceTypeBookings;
+using SpaCenter.WebApi.Models.ServiceTypes;
 using SpaCenter.WebApi.Models.Users;
 
 namespace SpaCenter.WebApi.Models.Bookings
@@ -15,5 +16,6 @@ namespace SpaCenter.WebApi.Models.Bookings
         public string PriceTotal { get; set; }
         public bool Status { get; set; }
         public int UserId { get; set; }
+        public IList<STBookingDto> serviceTypeBookings { get; set; }
     }
 }

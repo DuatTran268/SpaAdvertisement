@@ -4,6 +4,7 @@ using SpaCenter.Core.Entities;
 using SpaCenter.WebApi.Models.Bookings;
 using SpaCenter.WebApi.Models.Roles;
 using SpaCenter.WebApi.Models.Services;
+using SpaCenter.WebApi.Models.ServiceTypeBookings;
 using SpaCenter.WebApi.Models.ServiceTypes;
 using SpaCenter.WebApi.Models.Users;
 
@@ -37,6 +38,13 @@ namespace SpaCenter.API.Mapsters
                 .Map(dest => dest.Id, src => src.Id);
             config.NewConfig<Booking, BookingDto>();
             config.NewConfig<BookingEditModel, Booking>();
+
+            config.NewConfig<ServiceTypeBooking, STBookingDto>();
+            config.NewConfig<ServiceTypeBooking, STypeBookingItem>()
+                .Map(dest => dest.Id, src => src.Id);
+            config.NewConfig<STBookingEditModel, ServiceTypeBooking>();
+
+
         }
     }
 }

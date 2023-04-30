@@ -5,6 +5,7 @@ using SpaCenter.Data.Seeders;
 using SpaCenter.Services.Manages.Bookings;
 using SpaCenter.Services.Manages.Roles;
 using SpaCenter.Services.Manages.Services;
+using SpaCenter.Services.Manages.ServiceTypeBookings;
 using SpaCenter.Services.Manages.ServiceTypes;
 using SpaCenter.Services.Manages.Users;
 using SpaCenter.Services.Media;
@@ -29,6 +30,7 @@ namespace SpaCenter.WebApi.Extensions
             builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
             builder.Services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
             builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+            builder.Services.AddScoped<ISTBookingRepository, STBookingRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             builder.Services.AddScoped<IDataSeeder, DataSeeder>();

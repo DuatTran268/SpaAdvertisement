@@ -8,7 +8,6 @@ using SpaCenter.Core.Entities;
 using SpaCenter.WebApi.Filters;
 using SpaCenter.WebApi.Models;
 using SpaCenter.WebApi.Models.Bookings;
-using SpaCenter.WebApi.Validations;
 using System.Net;
 
 namespace SpaCenter.WebApi.Endpoints;

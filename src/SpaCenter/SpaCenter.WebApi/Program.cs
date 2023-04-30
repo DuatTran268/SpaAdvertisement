@@ -26,6 +26,7 @@ var app = builder.Build();
     app.MapServiceEndpoints();
     app.MapServiceTypeEndpoints();
     app.MapBookingEndpoints();
+    app.MapSTypeBookingEndpoints();
 
     app.Run();
     //
