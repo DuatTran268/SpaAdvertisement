@@ -7,6 +7,7 @@ import { CartProvider } from "react-use-cart";
 const Cart = () => {
   useState(() => {
     document.title = "Giỏ hàng";
+    window.scroll(0,0);
   }, []);
 
   return (

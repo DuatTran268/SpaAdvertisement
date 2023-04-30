@@ -24,7 +24,8 @@ const ServiceType = () => {
       <div className="container">
         <div className="row">
           <div className="col mb-3 col-12 text-center">
-            <h3 className="text-success mb-3 mt-5">Hãy chọn dịch vụ cho bạn</h3>
+            <h3 className="text-success mb-5 mt-5">Hãy chọn dịch vụ cho bạn</h3>
+            <h5 className="text-danger mb-3">Loại dịch vụ</h5>
             <div className="btn-group">
               {serviceList.map((item, index) => (
                 <>
@@ -42,7 +43,7 @@ const ServiceType = () => {
             <div>
               {serviceList.map((item, index) => (
                 <>
-                <div className="col text-center mt-3" key={index}>
+                <div className="col text-center mt-5" key={index}>
                     <p>{servicesType === item.urlSlug && <ServiceList />}</p>
                   </div>
                 </>

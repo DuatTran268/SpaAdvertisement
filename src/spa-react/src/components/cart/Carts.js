@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
 
 const Carts = () => {
+
+  
   const {
     isEmpty,
     totalUniqueItems,

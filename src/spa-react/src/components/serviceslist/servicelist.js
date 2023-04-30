@@ -42,7 +42,7 @@ const ServiceList = () => {
                 </div>
                 <div className={selected === i ? "content show" : "content"}>
                   <div className="list-service-description">
-                    <Link to={`/service/post`} className="text-decoration-none">
+                    <Link to={`/service/${item.urlSlug}`} className="text-decoration-none">
                     {item.shortDescription}
                     </Link>
                   </div>
