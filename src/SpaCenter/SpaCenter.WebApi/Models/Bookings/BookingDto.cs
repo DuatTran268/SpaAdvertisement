@@ -1,8 +1,10 @@
-﻿using SpaCenter.Core.Contracts;
+﻿using SpaCenter.WebApi.Models.ServiceTypeBookings;
+using SpaCenter.WebApi.Models.ServiceTypes;
+using SpaCenter.WebApi.Models.Users;
 
-namespace SpaCenter.Core.Entities
+namespace SpaCenter.WebApi.Models.Bookings
 {
-    public class Booking : IEntity
+    public class BookingDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,10 +15,7 @@ namespace SpaCenter.Core.Entities
         public string NoteMessage { get; set; }
         public string PriceTotal { get; set; }
         public bool Status { get; set; }
-
         public int UserId { get; set; }
-        public User User { get; set; }
-
-        public IList<ServiceTypeBooking> ServiceTypeBookings { get; set; }
+        public IList<STBookingDto> serviceTypeBookings { get; set; }
     }
 }
