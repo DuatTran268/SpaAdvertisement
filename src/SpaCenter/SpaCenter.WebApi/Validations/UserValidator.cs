@@ -30,6 +30,12 @@ namespace SpaCenter.WebApi.Validations
 				.WithMessage("Password không được để trống")
 				.MaximumLength(100)
 				.WithMessage("Password không quá 100 ký tự");
-		}
+
+/*            RuleFor(u => u.Address)
+                .NotEmpty()
+                .WithMessage("Address không được để trống")
+                .MaximumLength(100)
+                .WithMessage("Address không quá 100 ký tự");*/
+        }
 	}
 }

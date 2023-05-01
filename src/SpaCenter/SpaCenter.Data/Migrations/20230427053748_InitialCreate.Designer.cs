@@ -12,7 +12,7 @@ using SpaCenter.Data.Contexts;
 namespace SpaCenter.Data.Migrations
 {
     [DbContext(typeof(SpaDbContext))]
-    [Migration("20230422121947_InitialCreate")]
+    [Migration("20230427053748_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

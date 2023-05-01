@@ -26,6 +26,7 @@ import ProductDetails from "../components/productdetails/ProductDetails";
 
 function Routers() {
   const {darkMode} = useContext(DarkModeContext)
+  const isLoggedIn = window.localStorage.getItem("loggedIn");
   return (
     <BrowserRouter>
         <div className={darkMode ? "app dark" : "app"}>
@@ -46,15 +47,13 @@ function Routers() {
           <Route path="/product/detail" element={<ProductDetails/>}/>
 
 
-          <Route path="/" element={<AdminLogin/>}/>
-          <Route path="/admin" element={<AdminHome/>}/>
-
+          <Route path="/admin" element={<AdminLogin/>}/>
+          <Route path="/adminHome" element={<AdminHome/>}/>
           <Route path="/admin/users" element={<AdminList/>}/>
           <Route path="/admin/products" element={<AdminProduct/>}/>
           <Route path="/admin/cart" element={<AdminCart/>}/>
           <Route path="/admin/setting" element={<AdminSetting/>}/>
           <Route path="/admin/booking" element={<AdminBooking/>}/>
-          {/* </Route> */}
           
 
           <Route path="/*" element={<NotFound />} />

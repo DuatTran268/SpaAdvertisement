@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -12,18 +11,18 @@ namespace SpaCenter.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Role",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Role", x => x.Id);
-                });
+                            name: "Role",
+                            columns: table => new
+                            {
+                                Id = table.Column<int>(type: "int", nullable: false)
+                                    .Annotation("SqlServer:Identity", "1, 1"),
+                                Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                                ShortDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                            },
+                            constraints: table =>
+                            {
+                                table.PrimaryKey("PK_Role", x => x.Id);
+                            });
 
             migrationBuilder.CreateTable(
                 name: "Services",

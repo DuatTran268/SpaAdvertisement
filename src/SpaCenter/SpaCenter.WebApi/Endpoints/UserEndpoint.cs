@@ -1,4 +1,11 @@
-﻿using MapsterMapper;
+﻿using Azure;
+using MapsterMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
 using SpaCenter.Services.Manages.Roles;
@@ -6,7 +13,9 @@ using SpaCenter.Services.Manages.Users;
 using SpaCenter.WebApi.Filters;
 using SpaCenter.WebApi.Models;
 using SpaCenter.WebApi.Models.Users;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Text;
 
 namespace SpaCenter.WebApi.Endpoints;
 
@@ -20,15 +29,17 @@ public static class UserEndpoint
 			.WithName("GetUserNotRequired")
 			.Produces<ApiResponse<UserItem>>();
 
-		routeGroupBuilder.MapGet("/{id:int}", GetUserById)
-			.WithName("GetUserById")
-			.Produces<ApiResponse<UserItem>>();
-
-		routeGroupBuilder.MapPost("/", CreateUserAsync)
+        routeGroupBuilder.MapPost("/Add", CreateUserAsync)
 			.WithName("CreateUserAsync")
 			.AddEndpointFilter<ValidatorFilter<UserEditModel>>()
 			.Produces(401)
 			.Produces<ApiResponse<UserItem>>();
+
+
+        routeGroupBuilder.MapGet("/{id:int}", GetUserById)
+			.WithName("GetUserById")
+			.Produces<ApiResponse<UserItem>>();
+
 
 		routeGroupBuilder.MapPut("/{id:int}", UpdateUserAsync)
 			.WithName("UpdateUserAsync")
@@ -74,14 +85,19 @@ public static class UserEndpoint
 			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
 		}
 
+
 		var user = mapper.Map<User>(model);
 		await userRepository.CreateOrUpdateUserAsync(user);
+		
 
-		return Results.Ok(ApiResponse.Success(mapper.Map<UserItem>(user), HttpStatusCode.Created));
+        return Results.Ok(ApiResponse.Success(mapper.Map<UserItem>(user), HttpStatusCode.Created));
 	}
 
-	// update user
-	private static async Task<IResult> UpdateUserAsync(
+
+
+
+    // update user
+    private static async Task<IResult> UpdateUserAsync(
 		int id, UserEditModel model, 
 		IUserRepository userRepository, 
 		IRoleRepositoty roleRepositoty,
@@ -100,7 +116,7 @@ public static class UserEndpoint
 		}
 		if (await userRepository.CheckSlugExistedAsync(0, model.UrlSlug))
 		{
-			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, 
+			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
 				$"Slug '{model.UrlSlug}' đã được sử dụng"));
 		}
 
@@ -121,4 +137,7 @@ public static class UserEndpoint
 			? Results.Ok(ApiResponse.Success($"Đã xoá user có id = {id}"))
 			: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy user có id = {id}"));
 	}
+
+
+
 }

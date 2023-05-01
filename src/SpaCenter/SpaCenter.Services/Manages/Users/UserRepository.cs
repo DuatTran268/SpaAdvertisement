@@ -1,13 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.DataProtection.Internal;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
 using SpaCenter.Data.Contexts;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace SpaCenter.Services.Manages.Users
 {
@@ -15,11 +24,13 @@ namespace SpaCenter.Services.Manages.Users
 	{
 		private readonly SpaDbContext _context;
 		private readonly IMemoryCache _memoryCache;
-
-		public UserRepository(SpaDbContext context, IMemoryCache memoryCache)
+		private IConfiguration _config;
+       
+        public UserRepository(SpaDbContext context, IMemoryCache memoryCache, IConfiguration configuration)
 		{
 			_context = context;
 			_memoryCache = memoryCache;
+			_config = configuration;
 		}
 
 		public async Task<IList<UserItem>> GetUserNotRequired(CancellationToken cancellationToken = default)
@@ -30,13 +41,16 @@ namespace SpaCenter.Services.Manages.Users
 				Id = u.Id,
 				FullName = u.FullName,
 				UrlSlug = u.UrlSlug,
-				Email = u.Email
+				Email = u.Email,
+				Password = u.Password,
+/*                Address = u.Address,
+                PhoneNo = u.PhoneNo,*/
 
-			}).ToListAsync(cancellationToken);
+    }).ToListAsync(cancellationToken);
 		}
 
-		// get user by id
-		public async Task<User> GetUserByIdAsync(int userId)
+        // get user by id
+        public async Task<User> GetUserByIdAsync(int userId)
 		{
 			return await _context.Set<User>().FindAsync(userId);
 		}
@@ -65,7 +79,8 @@ namespace SpaCenter.Services.Manages.Users
 			return await _context.SaveChangesAsync(cancellationToken) > 0;
 		}
 
-		public async Task<bool> CheckSlugExistedAsync(int userId, string slug, CancellationToken cancellationToken = default)
+
+        public async Task<bool> CheckSlugExistedAsync(int userId, string slug, CancellationToken cancellationToken = default)
 		{
 			return await _context.Users
 				.AnyAsync(u => u.Id != userId && u.UrlSlug == slug, cancellationToken);
@@ -77,5 +92,8 @@ namespace SpaCenter.Services.Manages.Users
 				.Where(u => u.Id == userId)
 				.ExecuteDeleteAsync(cancellationToken) > 0;
 		}
-	}
+
+        
+
+    }
 }

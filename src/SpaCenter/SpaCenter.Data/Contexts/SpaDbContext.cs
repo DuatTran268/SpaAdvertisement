@@ -13,11 +13,11 @@ public class SpaDbContext : DbContext
     public DbSet<ServiceType> ServiceTypes { get; set; }
     public DbSet<ServiceTypeBooking> ServiceTypesBooking { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //	optionsBuilder.UseSqlServer("Server=DESKTOP-JS68JVN\\SQLEXPRESS;Database=SpaCenter;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=True");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("Server=LMT;Database=SpaCenter;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=True");
 
-    //}
+    }
 
     public SpaDbContext(DbContextOptions<SpaDbContext> options) : base(options)
     {
