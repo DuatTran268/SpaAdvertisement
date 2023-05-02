@@ -1,4 +1,5 @@
-﻿using SpaCenter.Core.DTO;
+﻿using SpaCenter.Core.Contracts;
+using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,14 @@ namespace SpaCenter.Services.Manages.Users
 	{
 		Task<IList<UserItem>> GetUserNotRequired(
 		CancellationToken cancellationToken = default);
+
+		// get user required
+		Task<IPagedList<UserItem>> GetPagedUserAsync(
+			IPagingParams pagingParams,
+			string fullName = null,
+			string email = null,
+			CancellationToken cancellationToken = default);
+
 
 		// get user by id
 		Task<User> GetUserByIdAsync(int userId);

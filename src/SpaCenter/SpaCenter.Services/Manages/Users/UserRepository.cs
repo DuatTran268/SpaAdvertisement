@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using SpaCenter.Core.Contracts;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
 using SpaCenter.Data.Contexts;
+using SpaCenter.Services.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,24 @@ namespace SpaCenter.Services.Manages.Users
 			}).ToListAsync(cancellationToken);
 		}
 
+		// get user required
+		public async Task<IPagedList<UserItem>> GetPagedUserAsync(IPagingParams pagingParams, string fullName = null, string email = null, CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<User>()
+				.AsNoTracking()
+				.WhereIf(!string.IsNullOrWhiteSpace(fullName),
+				 u => u.FullName.Contains(fullName))
+				.WhereIf(!string.IsNullOrWhiteSpace(email),
+				u => u.Email.Contains(email))
+				.Select(u => new UserItem()
+				{
+					Id = u.Id,
+					FullName = u.FullName,
+					UrlSlug = u.UrlSlug,
+					Email = u.Email,
+
+				}).ToPagedListAsync(pagingParams, cancellationToken);
+		}
 		// get user by id
 		public async Task<User> GetUserByIdAsync(int userId)
 		{

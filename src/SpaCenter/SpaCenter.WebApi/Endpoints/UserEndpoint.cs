@@ -1,4 +1,5 @@
 ﻿using MapsterMapper;
+using SpaCenter.Core.Collections;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
 using SpaCenter.Services.Manages.Roles;
@@ -19,6 +20,10 @@ public static class UserEndpoint
 		routeGroupBuilder.MapGet("/", GetUserNotRequired)
 			.WithName("GetUserNotRequired")
 			.Produces<ApiResponse<UserItem>>();
+
+		routeGroupBuilder.MapGet("/required", GetUserAsync)
+				.WithName("GetUserAsync")
+				.Produces<ApiResponse<IList<ServiceTypeItem>>>();
 
 		routeGroupBuilder.MapGet("/{id:int}", GetUserById)
 			.WithName("GetUserById")
@@ -54,6 +59,20 @@ public static class UserEndpoint
 		return Results.Ok(ApiResponse.Success(userList));
 	}
 
+	// get user required
+	private static async Task<IResult> GetUserAsync(
+		[AsParameters] UserFilterModel model,
+		IUserRepository userRepository
+		)
+	{
+		var userList = await userRepository.GetPagedUserAsync(model, model.FullName, model.Email);
+
+		var pagingnationResult = new PaginationResult<UserItem>(userList);
+		return Results.Ok(ApiResponse.Success(pagingnationResult));
+
+	}
+
+
 	// get user by id
 	private static async Task<IResult> GetUserById(
 		int id, IUserRepository userRepository, IMapper mapper)
@@ -82,15 +101,15 @@ public static class UserEndpoint
 
 	// update user
 	private static async Task<IResult> UpdateUserAsync(
-		int id, UserEditModel model, 
-		IUserRepository userRepository, 
+		int id, UserEditModel model,
+		IUserRepository userRepository,
 		IRoleRepositoty roleRepositoty,
 		IMapper mapper)
 	{
 		var user = await userRepository.GetUserByIdAsync(id);
 		if (user == null)
 		{
-			return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, 
+			return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
 				$"Không tìm thấy id '{id}' của user"));
 		}
 		if (await roleRepositoty.GetRoleByIdAsync(model.RoleId) == null)
@@ -100,7 +119,7 @@ public static class UserEndpoint
 		}
 		if (await userRepository.CheckSlugExistedAsync(0, model.UrlSlug))
 		{
-			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, 
+			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
 				$"Slug '{model.UrlSlug}' đã được sử dụng"));
 		}
 
@@ -109,7 +128,7 @@ public static class UserEndpoint
 
 		return await userRepository.CreateOrUpdateUserAsync(user)
 			? Results.Ok(ApiResponse.Success($"Thay đổi thành công user có id = {id}"))
-			: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy user có id {id}")); 
+			: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy user có id {id}"));
 
 
 	}
