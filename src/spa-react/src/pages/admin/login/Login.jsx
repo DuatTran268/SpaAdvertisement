@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { getUser } from "../../../Services/BlogRepository";
+import { getUser } from "../../../api/ServiceApi";
+
 export default function AdminLogin() {
 
   const navigate = useNavigate()

@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaCenter.Data.Contexts;
 
@@ -12,11 +11,9 @@ using SpaCenter.Data.Contexts;
 namespace SpaCenter.Data.Migrations
 {
     [DbContext(typeof(SpaDbContext))]
-    [Migration("20230502034424_InitialCreate.")]
-    partial class InitialCreate
+    partial class SpaDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,6 +220,34 @@ namespace SpaCenter.Data.Migrations
                     b.ToTable("ServiceTypeBookings", (string)null);
                 });
 
+            modelBuilder.Entity("SpaCenter.Core.Entities.Support", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Supports", (string)null);
+                });
+
             modelBuilder.Entity("SpaCenter.Core.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -250,9 +275,7 @@ namespace SpaCenter.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UrlSlug")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

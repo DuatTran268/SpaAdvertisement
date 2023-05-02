@@ -13,6 +13,7 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import {Link} from "react-router-dom";
 import { DarkModeContext } from "../context/darkModeReducer";
 import { useContext } from "react";
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 
 const Sidebar = () => {
 
@@ -21,7 +22,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <Link to="/adminHome" style={{textDecoration:"none"}}>
+        <Link to="/admin" style={{textDecoration:"none"}}>
         <span className="logo">Admin</span>
         </Link>
         </div>
@@ -29,7 +30,7 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link to="/adminHome" style={{textDecoration:"none"}}>
+          <Link to="/admin" style={{textDecoration:"none"}}>
             <li>
             <DashboardIcon className="icon"/>
                 <span>Dashboard</span>
@@ -58,6 +59,12 @@ const Sidebar = () => {
             <li>
               <LocalShippingOutlinedIcon className="icon"/>
                 <span>Booking</span>
+            </li>
+            </Link>
+            <Link to={'/admin/service'} style={{textDecoration:"none"}}>
+            <li>
+              <LocalMallOutlinedIcon className="icon"/>
+                <span>Dịch vụ</span>
             </li>
             </Link>
             <p className="title">USEFUL</p>
