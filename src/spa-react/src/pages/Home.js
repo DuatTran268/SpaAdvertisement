@@ -3,7 +3,7 @@ import BookService from "../components/booking/RegisterSupport";
 import TopService from "../components/topservice/TopService";
 import Slide from "../components/sliderbanner/Slider";
 import './pages.scss'
-import Product from "../components/product/Product"
+import Products from "../components/product/Products"
 import Galley from "../components/galley/Galley";
 import Header from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
@@ -26,7 +26,7 @@ const Home = () => {
         <TopService/>
       </div>
       <div className="top_product">
-        <Product/>
+        <Products/>
       </div>
       <div className="galley">
         <Galley/>

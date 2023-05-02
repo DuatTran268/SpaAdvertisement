@@ -24,6 +24,7 @@ public class DataSeeder : IDataSeeder
         var users = AddUsers(roles);
         var bookings = AddBooking(users);
         var serviceTypeBookings = AddServiceTypeBooking(serviceType, bookings);
+        var supports = AddSupport();
     }
 
     // add role
@@ -339,4 +340,42 @@ public class DataSeeder : IDataSeeder
         _dbContext.SaveChanges();
         return serviceTypeBookings;
     }
+
+	// add support
+	private IList<Support> AddSupport()
+	{
+		var supports = new List<Support>()
+		{
+			new()
+			{
+				FullName = "CustomerA",
+				PhoneNumber = "0966668888",
+                Status = false
+			},
+			new()
+			{
+				FullName = "CustomerB",
+				PhoneNumber = "0922228888",
+				Status = false
+			},
+			new()
+			{
+				FullName = "CustomerC",
+				PhoneNumber = "0933336666",
+				Status = false
+			}
+
+		};
+
+		foreach (var support in supports)
+		{
+			if (!_dbContext.Supports.Any(c => c.Id == support.Id))
+			{
+				_dbContext.Supports.Add(support);
+			}
+		}
+
+		_dbContext.SaveChanges();
+		return supports;
+	}
 }

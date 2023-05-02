@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./servicelist.scss";
-import typeservice from "../../data/Dservicelist";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { getAllServiceType } from "../../api/ServiceApi";
 
 const ServiceList = () => {
   const [selected, setSelected] = useState(null);
+
+
+  const [serviceType, setServiceType] = useState([]);
+  useEffect(()=> {
+    getAllServiceType().then((data) => {
+      if(data) {
+        setServiceType(data);
+        console.log("data check: ", data);
+      }
+      else{
+        setServiceType([]);
+      }
+    });
+  }, [])
+
+
 
   const toggle = (i) => {
     if (selected === i) {
@@ -17,7 +33,7 @@ const ServiceList = () => {
     <>
       <div className="container">
         <div className="wrapper row">
-          {typeservice.map((item, i) => (
+          {serviceType.map((item, i) => (
             <div className="list-service accordition col-6">
               <div className="list-service-item ">
                 <div className="list-service-title" onClick={() => toggle(i)}>
@@ -26,8 +42,8 @@ const ServiceList = () => {
                 </div>
                 <div className={selected === i ? "content show" : "content"}>
                   <div className="list-service-description">
-                    <Link to={`/service/post`} className="text-decoration-none">
-                    {item.shorDescription}
+                    <Link to={`/service/${item.urlSlug}`} className="text-decoration-none">
+                    {item.shortDescription}
                     </Link>
                   </div>
 
@@ -37,7 +53,7 @@ const ServiceList = () => {
                     </div>
                     <div className="list-service-button col-6">
                       <Link to={`/service/booking`}>
-                        <button className="btn btn-success ">Book now</button>
+                        <div className="btn btn-success ">Book now</div>
                       </Link>
                     </div>
                   </div>

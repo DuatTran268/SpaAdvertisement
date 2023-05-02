@@ -26,10 +26,6 @@ public class UserMap : IEntityTypeConfiguration<User>
 			.IsRequired()
 			.HasMaxLength(20);
 
-		builder.Property(u => u.UrlSlug)
-			.IsRequired()
-			.HasMaxLength(100);
-
 		builder.Property(u => u.Email)
 			.IsRequired()
 			.HasMaxLength(100);

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Header from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
 import ProductCard from "../components/product/ProductCard";
+import ProductItem from "../components/product/ProductItem";
 
 const Product = () => {
   useEffect(() => {
@@ -16,7 +17,7 @@ const Product = () => {
         Mua sản phẩm đi bạn
       </h3>
       <div className="container mb-5">
-        <ProductCard />
+        <ProductItem />
       </div>
 
       <Footer />

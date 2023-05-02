@@ -1,9 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SpaCenter.Bookings.Manages.Bookings;
 using SpaCenter.Data.Contexts;
 using SpaCenter.Data.Seeders;
+using SpaCenter.Services.Manages.Bookings;
 using SpaCenter.Services.Manages.Roles;
 using SpaCenter.Services.Manages.Services;
+using SpaCenter.Services.Manages.ServiceTypeBookings;
 using SpaCenter.Services.Manages.ServiceTypes;
+using SpaCenter.Services.Manages.Supports;
 using SpaCenter.Services.Manages.Users;
 using SpaCenter.Services.Media;
 using TatBlog.Services.Timing;
@@ -23,12 +27,15 @@ namespace SpaCenter.WebApi.Extensions
             builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
 
             // remember add scoped
+            builder.Services.AddScoped<IDataSeeder, DataSeeder>();
             builder.Services.AddScoped<IRoleRepositoty, RoleRepository>();
             builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
             builder.Services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+            builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+            builder.Services.AddScoped<ISTBookingRepository, STBookingRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ISupportRepository, SupportRepository>();
 
-            builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 
             return builder;
         }
