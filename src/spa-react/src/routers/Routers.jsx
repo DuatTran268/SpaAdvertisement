@@ -25,6 +25,8 @@ import ProductDetails from "../components/productdetails/ProductDetails";
 import EditUser from "../pages/admin/list/user/EditUser";
 import AdminService from "../pages/admin/list/services/Service";
 import EditService from "../pages/admin/list/services/EditService";
+import AdminServiceType from "../pages/admin/list/servicetype/ServiceType";
+import EditServiceType from "../pages/admin/list/servicetype/EditServiceType";
 
 
 function Routers() {
@@ -61,6 +63,10 @@ function Routers() {
           <Route path="/admin/service" element={<AdminService/>}/>
           <Route path="/admin/service/edit" element={<EditService/>}/>
           <Route path="/admin/service/edit/:id" element={<EditService/>}/>
+
+          <Route path="/admin/servicetype" element={<AdminServiceType/>}/>
+          <Route path="/admin/servicetype/edit" element={<EditServiceType/>}/>
+          <Route path="/admin/servicetype/edit/:id" element={<EditServiceType/>}/>
 
 
 
