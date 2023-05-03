@@ -9,7 +9,7 @@ import Service from "../pages/Service";
 import NotFound from "../components/shared/NotFound";
 import AdminHome from "../pages/admin/home/Home";
 import AdminLogin from "../pages/admin/login/Login";
-import AdminList from "../pages/admin/list/User";
+import AdminUser from "../pages/admin/list/user/User";
 import AdminProduct from "../pages/admin/list/Product";
 import AdminCart from "../pages/admin/list/Cart";
 import "../pages/admin/style/dark.scss"
@@ -22,6 +22,8 @@ import Register from "../pages/auth/Register";
 import ServicePost from "../components/servicepost/ServicePost";
 import Booking from "../components/booking/Booking";
 import ProductDetails from "../components/productdetails/ProductDetails";
+import EditUser from "../pages/admin/list/user/EditUser";
+
 
 function Routers() {
   const {darkMode} = useContext(DarkModeContext)
@@ -46,7 +48,10 @@ function Routers() {
 
           <Route path="/" element={<AdminLogin/>}/>
           <Route path="/admin" element={<AdminHome/>}/>
-          <Route path="/admin/users" element={<AdminList/>}/>
+          <Route path="/admin/users" element={<AdminUser/>}/>
+          <Route path="/admin/users/edit" element={<EditUser/>}/>
+          <Route path="/admin/users/edit/:id" element={<EditUser/>}/>
+
           <Route path="/admin/products" element={<AdminProduct/>}/>
           <Route path="/admin/cart" element={<AdminCart/>}/>
           <Route path="/admin/setting" element={<AdminSetting/>}/>
