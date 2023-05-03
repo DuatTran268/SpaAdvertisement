@@ -161,6 +161,10 @@ namespace SpaCenter.Services.Manages.Services
                     || st.UrlSlug.Contains(query.ServiceSlug)
                     );
                 }
+                if (!string.IsNullOrWhiteSpace(query.Name))
+                {
+                    serviceQuery = serviceQuery.Where(s => s.Name == query.Name);
+                }
                 if (!string.IsNullOrWhiteSpace(query.ServiceSlug))
                 {
                     serviceQuery = serviceQuery.Where(s => s.UrlSlug == query.ServiceSlug);
