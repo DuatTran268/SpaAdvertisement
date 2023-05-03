@@ -1,97 +1,217 @@
-import "../list.scss";
+import "../list.scss"
+import "./user.scss";
 import Navbar from "../../../../components/admin/navbar/Navbar";
 import Sidebar from "../../../../components/admin/sidebar/Sidebar";
+
+import { Button, Col, Modal, Row, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-import { deleteUser, getFilterUser } from "../../../../api/User";
-// import { useSelector } from "react-redux";
-import Loading from "../../../../components/Loading";
-import { Table } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import UserFilter from "../../../../components/admin/filter/UserFilterModel";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { getDeleteUser, getUser } from "../../../../api/ServiceApi";
+
 
 const AdminUser = () => {
-  const [userList, setUserList] = useState([]);
-  const [isVisibleLoading, setIsVisibleLoading] = useState(true);
 
-  let fullName= '', email = '', p =1, ps = 10;
+    const [userList, setUserList] = useState([]);
+    const [id, setId] = useState("");
+    const [fullName, setFullName] = useState([]);
+    const [urlSlug, setUrlSlug] = useState([]);
+    const [email, setEmail] = useState([]);
+    const [password, setPassword] = useState([]);
+    const [roleId, setRoleId] = useState([]);
 
-  useEffect(() => {
-    document.title = "Quản lý người dùng";
+    const [editId, setEditId] = useState([]);
+    const [editFullName, setEditFullName] = useState([]);
+    const [editUrlSlug, setEditUrlSlug] = useState([]);
+    const [editEmail, setEditEmail] = useState([]);
+    const [editPassword, setEditPassword] = useState([]);
+    const [editRoleId, setEditRoleId] = useState([]);
 
-    getFilterUser(fullName, email, ps, p).then((data) => {
-      if (data) {
-        console.log("check data:  ", data);
-        setUserList(data.items);
-      } else {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
+
+    useEffect(() => {
+      
+      getUser().then(data => {
+        if (data)
+        setUserList(data);
+        else
         setUserList([]);
-      }
-      setIsVisibleLoading(false);
+      })
     });
-  }, [fullName, email, p, ps]);
 
-  // delete
-  const handleDeleteUser = (e, id) => {
-    e.preventDefault();
-    RemoveUser(id);
-    async function RemoveUser(id) {
-      if (window.confirm("Bạn có muốn xoá danh mục này")) {
-        const response = await deleteUser(id);
-        if (response) {
-          alert("Đã xoá danh mục");
-          window.location.reload(true);
-        } else alert("Đã xảy ra lỗi xoá danh mục này");
+    const handleRemove= async (id)=>{
+      if(window.confirm("co muon xoa") == true) {
+        axios.delete(`https://localhost:7024/api/users/${id}`) 
+        .then((result)=>{
+          if(result.status ===200)
+          {
+            console.log('thanh cong')
+          }
+        }).catch((error)=>{
+          console.error(error);
+        })
       }
     }
-  }
 
+    const clear = () =>{
+      setFullName('');
+      setUrlSlug('');
+      setEmail('');
+      setPassword('');
+      setRoleId(0);
+      setEditFullName('');
+      setEditUrlSlug('');
+      setEditEmail('');
+      setEditPassword('');
+      setEditRoleId(0);
+
+    }
+    const handleActiveChange = (e) =>{
+      if (e.target.checked) {
+        setEditRoleId(1);
+      }else{
+        setEditRoleId(0);
+      }
+    }
+
+    const handleUpdate = () => {
+      const url =`https://localhost:7024/api/users/${editId}`
+      const data = {
+        "id": editId,
+        "fullName": editFullName,
+        "urlSlug": editUrlSlug,
+        "email": editEmail,
+        "password": editPassword,
+        "roleId": editRoleId
+      }
+
+      axios.put(url, data)
+      .then((result)=>{
+        getUser();
+        clear();
+        console.log("thanh cong");
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+    
+
+    const handleEdit = (id) => {
+       handleShow();
+      axios.get(`https://localhost:7024/api/users/${id}`)
+      .then((result) => {
+        setEditFullName(result.data.fullName);
+        setEditEmail(result.data.email);
+        setEditPassword(result.data.password);
+        setEditUrlSlug(result.data.urlSlug);
+        setEditRoleId(result.data.roleId);
+        setEditId(id);       
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+
+  
 
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <div className="container mt-5">
-          {/* <UserFilter/> */}
-          {isVisibleLoading ? <Loading/> : 
+        <div className="user">
+              <Link to="/admin/users/edit" >
+              <button type="submit" className="btn btn-success add">Thêm mới</button>
+              </Link>
+          <div className="table">
+            
           <Table striped responsive bordered>
             <thead>
               <tr>
-                <th>Tên user</th>
+                <th>ID</th>
+                <th>Tên người dùng</th>
+                <th>UrlSlug</th>
                 <th>Email</th>
-                <th>Xoá</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Option</th>
               </tr>
             </thead>
             <tbody>
-              {userList.length > 0 ? userList.map((item, index) => 
-                <tr key={index}>
-                  <td>
-                  <Link to={`/admin/users/edit/${item.id}`}>
-                    {item.fullName}
-                  </Link>
-                  </td>
-                  <td>
-                    {item.email}
-                  </td>
-                  <td>
-                    <div onClick={(e) => handleDeleteUser(e, item.id)}>
-                      <FontAwesomeIcon icon={faTrash} color="red"/>
-                    </div>
-                  </td>
-                </tr>
-              ) : (
-                <tr>
-                  <td colSpan={3}>
-                    <h4 className="text-danger text-center">Không tìm thấy user nào</h4>
-                  </td>
-                </tr>
-              )}
+               {userList.length > 0 ? (
+                  userList.map((item,index) => (
+                  <tr key={index}>
+                    <td>{item.id}</td>
+                    <td>{item.fullName}</td>
+                    <td>{item.urlSlug}</td>
+                    <td>{item.email}</td>
+                    <td>{item.password}</td>
+                    <td>{item.roleId}</td>
+                    <td className="option">
+                      <button onClick={()=> handleRemove(item.id)} type="submit" className="btn btn-danger">
+                        Xóa
+                      </button>
+                      <button onClick={()=> handleEdit(item.id)} type="submit" className="btn btn-primary"> &nbsp;
+                        Edit
+                      </button>
+                      <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButon>
+                            <Modal.Title>Chinh Sua</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Col>
+                            <input type="text" className="form-control mb-2" placeholder="Id"
+                            value={editId} onChange={(e) => setEditId(e.target.value)}/>
+                            </Col>
+                            <Col>
+                            <input type="text" className="form-control mb-2" placeholder="Tên"
+                            value={editFullName} onChange={(e) => setEditFullName(e.target.value)}/>
+                            </Col>
+                            <Col>
+                            <input type="text" className="form-control mb-2" placeholder="Url"
+                            value={editUrlSlug} onChange={(e) => setEditUrlSlug(e.target.value)}/>
+                            </Col>
+                            <Col>
+                            <input type="text" className="form-control mb-2" placeholder="Email"
+                            value={editEmail} onChange={(e) => setEditEmail(e.target.value)}/>
+                            </Col>
+                            <Col>
+                            <input type="text" className="form-control mb-2" placeholder="Mật khẩu"
+                            value={editPassword} onChange={(e) => setEditPassword(e.target.value)}/>
+                            </Col>
+                            <Col>
+                            <input type="checkbox" 
+                            checked={editRoleId === 1 ? true : false}
+                            onChange={(e)=> handleActiveChange(e)} value={editRoleId}/>
+                            <label>RoleId</label>
+                            </Col>
+                          
+                        </Modal.Body>
+                        <Modal.Footer>
+                          <Button variant="secondary" onClick={handleClose}>Thoát</Button>
+                          <Button variant="primary" onClick={handleUpdate}>Lưu</Button>
+                        </Modal.Footer>
+                      </Modal>
+                    </td>
+                  </tr>
+                ))
+               ):(
+              <tr>
+                <td colSpan={6}>
+                  <h4 className="text-danger text-center">
+                    Không tìm thấy người dùng nào
+                  </h4>
+                </td>
+              </tr>
+               )}
             </tbody>
-          </Table>}
+          </Table>
+          </div>          
         </div>
-        
       </div>
     </div>
   );

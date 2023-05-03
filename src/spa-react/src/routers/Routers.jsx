@@ -9,9 +9,9 @@ import Service from "../pages/Service";
 import NotFound from "../components/shared/NotFound";
 import AdminHome from "../pages/admin/home/Home";
 import AdminLogin from "../pages/admin/login/Login";
-import AdminUser from "../pages/admin/list/user/User";
-import AdminProduct from "../pages/admin/list/Product";
-import AdminCart from "../pages/admin/list/Cart";
+import AdminList from "../pages/admin/list/user/User";
+import AdminProduct from "../pages/admin/list/product/Product";
+import AdminCart from "../pages/admin/list/cart/Cart";
 import "../pages/admin/style/dark.scss"
 import { useContext } from "react";
 import { DarkModeContext } from "../components/admin/context/darkModeReducer";
@@ -22,11 +22,13 @@ import Register from "../pages/auth/Register";
 import ServicePost from "../components/servicepost/ServicePost";
 import Booking from "../components/booking/Booking";
 import ProductDetails from "../components/productdetails/ProductDetails";
-import EditUser from "../pages/admin/list/user/EditUser";
-
+import UserEdit from "../pages/admin/list/user/Edit";
+import AdminService from "../pages/admin/service/Service";
+import ServiceEdit from "../pages/admin/service/Edit";
 
 function Routers() {
   const {darkMode} = useContext(DarkModeContext)
+  
   return (
     <BrowserRouter>
         <div className={darkMode ? "app dark" : "app"}>
@@ -40,24 +42,26 @@ function Routers() {
           <Route path="/product" element={<Product />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
+
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/service/booking" element={<Booking/>}/>
           <Route path="/product/:slug" element={<ProductDetails/>}/>
 
 
-          <Route path="/" element={<AdminLogin/>}/>
+          <Route path="/adm" element={<AdminLogin/>}/>
           <Route path="/admin" element={<AdminHome/>}/>
-          <Route path="/admin/users" element={<AdminUser/>}/>
-          <Route path="/admin/users/edit" element={<EditUser/>}/>
-          <Route path="/admin/users/edit/:id" element={<EditUser/>}/>
+          <Route path="/admin/users" element={<AdminList/>}/>
+          <Route path="/admin/users/edit" element={<UserEdit/>}/>
 
           <Route path="/admin/products" element={<AdminProduct/>}/>
           <Route path="/admin/cart" element={<AdminCart/>}/>
-          <Route path="/admin/setting" element={<AdminSetting/>}/>
           <Route path="/admin/booking" element={<AdminBooking/>}/>
-          {/* </Route> */}
+
+          <Route path="/admin/service" element={<AdminService/>}/>
+          <Route path="/admin/service/edit" element={<ServiceEdit/>}/>
           
+          <Route path="/admin/setting" element={<AdminSetting/>}/>
 
           <Route path="/*" element={<NotFound />} />
         </Routes>

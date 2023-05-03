@@ -30,7 +30,15 @@ public class UserMap : IEntityTypeConfiguration<User>
 			.IsRequired()
 			.HasMaxLength(100);
 
-		builder.HasOne(u => u.Role)
+/*        builder.Property(u => u.Address)
+			.IsRequired()
+			.HasMaxLength(100);
+
+        builder.Property(u => u.PhoneNo)
+			.IsRequired()
+			.HasMaxLength(100);*/
+
+        builder.HasOne(u => u.Role)
 			.WithMany(r => r.Users)
 			.HasForeignKey(u => u.RoleId)
 			.HasConstraintName("FK_Users_Roles")

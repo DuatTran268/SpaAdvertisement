@@ -2,6 +2,7 @@ using SpaCenter.API.Mapsters;
 using SpaCenter.WebApi.Endpoints;
 using SpaCenter.WebApi.Extensions;
 using SpaCenter.WebApi.Validations;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -14,11 +15,13 @@ var builder = WebApplication.CreateBuilder(args);
     //.ConfigureNLog()
 }
 
+
 var app = builder.Build();
 {
     // config the http request pipeline
     app.SetUpRequestPipeline();
     app.UseDataSeeder();
+
 
     // config API endpoints
     app.MapRoleEndpoints();

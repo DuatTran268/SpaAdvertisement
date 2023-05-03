@@ -36,6 +36,5 @@ namespace SpaCenter.Services.Manages.Users
 		// delete user by id
 		Task<bool> DeleteUserByIdAsync(int userId, CancellationToken cancellationToken = default);
 
-	
-	}
+    }
 }

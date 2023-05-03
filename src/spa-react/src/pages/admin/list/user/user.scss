@@ -1,14 +1,18 @@
-.booking{
+.user{
     padding: 40px 30px;
     background-color: #04502c4d;
     height: 90%;
-    .option{
-        width: 180px;
 
+    .option{
+        width: 145px;
+
+    }
+    .add{
+        margin-left: 90%;
+        margin-bottom: 5px;
     }
 
     button{
         margin: 0 2px 0 2px;
     }
-
 }
