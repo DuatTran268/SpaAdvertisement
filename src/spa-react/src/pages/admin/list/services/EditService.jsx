@@ -116,7 +116,7 @@ const EditService = () => {
                   required
                   value={service.shortDescription || ""}
                   onChange={(e) =>
-                    setService({ ...service, email: e.target.value })
+                    setService({ ...service, shortDescription: e.target.value })
                   }
                 />
                 <Form.Control.Feedback type="invalid">

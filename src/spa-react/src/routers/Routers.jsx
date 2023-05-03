@@ -59,7 +59,9 @@ function Routers() {
           <Route path="/admin/setting" element={<AdminSetting/>}/>
           <Route path="/admin/booking" element={<AdminBooking/>}/>
           <Route path="/admin/service" element={<AdminService/>}/>
+          <Route path="/admin/service/edit" element={<EditService/>}/>
           <Route path="/admin/service/edit/:id" element={<EditService/>}/>
+
 
 
 

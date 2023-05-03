@@ -8,6 +8,7 @@ import { deleteService, getFilterService } from "../../../../api/ServiceApi";
 import Loading from "../../../../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import ServiceFilter from "../../../../components/admin/filter/ServieFilterModel";
 
 const AdminService = () => {
   const [servieList, setServiceList] = useState([]);
@@ -54,6 +55,7 @@ const AdminService = () => {
         <div className="listContainer">
           <Navbar />
           <div className="container mt-5">
+            <ServiceFilter/>
             {isVisibleLoading ? (
               <Loading />
             ) : (
