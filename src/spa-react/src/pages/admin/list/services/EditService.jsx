@@ -1,32 +1,35 @@
 import React, { useEffect, useState } from "react";
-import {  useParams , Link} from "react-router-dom";
-import { getUserById, updateUser } from "../../../../api/User";
-import { Button, Form} from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
+import { getServiceById, updateService } from "../../../../api/ServiceApi";
+
 import Navbar from "../../../../components/admin/navbar/Navbar";
 import Sidebar from "../../../../components/admin/sidebar/Sidebar";
+import { Button, Form} from "react-bootstrap";
 
-const EditUser = () => {
+
+
+const EditService = () => {
   const [validated, setValidated] = useState(false);
   const initialState = {
-      id: 0,
-      fullName: "",
-      urlSlug: "",
-      email: "",
-    },
-    [user, setUser] = useState(initialState);
+    id: 0,
+    name: "",
+    urlSlug: "",
+    shortDescription: "",
+  },
+  [service, setService] = useState(initialState);
 
   let { id } = useParams();
   id = id ?? 0;
 
   useEffect(() => {
-    document.title = "Thêm/cập nhật user";
+    document.title = "Thêm cập nhật dịch vụ";
 
-    getUserById(id).then((data) => {
-      if (data) {
-        console.log("data: ", data);
-        setUser(data);
-      } else {
-        setUser(initialState);
+    getServiceById(id).then((data) => {
+      if(data){
+        setService(data);
+      }
+      else{
+        setService(initialState);
       }
     });
   }, []);
@@ -39,7 +42,7 @@ const EditUser = () => {
     } else {
       let data = new FormData(e.target);
       
-      updateUser(id, data).then((data) => {
+      updateService(id, data).then((data) => {
         if (data) {
           alert("Đã lưu thành công");
         } else {
@@ -47,11 +50,10 @@ const EditUser = () => {
         }
       });
     }
-  };
+  }
 
   return (
-    <>
-      <div className="list">
+    <div className="list">
       <Sidebar />
         <div className="listContainer">
           <Navbar />
@@ -63,18 +65,18 @@ const EditUser = () => {
             noValidate
             validated={validated}
           >
-            <Form.Control type="hidden" name="id" value={user.id} />
+            <Form.Control type="hidden" name="id" value={service.id} />
             <div className="row mb-3">
-              <Form.Label className="col-sm-2 col-form-label">Tên người dùng</Form.Label>
+              <Form.Label className="col-sm-2 col-form-label">Tên dịch vụ</Form.Label>
               <div className="col-sm-10">
                 <Form.Control
                   type="text"
-                  name="fullName"
-                  title="Full Name"
+                  name="name"
+                  title="Name"
                   required
-                  value={user.fullName || ""}
+                  value={service.name || ""}
                   onChange={(e) =>
-                    setUser({ ...user, fullName: e.target.value })
+                    setService({ ...service, name: e.target.value })
                   }
                 />
                 <Form.Control.Feedback type="invalid">
@@ -91,9 +93,9 @@ const EditUser = () => {
                   name="urlSlug"
                   title="Url Slug"
                   required
-                  value={user.urlSlug || ""}
+                  value={service.urlSlug || ""}
                   onChange={(e) =>
-                    setUser({ ...user, urlSlug: e.target.value })
+                    setService({ ...service, urlSlug: e.target.value })
                   }
                 />
                 <Form.Control.Feedback type="invalid">
@@ -104,17 +106,17 @@ const EditUser = () => {
 
             <div className="row mb-3">
               <Form.Label className="col-sm-2 col-form-label">
-                Email
+                Short Description
               </Form.Label>
               <div className="col-sm-10">
                 <Form.Control
                   type="text"
-                  name="email"
+                  name="shortDescription"
                   title="Email"
                   required
-                  value={user.email || ""}
+                  value={service.shortDescription || ""}
                   onChange={(e) =>
-                    setUser({ ...user, email: e.target.value })
+                    setService({ ...service, email: e.target.value })
                   }
                 />
                 <Form.Control.Feedback type="invalid">
@@ -127,7 +129,7 @@ const EditUser = () => {
               <Button variant="success" type="submit">
                 Lưu các thay đổi
               </Button>
-              <Link to="/admin/users" className="btn btn-danger ms-2">
+              <Link to="/admin/service" className="btn btn-danger ms-2">
                 Hủy và quay lại
               </Link>
             </div>
@@ -136,8 +138,7 @@ const EditUser = () => {
         </div>
       </div>
 
-    </>
-  );
-};
+  )
+}
 
-export default EditUser;
+export default EditService;

@@ -40,7 +40,7 @@ const UserFilter = () => {
     >
     <Form.Group className="col-auto">
       <Form.Label className="visually-hidden">
-        Keyword
+        Tên
       </Form.Label>
       <Form.Control 
       type="text"
@@ -53,11 +53,11 @@ const UserFilter = () => {
 
     <Form.Group className="col-auto">
       <Form.Label className="visually-hidden">
-        Keyword
+        Email
       </Form.Label>
       <Form.Control 
       type="text"
-      placeholder="Nhập tên"
+      placeholder="Nhập email"
       name="fullName"
       value={useFilter}
       onChange = {(e) => dispatch(updateKeyword(e.target.value))}
@@ -67,7 +67,7 @@ const UserFilter = () => {
         <Button variant="danger" type="submit">
           Xoá Lọc
         </Button>
-        <Link to='/' className="btn btn-success ms-2">Thêm mới</Link>
+        <Link to={`/admin/users/edit`} className="btn btn-success ms-2">Thêm mới</Link>
       </Form.Group>
     </Form>
   );

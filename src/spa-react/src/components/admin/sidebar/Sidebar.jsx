@@ -60,6 +60,12 @@ const Sidebar = () => {
                 <span>Booking</span>
             </li>
             </Link>
+            <Link to={'/admin/service'} style={{textDecoration:"none"}}>
+            <li>
+              <LocalShippingOutlinedIcon className="icon"/>
+                <span>Dịch vụ</span>
+            </li>
+            </Link>
             <p className="title">USEFUL</p>
             <li>
               <NotificationsNoneOutlinedIcon className="icon"/>

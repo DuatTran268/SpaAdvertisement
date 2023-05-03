@@ -23,6 +23,8 @@ import ServicePost from "../components/servicepost/ServicePost";
 import Booking from "../components/booking/Booking";
 import ProductDetails from "../components/productdetails/ProductDetails";
 import EditUser from "../pages/admin/list/user/EditUser";
+import AdminService from "../pages/admin/list/services/Service";
+import EditService from "../pages/admin/list/services/EditService";
 
 
 function Routers() {
@@ -56,7 +58,11 @@ function Routers() {
           <Route path="/admin/cart" element={<AdminCart/>}/>
           <Route path="/admin/setting" element={<AdminSetting/>}/>
           <Route path="/admin/booking" element={<AdminBooking/>}/>
-          {/* </Route> */}
+          <Route path="/admin/service" element={<AdminService/>}/>
+          <Route path="/admin/service/edit/:id" element={<EditService/>}/>
+
+
+
           
 
           <Route path="/*" element={<NotFound />} />
