@@ -9,5 +9,7 @@ namespace SpaCenter.WebApi.Models.ServiceTypes
         public string Name { get; set; }
         [DisplayName("Giá loại dịch vụ")]
         public string Price { get; set; }
-    }
+		public IEnumerable<SelectListItem> ServiceList { get; set; }
+
+	}
 }

@@ -1,0 +1,159 @@
+import React, { useEffect, useState } from "react";
+import Sidebar from "../../../../components/admin/sidebar/Sidebar";
+import Navbar from "../../../../components/admin/navbar/Navbar";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import {
+  changeCallStatus,
+  deleteSupport,
+  getFilterSupport,
+} from "../../../../api/SupportApi";
+import Loading from "../../../../components/Loading";
+import { Table } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEdit,
+  faPhone,
+  faPhoneSlash,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+
+const AdminSupport = () => {
+  const [supportList, setSupportList] = useState([]);
+  const [isVisibleLoading, setIsVisibleLoading] = useState(true),
+    supportFilter = useSelector((state) => state.supportFilter);
+
+  let { id } = useParams,
+    p = 1,
+    ps = 10;
+
+  useEffect(() => {
+    document.title = "Quản lý hỗ trợ khách hàng";
+
+    getFilterSupport(supportFilter, ps, p).then((data) => {
+      if (data) {
+        setSupportList(data.items);
+      } else {
+        setSupportList([]);
+      }
+      setIsVisibleLoading(false);
+    });
+  }, [supportFilter, ps, p]);
+
+  // delete
+  const handleDeleteUser = (e, id) => {
+    e.preventDefault();
+    RemoveUser(id);
+    async function RemoveUser(id) {
+      if (window.confirm("Bạn có muốn xoá khách hàng cần hỗ trợ này")) {
+        const response = await deleteSupport(id);
+        if (response) {
+          alert("Đã xoá khách hàng cần hỗ trợ");
+          window.location.reload(true);
+        } else alert("Đã xảy ra lỗi xoá khách hàng này");
+      }
+    }
+  };
+
+  // change call
+  // change published
+  const handleChangeCallStatus = (e, id) => {
+    e.preventDefault();
+
+    changeStatusCall(id);
+
+    async function changeStatusCall(id) {
+      // await changeCallStatus(id)
+      const response = await changeCallStatus(id);
+      if (response) {
+        alert("Thay đổi trạng thái cuộc gọi thành công");
+        
+      } else {
+        alert("Thay đổi trạng thái cuộc gọi không thành công");
+      }
+    }
+  };
+
+  return (
+    <>
+      <div className="list">
+        <Sidebar />
+        <div className="listContainer">
+          <Navbar />
+          <div className="container mt-5">
+            {isVisibleLoading ? (
+              <Loading />
+            ) : (
+              <>
+                <div className="text-end">
+                  <span className="text-warning">Chú thích: </span>
+                  <span className="text-success px-3">
+                    <FontAwesomeIcon icon={faPhone} />
+                    Chưa gọi
+                  </span>
+                  <span className="text-danger px-5">
+                    <FontAwesomeIcon icon={faPhoneSlash} />
+                    Đã gọi
+                  </span>
+                </div>
+                <Table striped responsive bordered>
+                  <thead>
+                    <tr>
+                      <th>Tên khách hàng</th>
+                      <th>Số điện thoại</th>
+                      <th>Trạng thái</th>
+                      <th>Sửa</th>
+                      <th>Xoá</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {supportList.length > 0 ? (
+                      supportList.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.fullName}</td>
+                          <td>{item.phoneNumber}</td>
+                          <td>
+                            <div className="text-center" onClick={(e) => handleChangeCallStatus(e, item.id)}>
+                              {item.status ? (
+                                <FontAwesomeIcon icon={faPhone} color="green" />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faPhoneSlash}
+                                  color="red"
+                                />
+                              )}
+                            </div>
+                          </td>
+                          <td className="text-center">
+                            <Link to={`/admin/support/edit/${item.id}`}>
+                              <FontAwesomeIcon icon={faEdit} />
+                            </Link>
+                          </td>
+                          <td className="text-center">
+                            <div onClick={(e) => handleDeleteUser(e, item.id)}>
+                              <FontAwesomeIcon icon={faTrash} color="red" />
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={3}>
+                          <h4 className="text-danger text-center">
+                            Không tìm thấy user nào
+                          </h4>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </Table>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default AdminSupport;
