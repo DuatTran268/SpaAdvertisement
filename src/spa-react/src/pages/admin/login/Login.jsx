@@ -9,7 +9,6 @@ export default function AdminLogin() {
   const navigate = useNavigate()
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
-  const [admin, setUsers] = useState("");
 
     async function Click() {   
         const SpaCenter ={
@@ -17,7 +16,7 @@ export default function AdminLogin() {
         Password: password,
       };
         const url = `https://localhost:7024/api/users`;
-        axios.get(url,SpaCenter).then((result) =>{
+        axios.post(url,SpaCenter).then((result) =>{
           navigate("/adminHome")
         })
                 

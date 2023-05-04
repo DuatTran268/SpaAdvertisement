@@ -1,11 +1,12 @@
 
+
 const Dproduct = [
   {
     id: 1,
     name: "Thuốc trị mụn",
     urlSlug: "dieu-tri-mun",
     image: "https://gaspa.vn/wp-content/uploads/2022/06/Body-ngay-scaled.jpeg",
-     description: "KEM CHỐNG NẮNG EFFCTIVE SUNCREEN SPF 50/PA+++ là sản phẩm kem chống nắng đến từ thương hiệu C13 Beauty, giúp chống lại tác hại của tia UV & bụi mịn tối ưu dưới mọi điều kiện sinh hoạt, kể cả thời tiết khắc nghiệt nhất. Sản phẩm đặc biệt phù hợp với mọi loại da.",
+    description: "KEM CHỐNG NẮNG EFFCTIVE SUNCREEN SPF 50/PA+++ là sản phẩm kem chống nắng đến từ thương hiệu C13 Beauty, giúp chống lại tác hại của tia UV & bụi mịn tối ưu dưới mọi điều kiện sinh hoạt, kể cả thời tiết khắc nghiệt nhất. Sản phẩm đặc biệt phù hợp với mọi loại da.",
     price: 200,
   },
   {

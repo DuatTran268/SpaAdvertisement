@@ -19,7 +19,7 @@ const AdminBooking = () => {
   const [bookingDate, setBookingDate] = useState([]);
   const [noteMessage, setNoteMessage] = useState([]);
   const [priceTotal, setPriceTotal] = useState([]);
-
+  const [editRoleId, setEditRoleId] = useState([]);
   const [editName, setEditName] = useState([]);
   const [editUrlSlug, setEditUrlSlug] = useState([]);
   const [editEmail, setEditEmail] = useState([]);
@@ -27,6 +27,7 @@ const AdminBooking = () => {
   const [editBookingDate, setEditBookingDate] = useState([]);
   const [editNoteMessage, setEditNoteMessage] = useState([]);
   const [editPriceTotal, setEditPriceTotal] = useState([]);
+  const [editUserId, SetEditUserId] = useState([]);
 
 
   const [show, setShow] = useState(false);
@@ -44,12 +45,12 @@ const AdminBooking = () => {
   });
 
   const handleRemove= async (id)=>{
-    if(window.confirm("co muon xoa") == true) {
+    if(window.confirm("Xóa đơn này") == true) {
       axios.delete(`https://localhost:7024/api/bookings/${id}`) 
       .then((result)=>{
         if(result.status ===200)
         {
-          console.log('thanh cong')
+          console.log('Thành công')
         }
       }).catch((error)=>{
         console.error(error);
@@ -85,13 +86,15 @@ const AdminBooking = () => {
       "bookingDate": editBookingDate,
       "noteMessage": editNoteMessage,
       "priceTotal": editPriceTotal,
+      "status": true,
+      "userId": 1,
     }
 
     axios.put(url, data)
     .then((result)=>{
       getBooking();
       clear();
-      console.log("thanh cong");
+      alert("Thành công");
     }).catch((err) => {
       console.log(err)
     })
@@ -112,8 +115,9 @@ const AdminBooking = () => {
     setEditBookingDate('');
     setEditNoteMessage('');
     setEditPriceTotal('');
+    SetEditUserId('');
   }
-  
+
 
   
   return (
@@ -122,7 +126,7 @@ const AdminBooking = () => {
       <div className="listContainer">
         <Navbar />
         <div className="booking">
-        <Link to="/admin/booking/edit" >
+        <Link to="/admin/booking/edit" className="add" >
                       <button type="submit" className="btn btn-success">Thêm mới</button>
                       </Link>
           <div className="table">
@@ -137,9 +141,9 @@ const AdminBooking = () => {
                   <th>Ngày đặt lịch</th>
                   <th>Nội dung</th>
                   <th>Giá</th>
-                  <th>Trạng thái</th>
+                  {/* <th>Trạng thái</th> */}
                   <th>Người đặt</th>
-                  <th>Đặt</th>
+                  {/* <th>Đặt</th> */}
                   <th>Option</th>
                 </tr>
               </thead>
@@ -155,9 +159,9 @@ const AdminBooking = () => {
                     <td>{item.bookingDate}</td>
                     <td>{item.noteMessage}</td>
                     <td>{item.priceTotal}</td>
-                    <td>{item.status}</td>
+                    {/* <td>{item.status}</td> */}
                     <td>{item.userId}</td>
-                    <td>{item.serviceTypeBookings}</td>
+                    {/* <td>{item.serviceTypeBookings}</td> */}
                     <td className="option">
                       <button onClick={()=> handleRemove(item.id)} type="submit" className="btn btn-danger">
                         Xóa
@@ -191,7 +195,7 @@ const AdminBooking = () => {
                             value={editPhoneNumber} onChange={(e) => setEditPhoneNumber(e.target.value)}/>
                             </Col>
                             <Col>
-                            <input type="text" className="form-control mb-2" placeholder="Ngày đặt"
+                            <input type="text" className="form-control mb-2" placeholder="Ngày đặt" 
                             value={editBookingDate} onChange={(e) => setEditBookingDate(e.target.value)}/>
                             </Col>
                             <Col>
@@ -201,6 +205,10 @@ const AdminBooking = () => {
                             <Col>
                             <input type="text" className="form-control mb-2" placeholder="Giá"
                             value={editPriceTotal} onChange={(e) => setEditPriceTotal(e.target.value)}/>
+                            </Col>                         
+                            <Col>
+                            <input type="text" className="form-control mb-2" placeholder="Người đặt"
+                            value={editUserId} onChange={(e) => SetEditUserId(e.target.value)}/>
                             </Col>                         
                         </Modal.Body>
                         <Modal.Footer>

@@ -2,7 +2,7 @@ import "./service.scss";
 import Sidebar from '../../../components/admin/sidebar/Sidebar'
 import Navbar from '../../../components/admin/navbar/Navbar'
 import { Table } from 'react-bootstrap'
-import { getAllServiceType } from '../../../api/ServiceApi'
+import { addServiceImage, getAllServiceType } from '../../../api/ServiceApi'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from "axios";
@@ -46,18 +46,20 @@ const AdminService = () => {
       });
 
       const handleRemove= async (id)=>{
-        if(window.confirm("co muon xoa") == true) {
+        if(window.confirm("Xóa dịch vụ này") == true) {
           axios.delete(`https://localhost:7024/api/servicetypes/${id}`) 
           .then((result)=>{
             if(result.status ===200)
             {
-              console.log('thanh cong')
+              console.log('Thành công')
             }
           }).catch((error)=>{
             console.error(error);
           })
         }
       }
+
+
 
       const handleUpdate = () => {
         const url =`https://localhost:7024/api/servicetypes/${editId}`
@@ -68,16 +70,16 @@ const AdminService = () => {
           "shortDescription": editShortDescription,
           "description": editDescription,
           "price": editPrice,
-          "serviceId": 0
+          "serviceId": 1
         }
   
         axios.put(url, data)
         .then((result)=>{
           getAllServiceType();
           clear();
-          console.log("thanh cong");
+          alert("Thành công");
         }).catch((err) => {
-          console.log(err)
+          alert(err)
         })
       }
       
@@ -114,10 +116,11 @@ const AdminService = () => {
       }
 
 
+
   return (
     <div className="list">
       <Sidebar/>
-      <div className="listContainer">
+      <div className="listContainer new">
         <Navbar/>
       <div className="product">
           <Link to="/admin/service/edit" >
@@ -159,7 +162,7 @@ const AdminService = () => {
                       </button>
                       <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButon>
-                            <Modal.Title>Chinh Sua</Modal.Title>
+                            <Modal.Title>Chỉnh sửa</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Col>
@@ -176,7 +179,8 @@ const AdminService = () => {
                             </Col>
                             <Col>
                             <input type="file" name="imageFile" accept="image/*" className="form-control mb-2" placeholder="Image"
-                            value={editImageUrl} onChange={(e) => setEditImageUrl(e.target.value)}/>
+                            // value={editImageUrl} onChange={(e) => setEditImageUrl(e.target.value)}
+                            />
                             </Col>
                             <Col>
                             <input type="text" className="form-control mb-2" placeholder="Mô tả ngắn"
@@ -202,7 +206,7 @@ const AdminService = () => {
                 ))
                 ):(
               <tr>
-                <td colSpan={7}>
+                <td colSpan={8}>
                   <h4 className='text-danger text-center'>
                       Không tìm thấy dịch vụ nào
                   </h4>

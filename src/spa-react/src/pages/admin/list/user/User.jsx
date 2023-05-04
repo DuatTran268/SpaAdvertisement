@@ -14,18 +14,18 @@ const AdminUser = () => {
 
     const [userList, setUserList] = useState([]);
     const [id, setId] = useState("");
-    const [fullName, setFullName] = useState([]);
-    const [urlSlug, setUrlSlug] = useState([]);
-    const [email, setEmail] = useState([]);
-    const [password, setPassword] = useState([]);
-    const [roleId, setRoleId] = useState([]);
+    const [fullName, setFullName] = useState('');
+    const [urlSlug, setUrlSlug] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [roleId, setRoleId] = useState('');
 
-    const [editId, setEditId] = useState([]);
-    const [editFullName, setEditFullName] = useState([]);
-    const [editUrlSlug, setEditUrlSlug] = useState([]);
-    const [editEmail, setEditEmail] = useState([]);
-    const [editPassword, setEditPassword] = useState([]);
-    const [editRoleId, setEditRoleId] = useState([]);
+    const [editId, setEditId] = useState(0);
+    const [editFullName, setEditFullName] = useState('');
+    const [editUrlSlug, setEditUrlSlug] = useState('');
+    const [editEmail, setEditEmail] = useState('');
+    const [editPassword, setEditPassword] = useState('');
+    const [editRoleId, setEditRoleId] = useState(0);
 
     const [show, setShow] = useState(false);
 
@@ -45,12 +45,12 @@ const AdminUser = () => {
     });
 
     const handleRemove= async (id)=>{
-      if(window.confirm("co muon xoa") == true) {
+      if(window.confirm("Xóa người dùng này") == true) {
         axios.delete(`https://localhost:7024/api/users/${id}`) 
         .then((result)=>{
           if(result.status ===200)
           {
-            console.log('thanh cong')
+            console.log('Thành công')
           }
         }).catch((error)=>{
           console.error(error);
@@ -87,14 +87,14 @@ const AdminUser = () => {
         "urlSlug": editUrlSlug,
         "email": editEmail,
         "password": editPassword,
-        "roleId": editRoleId
+        "roleId": 1
       }
 
       axios.put(url, data)
       .then((result)=>{
         getUser();
         clear();
-        console.log("thanh cong");
+        alert("Thành công");
       }).catch((err) => {
         console.log(err)
       })
@@ -109,8 +109,7 @@ const AdminUser = () => {
         setEditEmail(result.data.email);
         setEditPassword(result.data.password);
         setEditUrlSlug(result.data.urlSlug);
-        setEditRoleId(result.data.roleId);
-        setEditId(id);       
+        setEditId(id);     
       }).catch((error) => {
         console.log(error)
       })
@@ -137,7 +136,6 @@ const AdminUser = () => {
                 <th>UrlSlug</th>
                 <th>Email</th>
                 <th>Password</th>
-                <th>Role</th>
                 <th>Option</th>
               </tr>
             </thead>
@@ -150,7 +148,7 @@ const AdminUser = () => {
                     <td>{item.urlSlug}</td>
                     <td>{item.email}</td>
                     <td>{item.password}</td>
-                    <td>{item.roleId}</td>
+
                     <td className="option">
                       <button onClick={()=> handleRemove(item.id)} type="submit" className="btn btn-danger">
                         Xóa
@@ -164,11 +162,11 @@ const AdminUser = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <Col>
-                            <input type="text" className="form-control mb-2" placeholder="Id"
+                            <input type="text" className="form-control mb-2" placeholder="Id" disabled
                             value={editId} onChange={(e) => setEditId(e.target.value)}/>
                             </Col>
                             <Col>
-                            <input type="text" className="form-control mb-2" placeholder="Tên"
+                            <input type="text" className="form-control mb-2" placeholder="Tên" 
                             value={editFullName} onChange={(e) => setEditFullName(e.target.value)}/>
                             </Col>
                             <Col>
@@ -183,12 +181,12 @@ const AdminUser = () => {
                             <input type="text" className="form-control mb-2" placeholder="Mật khẩu"
                             value={editPassword} onChange={(e) => setEditPassword(e.target.value)}/>
                             </Col>
-                            <Col>
+                            {/* <Col>
                             <input type="checkbox" 
                             checked={editRoleId === 1 ? true : false}
                             onChange={(e)=> handleActiveChange(e)} value={editRoleId}/>
-                            <label>RoleId</label>
-                            </Col>
+                            <label>IsSuccess</label>
+                            </Col> */}
                           
                         </Modal.Body>
                         <Modal.Footer>

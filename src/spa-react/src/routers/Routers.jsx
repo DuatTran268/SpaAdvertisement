@@ -25,6 +25,7 @@ import ProductDetails from "../components/productdetails/ProductDetails";
 import UserEdit from "../pages/admin/list/user/Edit";
 import AdminService from "../pages/admin/service/Service";
 import ServiceEdit from "../pages/admin/service/Edit";
+import BookingEdit from "../pages/admin/booking/Edit";
 
 function Routers() {
   const {darkMode} = useContext(DarkModeContext)
@@ -57,6 +58,7 @@ function Routers() {
           <Route path="/admin/products" element={<AdminProduct/>}/>
           <Route path="/admin/cart" element={<AdminCart/>}/>
           <Route path="/admin/booking" element={<AdminBooking/>}/>
+          <Route path="/admin/booking/edit" element={<BookingEdit/>}/>
 
           <Route path="/admin/service" element={<AdminService/>}/>
           <Route path="/admin/service/edit" element={<ServiceEdit/>}/>

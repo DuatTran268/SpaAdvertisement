@@ -9,58 +9,52 @@ import axios from 'axios';
 
 
 
-const ServiceEdit = () => {
+const BookingEdit = () => {
 
   const navigate = useNavigate()
-  const [name, setName] = useState([]);
   const [urlSlug, setUrlSlug] = useState([]);
-  const [imageUrl, setImageUrl] = useState([]);
-  const [shortDescription, setShortDescription] = useState([]);
-  const [description, setDescription] = useState([]);
-  const [price, setPrice] = useState([]);
+  const [name, setName] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [phoneNumber, setPhoneNumber] = useState([]);
+  const [bookingDate, setBookingDate] = useState([]);
+  const [noteMessage, setNoteMessage] = useState([]);
+  const [priceTotal, setPriceTotal] = useState([]);
+  const [userId, setUserId] = useState([]);
 
 
 
   const handleSave = () => {
-    const url = 'https://localhost:7024/api/servicetypes'
+    const url = 'https://localhost:7024/api/bookings'
     const data = {
         "name": name,
+        "email": email,
         "urlSlug": urlSlug,
-        "imageUrl": imageUrl,
-        "shortDescription": shortDescription,
-        "description": description,
-        "price": price,
-        "serviceId": 1
+        "phoneNumber": phoneNumber,
+        "bookingDate": bookingDate,
+        "noteMessage": noteMessage,
+        "priceTotal": priceTotal,
+        "status": true,
+        "userId": 1,
       }
-    axios.post(url,data)
+    axios.get(url,data)
     .then((result) =>{
       getAllServiceType();
       clear();
       alert("Thêm dịch vụ thành công");
-      navigate('/admin/service')
+      navigate('/admin/booking')
     }).catch((error)=>{
       alert("loi")
     })
 }
 const clear = () =>{
-  setName('');
-  setUrlSlug('');
-  setImageUrl('');
-  setShortDescription('');
-  setDescription('');
-  setPrice('');
-}
-const handleAddImage= async (id)=>{       
-  axios.post(`https://localhost:7024/api/servicetypes/${id}/picture}`) 
-  .then((result)=>{
-    if(result.status ===200)
-    {
-      
-      console.log('thanh cong')
-    }
-  }).catch((error)=>{
-    console.error(error);
-  })
+    setName('');
+    setEmail('');
+    setUrlSlug('');
+    setPhoneNumber('');
+    setBookingDate('');
+    setNoteMessage('');
+    setPriceTotal('');
+    setUserId('');
 }
 
 
@@ -77,7 +71,7 @@ const handleAddImage= async (id)=>{
         <div className="row">
           <div className="col-6 mb-3">
             <Form.Group>
-              <Form.Control type="text" placeholder="Nhập tên dịch vụ" 
+              <Form.Control type="text" placeholder="Nhập tên họ tên" 
               required 
               value={name} onChange={(e) => setName(e.target.value)}
               />
@@ -94,45 +88,60 @@ const handleAddImage= async (id)=>{
         
           <div className="col-6 mb-3">
             <Form.Group>
-              <Form.Control type="text" placeholder="Mô tả dịch vụ"
+              <Form.Control type="text" placeholder="Nhập Email"
                required
-               value={shortDescription} onChange={(e) => setShortDescription(e.target.value)}
+               value={email} onChange={(e) => setEmail(e.target.value)}
                />
             </Form.Group>
           </div>
           <div className="col-6">
             <Form.Group>
-              <Form.Control type="text" placeholder="Nội dung"
+              <Form.Control type="text" placeholder="Số điện thoại"
                required
-               value={description} onChange={(e) => setDescription(e.target.value)}
+               value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}
               
                />
             </Form.Group>
           </div>
           <div className="col-6">
             <Form.Group>
-              <Form.Control type="text" placeholder="Giá dịch vụ" 
+              <Form.Control type="text" placeholder="Ngày đặt lịch" 
               required 
-              value={price} onChange={(e) => setPrice(e.target.value)}
+              value={bookingDate} onChange={(e) => setBookingDate(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+          <div className="col-6 mb-3">
+            <Form.Group>
+              <Form.Control type="text" placeholder="Nội dung" 
+              required 
+              value={noteMessage} onChange={(e) => setNoteMessage(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+          <div className="col-6 ">
+            <Form.Group>
+              <Form.Control type="text" placeholder="Giá" 
+              required 
+              value={priceTotal} onChange={(e) => setPriceTotal(e.target.value)}
               />
             </Form.Group>
           </div>
           <div className="col-6">
-            <Form.Control
-              type="file"
-              name="imageFile"
-              accept="image/*"
-              title="Image file"
-              onSubmit={handleAddImage}
-              value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}
-            />
-        </div>
+            <Form.Group>
+              <Form.Control type="text" placeholder="Người đặt" 
+              required 
+              value={userId} onChange={(e) => setUserId(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+
           <div className="text-center mt-3">
 
           <Button onClick={()=> handleSave()} variant="primary" type="submit">
             Lưu các thay đổi
           </Button>
-          <Link to="/admin/service" className="btn btn-danger ms-2">
+          <Link to="/admin/booking" className="btn btn-danger ms-2">
             Hủy và quay lại
           </Link>
         </div>
@@ -144,4 +153,4 @@ const handleAddImage= async (id)=>{
   )
 }
 
-export default ServiceEdit
+export default BookingEdit

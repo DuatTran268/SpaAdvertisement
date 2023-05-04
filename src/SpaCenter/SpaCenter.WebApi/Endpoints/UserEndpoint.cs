@@ -29,7 +29,7 @@ public static class UserEndpoint
 			.WithName("GetUserNotRequired")
 			.Produces<ApiResponse<UserItem>>();
 
-        routeGroupBuilder.MapPost("/Add", CreateUserAsync)
+        routeGroupBuilder.MapPost("/", CreateUserAsync)
 			.WithName("CreateUserAsync")
 			.AddEndpointFilter<ValidatorFilter<UserEditModel>>()
 			.Produces(401)
