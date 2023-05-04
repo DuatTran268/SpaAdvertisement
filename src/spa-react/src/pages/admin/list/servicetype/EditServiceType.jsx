@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getServiceById, updateService } from "../../../../api/ServiceApi";
-
 import Navbar from "../../../../components/admin/navbar/Navbar";
 import Sidebar from "../../../../components/admin/sidebar/Sidebar";
 import { Button, Form } from "react-bootstrap";
-import { getServiceTypeById } from "../../../../api/ServiceTypeApi";
+import {
+  getServiceFilter,
+  getServiceTypeById,
+  updateServiceType,
+} from "../../../../api/ServiceTypeApi";
 import { isEmptyOrSpaces } from "../../../../Utils/Utils";
 
 const EditServiceType = () => {
@@ -18,8 +20,10 @@ const EditServiceType = () => {
       shortDescription: "",
       description: "",
       price: "",
+      serviceId: {},
     },
-    [serviceType, setServiceType] = useState(initialState);
+    [serviceType, setServiceType] = useState(initialState),
+    [filter, setFilter] = useState({ serviceList: [] });
 
   let { id } = useParams();
   id = id ?? 0;
@@ -34,6 +38,16 @@ const EditServiceType = () => {
         setServiceType(initialState);
       }
     });
+
+    getServiceFilter().then((data) => {
+      if (data) {
+        setFilter({
+          serviceList: data.serviceList,
+        });
+      } else {
+        setFilter({ serviceList: [] });
+      }
+    });
   }, []);
 
   const handleSubmit = (e) => {
@@ -44,7 +58,7 @@ const EditServiceType = () => {
     } else {
       let data = new FormData(e.target);
 
-      updateService(id, data).then((data) => {
+      updateServiceType(id, data).then((data) => {
         if (data) {
           alert("Đã lưu thành công");
         } else {
@@ -179,6 +193,32 @@ const EditServiceType = () => {
 
             <div className="row mb-3">
               <Form.Label className="col-sm-2 col-form-label">
+                Thuộc dịch vụ
+              </Form.Label>
+              <div className="col-sm-10">
+                <Form.Select
+                  name="serviceId"
+                  title="Service Id"
+                  value={serviceType.serviceId}
+                  required
+                  onChange={(e) => setServiceType({ ...serviceType, serviceId: e.target.value })}
+                >
+                  <option value="">--Loại dịch vụ--</option>
+                  {filter.serviceList.length > 0 &&
+                    filter.serviceList.map((item, index) => (
+                      <option key={index} value={item.value}>
+                        {item.text}
+                      </option>
+                    ))}
+                </Form.Select>
+                <Form.Control.Feedback type="invalid">
+                  Không được bỏ trống.
+                </Form.Control.Feedback>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <Form.Label className="col-sm-2 col-form-label">
                 Chọn hình ảnh
               </Form.Label>
               <div className="col-sm-10">
@@ -206,7 +246,10 @@ const EditServiceType = () => {
                   Hình hiện tại
                 </Form.Label>
                 <div className="col-sm-10">
-                  <img src={serviceType.imageUrl} alt={serviceType.title} />
+                  <img
+                    src={`https://localhost:7024/${serviceType.imageUrl}`}
+                    alt={serviceType.title}
+                  />
                 </div>
               </div>
             )}

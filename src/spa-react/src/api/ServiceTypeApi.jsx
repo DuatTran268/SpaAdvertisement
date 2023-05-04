@@ -40,6 +40,10 @@ export async function getServiceTypeById(id = 0) {
 }
 
 
-export async function updateService(id = 0, formData) {
+export async function updateServiceType(id = 0, formData) {
   return put_api(`https://localhost:7024/api/servicetypes/${id}`, formData);
+}
+
+export async function getServiceFilter() {
+  return get_api (`https://localhost:7024/api/servicetypes/get-filter`);
 }

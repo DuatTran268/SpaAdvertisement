@@ -7,6 +7,7 @@ import ProductItem from "../components/product/ProductItem";
 const Product = () => {
   useEffect(() => {
     document.title = "Sản phẩm";
+    window.scroll(0, 0);
   });
 
   return (

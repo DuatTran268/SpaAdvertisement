@@ -5,10 +5,11 @@ import { deleteServiceType, getFilterServiceType } from "../../../../api/Service
 import Sidebar from "../../../../components/admin/sidebar/Sidebar";
 import Navbar from "../../../../components/admin/navbar/Navbar";
 import Loading from "../../../../components/Loading";
-import { Table } from "react-bootstrap";
+import { Image, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ServiceTypeFilter from "../../../../components/admin/filter/ServiceTypeFilterModel";
+import { isEmptyOrSpaces } from "../../../../Utils/Utils";
 
 
 
@@ -17,9 +18,15 @@ const AdminServiceType = () => {
   const [isVisibleLoading, setIsVisibleLoading] = useState(true),
     serviceTypeFilter = useSelector((state) => state.serviceFilter);
 
+
+  
+  let imageUrl = !serviceTypeFilter || isEmptyOrSpaces(serviceTypeFilter.imageUrl)
+  ? process.env.PUBLIC_URL + "/images/imagedefault.jpg"
+  : `https://localhost:7024/${serviceTypeFilter.imageUrl}`;
+
   let { id } = useParams,
     p = 1,
-    ps = 10;
+    ps = 20;
 
   useEffect(() => {
     document.title = "Quản lý dịch vụ";
@@ -76,7 +83,9 @@ const AdminServiceType = () => {
                   {servieTypeList.length > 0 ? (
                     servieTypeList.map((item, index) => (
                       <tr key={index}>
-                        <td>Ảnh</td>
+                        <td className="text-center">
+                          <Image src={imageUrl} width={60}/>
+                        </td>
                         <td>{item.name}</td>
                         <td>{item.shortDescription}</td>
                         <td>{item.price}</td>
