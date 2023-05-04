@@ -116,5 +116,24 @@ namespace SpaCenter.Services.Manages.Supports
 			return await _context.Supports.Where(x => x.Id == supportId)
 				.ExecuteDeleteAsync(cancellationToken) > 0;
 		}
+
+		//get id
+		public async Task<Support> GetCallSupportIdAsync(int supportId, bool includeDetails = false, CancellationToken cancellationToken = default)
+		{
+			if (!includeDetails)
+			{
+				return await _context.Set<Support>().FindAsync(supportId);
+			}
+
+			return await _context.Set<Support>().Where(x => x.Id == supportId)
+				.FirstOrDefaultAsync(cancellationToken);
+		}
+
+		// change call status
+		public async Task ChangeCallStatusAsync(int supportId, CancellationToken cancellationToken = default)
+		{
+			await _context.Set<Support>().Where(sp => sp.Id == supportId)
+				.ExecuteUpdateAsync(sc => sc.SetProperty(st => st.Status, st => !st.Status), cancellationToken);
+		}
 	}
 }

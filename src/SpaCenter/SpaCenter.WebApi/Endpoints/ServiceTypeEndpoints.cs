@@ -8,6 +8,7 @@ using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
 using SpaCenter.Services.Manages.Services;
 using SpaCenter.Services.Manages.ServiceTypes;
+using SpaCenter.Services.Manages.Supports;
 using SpaCenter.Services.Media;
 using SpaCenter.WebApi.Filters;
 using SpaCenter.WebApi.Models;
@@ -75,7 +76,7 @@ namespace SpaCenter.WebApi.Endpoints
 				.WithName("GetFilterServiceAsync")
 				.Produces<ApiResponse<ServiceTypeFilterModel>>();
 
-
+			
 			return app;
 		}
 

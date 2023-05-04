@@ -50,6 +50,12 @@ namespace SpaCenter.WebApi.Endpoints
 				.Produces(401)
 				.Produces<ApiResponse<string>>();
 
+			// change status call
+			routeGroupBuilder.MapGet("/changecall/{id:int}", ChangeStatusCallSupport)
+				.WithName("ChangeStatusCallSupport")
+				.Produces<ApiResponse<string>>();
+
+
 			return app;
 		}
 
@@ -120,6 +126,23 @@ namespace SpaCenter.WebApi.Endpoints
 			return await supportRepository.DeleteSupportAsync(id)
 				? Results.Ok(ApiResponse.Success("Xoá thành công khách hàng cần hỗ trợ", HttpStatusCode.NoContent))
 				: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khách hàng có id = {id} để xoá"));
+
+		}
+
+
+		// change status call
+		private static async Task<IResult> ChangeStatusCallSupport(
+			int id, ISupportRepository supportRepository)
+		{
+			var support = await supportRepository.GetCallSupportIdAsync(id);
+			if (support == null)
+			{
+				Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khách hàng có id = '{id}'"));
+			}
+
+			await supportRepository.ChangeCallStatusAsync(id);
+
+			return Results.Ok(ApiResponse.Success("Thay đổi thành công trạng thái ", HttpStatusCode.NoContent));
 
 		}
 	}

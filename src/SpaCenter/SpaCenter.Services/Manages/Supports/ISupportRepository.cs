@@ -37,5 +37,14 @@ namespace SpaCenter.Services.Manages.Supports
 
 		// delete support
 		Task<bool> DeleteSupportAsync(int supportId, CancellationToken cancellationToken = default);
+		
+		// get support id status
+		public Task<Support> GetCallSupportIdAsync(
+			int supportId, bool includeDetails = false, CancellationToken cancellationToken = default);
+
+
+		// change call status
+		Task ChangeCallStatusAsync(int supportId, CancellationToken cancellationToken = default);
+
 	}
 }
