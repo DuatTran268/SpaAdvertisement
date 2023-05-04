@@ -2,6 +2,7 @@
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SpaCenter.Core.Collections;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
@@ -69,6 +70,10 @@ namespace SpaCenter.WebApi.Endpoints
 			routeGroupBuilder.MapGet("/slugDetail/{slug:regex(^[a-z0-9_-]+$)}", GetDetailServiceTypeBySlug)
 				.WithName("GetDetailServiceTypeBySlug")
 				.Produces<ApiResponse<ServiceTypeDetail>>();
+
+			routeGroupBuilder.MapGet("/get-filter", GetFilterServiceAsync)
+				.WithName("GetFilterServiceAsync")
+				.Produces<ApiResponse<ServiceTypeFilterModel>>();
 
 
 			return app;
@@ -221,5 +226,20 @@ namespace SpaCenter.WebApi.Endpoints
 				: Results.Ok(ApiResponse.Success(mapper.Map<ServiceTypeDetail>(serviceTypeList)));
 		}
 
+		// get filter
+		private static async Task<IResult> GetFilterServiceAsync(
+			IServiceRepository serviceRepository)
+		{
+			var model = new ServiceTypeFilterModel()
+			{
+				ServiceList = (await serviceRepository.GetServiceNotRequiredAsync())
+				.Select(s => new SelectListItem()
+				{
+					Text = s.Name,
+					Value = s.Id.ToString()
+				})
+			};
+			return Results.Ok(ApiResponse.Success(model));
+		}
 	}
 }
