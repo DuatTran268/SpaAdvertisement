@@ -1,69 +1,62 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  keyword: "",
-  authorId: "",
-  categoryId: "",
-  year: "",
-  month: "",
+  name: "",
+  fullName: "",
+  phoneNumber: "",
+  email: "",
 };
 
-const postFilterReducer = createSlice({
-  name: "postFilter",
+const filterSpa = createSlice({
+  name: "filterSpa",
   initialState,
   reducers: {
     reset: (state, action) => {
       return initialState;
     },
 
-    updateKeyword: (state, action) => {
+    updateName: (state, action) => {
       return {
         ...state,
-        keyword: action.payload,
+        name: action.payload,
       };
     },
 
-    updateAuthorId: (state, action) => {
+    updateFullName: (state, action) => {
       return {
         ...state,
-        authorId: action.payload,
+        fullName: action.payload,
       };
     },
 
-    updateCategoryId: (state, action) => {
+    updatePhoneNumber: (state, action) => {
       return {
         ...state,
-        categoryId: action.payload,
+        phoneNumber: action.payload,
       };
     },
 
-    updateMonth: (state, action) => {
+    updateEmail: (state, action) => {
       return {
         ...state,
         month: action.payload,
       };
     },
 
-    updateYear: (state, action) => {
-      return {
-        ...state,
-        year: action.payload,
-      };
-    },
   },
 });
 
 
 export const {
   reset, 
-  updateKeyword,
-  updateAuthorId,
-  updateCategoryId,
-  updateMonth,
-  updateYear
-} = postFilterReducer.actions;
+  updateName,
+  updateFullName,
+  updateEmail,
+  updatePhoneNumber
+  
+} = filterSpa.actions;
 
-export const reducer = postFilterReducer.reducer;
+export const reducer = filterSpa.reducer;
 
 
 // return {

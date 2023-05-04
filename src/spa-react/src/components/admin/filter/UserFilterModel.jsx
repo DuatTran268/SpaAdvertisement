@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {reset, updateKeyword} from "../../../Redux/Reducer"
+import {reset, updateName} from "../../../Redux/Reducer"
 import { getAllUser } from "../../../api/User";
 
 
@@ -47,7 +47,7 @@ const UserFilter = () => {
       placeholder="Nhập tên"
       name="fullName"
       value={useFilter}
-      onChange = {(e) => dispatch(updateKeyword(e.target.value))}
+      onChange = {(e) => dispatch(updateName(e.target.value))}
       />
     </Form.Group>
 
@@ -60,7 +60,7 @@ const UserFilter = () => {
       placeholder="Nhập email"
       name="fullName"
       value={useFilter}
-      onChange = {(e) => dispatch(updateKeyword(e.target.value))}
+      onChange = {(e) => dispatch(updateName(e.target.value))}
       />
     </Form.Group>
     <Form.Group className="col-auto">

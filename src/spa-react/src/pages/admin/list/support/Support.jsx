@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../../../components/admin/sidebar/Sidebar";
 import Navbar from "../../../../components/admin/navbar/Navbar";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   changeCallStatus,
   deleteSupport,
@@ -64,13 +64,16 @@ const AdminSupport = () => {
 
     async function changeStatusCall(id) {
       // await changeCallStatus(id)
-      const response = await changeCallStatus(id);
-      if (response) {
-        alert("Thay đổi trạng thái cuộc gọi thành công");
-        
-      } else {
-        alert("Thay đổi trạng thái cuộc gọi không thành công");
-      }
+      if (window.confirm("Bạn có muốn thay đổi trạng thái")) {
+        const response = await changeCallStatus(id);
+        if (response){
+          alert("Thay đổi trạng thái cuộc gọi thành công");
+          window.location.reload(true);
+        }
+        else{
+          alert("Thay đổi trạng thái thất bại")
+        }
+      } 
     }
   };
 
@@ -102,7 +105,7 @@ const AdminSupport = () => {
                       <th>Tên khách hàng</th>
                       <th>Số điện thoại</th>
                       <th>Trạng thái</th>
-                      <th>Sửa</th>
+                      {/* <th>Sửa</th> */}
                       <th>Xoá</th>
                     </tr>
                   </thead>
@@ -115,20 +118,20 @@ const AdminSupport = () => {
                           <td>
                             <div className="text-center" onClick={(e) => handleChangeCallStatus(e, item.id)}>
                               {item.status ? (
-                                <FontAwesomeIcon icon={faPhone} color="green" />
+                                <FontAwesomeIcon icon={faPhoneSlash} color="red" />
                               ) : (
                                 <FontAwesomeIcon
-                                  icon={faPhoneSlash}
-                                  color="red"
+                                  icon={faPhone}
+                                  color="green"
                                 />
                               )}
                             </div>
                           </td>
-                          <td className="text-center">
+                          {/* <td className="text-center">
                             <Link to={`/admin/support/edit/${item.id}`}>
                               <FontAwesomeIcon icon={faEdit} />
                             </Link>
-                          </td>
+                          </td> */}
                           <td className="text-center">
                             <div onClick={(e) => handleDeleteUser(e, item.id)}>
                               <FontAwesomeIcon icon={faTrash} color="red" />

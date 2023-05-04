@@ -13,6 +13,9 @@ const BookService = () => {
     },
     [support, setSupport] = useState(initialState);
 
+  
+    let { id } = useParams();
+    id = id ?? 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,11 +24,11 @@ const BookService = () => {
       setValidated(true);
     } else {
       let data = new FormData(e.target);
-      putCustomerSupport(data).then((data) => {
+      putCustomerSupport(id, data).then((data) => {
         if (data) {
-          alert("Cảm ơn bạn đã gửi thông tin để được hỗ trợ");
+          alert("Cảm ơn bạn đã gửi thông tin để được hỗ trợ, chúng tôi sẽ liên lạc với bạn sau");
         } else {
-          alert("Đã xảy ra lỗi khi gửi thông tin");
+          alert("Đã xảy ra lỗi khi gửi thông tin hỗ trợ");
         }
       });
     }
@@ -46,11 +49,6 @@ const BookService = () => {
         <Form.Control type="hidden" name="id" value={support.id} />
 
         <div className="row">
-          {/* <div className="col">
-            <Form.Group>
-              <Form.Control type="date" placeholder="Đặt ngày" required />
-            </Form.Group>
-          </div> */}
           <div className="col">
             <Form.Control
               type="text"

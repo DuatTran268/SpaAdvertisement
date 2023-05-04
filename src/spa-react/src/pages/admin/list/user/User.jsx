@@ -25,7 +25,7 @@ const AdminUser = () => {
   useEffect(() => {
     document.title = "Quản lý người dùng";
 
-    getFilterUser(userFilter, ps, p).then((data) => {
+    getFilterUser(userFilter ,ps , p).then((data) => {
       if (data) {
         console.log("check data:  ", data);
         setUserList(data.items);

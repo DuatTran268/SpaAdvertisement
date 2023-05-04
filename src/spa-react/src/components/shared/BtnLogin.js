@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const BtnLogin = () => {
   return (
     <div>
-    <Link  to={"/login"}>
+    <Link  to={"/admin"}>
       <Button className="btn btn-success">Đăng nhập</Button>
     </Link>
     </div>
