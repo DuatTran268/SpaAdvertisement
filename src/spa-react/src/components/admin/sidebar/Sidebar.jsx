@@ -5,14 +5,13 @@ import ProductionQuantityLimitsOutlinedIcon from '@mui/icons-material/Production
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import SettingsSystemDaydreamOutlinedIcon from '@mui/icons-material/SettingsSystemDaydreamOutlined';
 import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import {Link} from "react-router-dom";
 import { DarkModeContext } from "../context/darkModeReducer";
 import { useContext } from "react";
+import {  ElectricalServicesOutlined, MedicalServicesOutlined, SupportAgentOutlined } from "@mui/icons-material";
 
 const Sidebar = () => {
 
@@ -62,14 +61,20 @@ const Sidebar = () => {
             </Link>
             <Link to={'/admin/service'} style={{textDecoration:"none"}}>
             <li>
-              <LocalShippingOutlinedIcon className="icon"/>
+              <ElectricalServicesOutlined className="icon"/>
                 <span>Dịch vụ</span>
             </li>
             </Link>
             <Link to={'/admin/servicetype'} style={{textDecoration:"none"}}>
             <li>
-              <LocalShippingOutlinedIcon className="icon"/>
+              <MedicalServicesOutlined className="icon"/>
                 <span>Loại dịch vụ</span>
+            </li>
+            </Link>
+            <Link to={'/admin/support'} style={{textDecoration:"none"}}>
+            <li>
+              <SupportAgentOutlined className="icon"/>
+                <span>Hỗ trợ</span>
             </li>
             </Link>
             <p className="title">USEFUL</p>
