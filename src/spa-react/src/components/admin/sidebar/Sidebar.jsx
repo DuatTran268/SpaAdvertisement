@@ -41,7 +41,7 @@ const Sidebar = () => {
                 <span>Người dùng</span>
             </li>
             </Link>
-            <Link to="/admin/products" style={{textDecoration:"none"}}>
+            {/* <Link to="/admin/products" style={{textDecoration:"none"}}>
             <li>
               <ProductionQuantityLimitsOutlinedIcon className="icon"/>
                 <span>Sản phẩm</span>
@@ -52,7 +52,7 @@ const Sidebar = () => {
               <ShoppingCartOutlinedIcon className="icon"/>
                 <span>Đơn hàng</span>
             </li>
-            </Link>
+            </Link> */}
             <Link to={'/admin/booking'} style={{textDecoration:"none"}}>
             <li>
               <LocalShippingOutlinedIcon className="icon"/>

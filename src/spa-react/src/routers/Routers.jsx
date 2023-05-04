@@ -16,7 +16,6 @@ import "../pages/admin/style/dark.scss"
 import { useContext } from "react";
 import { DarkModeContext } from "../components/admin/context/darkModeReducer";
 import AdminSetting from "../pages/admin/setting/Setting";
-import AdminBooking from "../pages/admin/booking/Booking";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import ServicePost from "../components/servicepost/ServicePost";
@@ -28,6 +27,8 @@ import EditService from "../pages/admin/list/services/EditService";
 import AdminServiceType from "../pages/admin/list/servicetype/ServiceType";
 import EditServiceType from "../pages/admin/list/servicetype/EditServiceType";
 import AdminSupport from "../pages/admin/list/support/Support";
+import AdminBooking from "../pages/admin/list/booking/Booking";
+import EditBooking from "../pages/admin/list/booking/EditBooking";
 
 
 function Routers() {
@@ -60,7 +61,6 @@ function Routers() {
           <Route path="/admin/products" element={<AdminProduct/>}/>
           <Route path="/admin/cart" element={<AdminCart/>}/>
           <Route path="/admin/setting" element={<AdminSetting/>}/>
-          <Route path="/admin/booking" element={<AdminBooking/>}/>
           <Route path="/admin/service" element={<AdminService/>}/>
           <Route path="/admin/service/edit" element={<EditService/>}/>
           <Route path="/admin/service/edit/:id" element={<EditService/>}/>
@@ -70,6 +70,12 @@ function Routers() {
           <Route path="/admin/servicetype/edit/:id" element={<EditServiceType/>}/>
 
           <Route path="/admin/support" element={<AdminSupport/>}/>
+
+          <Route path="/admin/booking" element={<AdminBooking/>}/>
+          <Route path="/admin/booking/edit" element={<EditBooking/>}/>
+          <Route path="/admin/booking/edit/:id" element={<EditBooking/>}/>
+
+
 
 
 
