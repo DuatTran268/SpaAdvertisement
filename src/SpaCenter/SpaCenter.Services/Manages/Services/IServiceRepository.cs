@@ -43,5 +43,8 @@ namespace SpaCenter.Services.Manages.Services
 
         // Top các dịch vụ được ưa chuộng nhất tại Spa
         //Task<IList<ServiceItem>> TopServicesAsync(int numService, CancellationToken cancellationToken = default);
+
+        Task<int> CountTotalServiceAsync(CancellationToken cancellationToken = default);
+    
     }
 }

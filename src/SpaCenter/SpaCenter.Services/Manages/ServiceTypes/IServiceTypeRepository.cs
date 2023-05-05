@@ -48,5 +48,8 @@ namespace SpaCenter.Services.Manages.ServiceTypes
 
         // get service type detail by slug
         Task<ServiceType> GetDetailServiceTypeBySlugAsync(string slug, CancellationToken cancellationToken = default);
+
+        // count type service
+        Task<int> CountServiceTypeAsync(CancellationToken cancellationToken = default);
     }
 }

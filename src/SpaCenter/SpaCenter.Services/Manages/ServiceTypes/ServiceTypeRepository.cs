@@ -174,5 +174,10 @@ namespace SpaCenter.Services.Manages.ServiceTypes
                 return await serviceTypesQuery.FirstOrDefaultAsync(cancellationToken);
             }
 		}
+
+		public async Task<int> CountServiceTypeAsync(CancellationToken cancellationToken = default)
+		{
+            return await _context.Set<ServiceType>().CountAsync(cancellationToken);
+		}
 	}
 }

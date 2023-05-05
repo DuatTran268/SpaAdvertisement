@@ -46,5 +46,8 @@ namespace SpaCenter.Services.Manages.Supports
 		// change call status
 		Task ChangeCallStatusAsync(int supportId, CancellationToken cancellationToken = default);
 
+		// count support need customer
+		Task<int> CountNeedSupportCustomer(CancellationToken cancellationToken = default);
+
 	}
 }

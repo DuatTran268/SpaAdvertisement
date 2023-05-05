@@ -135,5 +135,10 @@ namespace SpaCenter.Services.Manages.Supports
 			await _context.Set<Support>().Where(sp => sp.Id == supportId)
 				.ExecuteUpdateAsync(sc => sc.SetProperty(st => st.Status, st => !st.Status), cancellationToken);
 		}
+
+		public async Task<int> CountNeedSupportCustomer(CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<Support>().CountAsync(cancellationToken);
+		}
 	}
 }

@@ -24,5 +24,7 @@ namespace SpaCenter.Bookings.Manages.Bookings
         Task<bool> DeleteBookingAsync(int BookingId, CancellationToken cancellationToken = default);
 
         Task<bool> IsBookingSlugExistedAsync(int BookingId, string slug, CancellationToken cancellationToken = default);
+    
+        Task<int> CountTotalBookingAsync(CancellationToken cancellationToken = default);
     }
 }

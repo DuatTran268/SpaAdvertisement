@@ -174,6 +174,11 @@ namespace SpaCenter.Services.Manages.Services
             }
         }
 
+		public async Task<int> CountTotalServiceAsync(CancellationToken cancellationToken = default)
+		{
+            return await _context.Set<Service>().CountAsync(cancellationToken);
+		}
+
 		//// Top các dịch vụ được ưa chuộng nhất tại Spa
 		//public async Task<IList<ServiceItem>> TopServicesAsync(int numService, CancellationToken cancellationToken = default)
 		//{

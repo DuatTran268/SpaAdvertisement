@@ -118,5 +118,10 @@ namespace SpaCenter.Services.Manages.Bookings
             return await _context.Bookings
                 .AnyAsync(x => x.Id != bookingId && x.UrlSlug == slug, cancellationToken);
         }
-    }
+
+		public async Task<int> CountTotalBookingAsync(CancellationToken cancellationToken = default)
+		{
+            return await _context.Set<Booking>().CountAsync(cancellationToken);
+		}
+	}
 }

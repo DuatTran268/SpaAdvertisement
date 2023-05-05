@@ -1,4 +1,7 @@
 ﻿using SpaCenter.Bookings.Manages.Bookings;
+using SpaCenter.Services.Manages.Services;
+using SpaCenter.Services.Manages.ServiceTypes;
+using SpaCenter.Services.Manages.Supports;
 using SpaCenter.Services.Manages.Users;
 using SpaCenter.WebApi.Models.Dashboards;
 
@@ -17,12 +20,22 @@ namespace SpaCenter.WebApi.Endpoints
 		}
 
 		private static async Task<IResult> GetInforDashboard(
-			IUserRepository userRepository
+			IUserRepository userRepository,
+			ISupportRepository supportRepository,
+			IServiceTypeRepository serviceTypeRepository,
+			IServiceRepository serviceRepository,
+			IBookingRepository bookingRepository
+
 			)
 		{
 			var result = new DashboardModel()
 			{
-				CountUser = await userRepository.CountUserAsync()
+				CountUser = await userRepository.CountUserAsync(),
+				CountCustomerSupport = await supportRepository.CountNeedSupportCustomer(),
+				CountServiceType = await serviceTypeRepository.CountServiceTypeAsync(),
+				CountService = await serviceRepository.CountTotalServiceAsync(),
+				CountBooking = await bookingRepository.CountTotalBookingAsync()
+			
 			};
 
 			return Results.Ok(result);
