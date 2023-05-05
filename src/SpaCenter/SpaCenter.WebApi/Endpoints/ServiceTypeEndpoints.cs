@@ -37,7 +37,7 @@ namespace SpaCenter.WebApi.Endpoints
 					.WithName("GetServiceTypesById")
 					.Produces<ApiResponse<ServiceTypeItem>>();
 
-			routeGroupBuilder.MapPost("/{id:int}/picture", SetServiceTypePicture)
+			routeGroupBuilder.MapPost("/picture/{id:int}", SetServiceTypePicture)
 				   .WithName("SetServiceTypePicture")
 				   .Accepts<IFormFile>("multipart/form-data")
 				   .Produces(401)

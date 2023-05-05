@@ -264,7 +264,7 @@ public class DataSeeder : IDataSeeder
             {
                 Name = "Tran Duat",
                 Email = "tranduat@gmai.com",
-                UrlSlug="tran-duat",
+                //UrlSlug="tran-duat",
                 PhoneNumber = "0966668888",
                 BookingDate = new DateTime(2023, 5, 21),
                 NoteMessage = "Cho tôi dịch vụ vip nhất đeee",
@@ -276,7 +276,7 @@ public class DataSeeder : IDataSeeder
             {
                 Name = "Minh Nhat",
                 Email = "minhnhat@gmai.com",
-                UrlSlug="minh-nhat",
+                //UrlSlug="minh-nhat",
                 PhoneNumber = "0934748342",
                 BookingDate = new DateTime(2023, 8, 22),
                 NoteMessage = "Cho tôi dịch vụ vip nhất đeee",

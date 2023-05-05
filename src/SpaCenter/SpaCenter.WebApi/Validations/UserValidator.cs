@@ -14,8 +14,8 @@ namespace SpaCenter.WebApi.Validations
 				.WithMessage("Fullname không quá 100 ký tự");
 
 			RuleFor(u => u.UrlSlug)
-				.NotEmpty()
-				.WithMessage("UrlSlug không được để trống")
+				//.NotEmpty()
+				//.WithMessage("UrlSlug không được để trống")
 				.MaximumLength(100)
 				.WithMessage("UrlSlug không quá 100 ký tự");
 
