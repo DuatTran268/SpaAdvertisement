@@ -2,5 +2,6 @@
 {
 	public class DashboardModel
 	{
+		public int CountUser { get; set; }
 	}
 }

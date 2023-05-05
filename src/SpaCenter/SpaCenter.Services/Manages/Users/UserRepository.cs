@@ -97,5 +97,10 @@ namespace SpaCenter.Services.Manages.Users
 				.Where(u => u.Id == userId)
 				.ExecuteDeleteAsync(cancellationToken) > 0;
 		}
+
+		public async Task<int> CountUserAsync(CancellationToken cancellationToken = default)
+		{
+			return await _context.Set<User>().CountAsync(cancellationToken);
+		}
 	}
 }

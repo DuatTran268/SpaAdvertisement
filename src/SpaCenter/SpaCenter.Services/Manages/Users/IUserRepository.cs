@@ -37,5 +37,7 @@ namespace SpaCenter.Services.Manages.Users
 		Task<bool> DeleteUserByIdAsync(int userId, CancellationToken cancellationToken = default);
 
 	
+		// count user
+		Task<int> CountUserAsync(CancellationToken cancellationToken = default);
 	}
 }
