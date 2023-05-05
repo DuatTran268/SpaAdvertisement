@@ -4,7 +4,7 @@ import MenuItem from "../controls/MenuItem";
 const MainMenu = () => {
   return (
     <ul className="navbar-nav ">
-      <MenuItem link="/home" title={"Trang chủ"}/>
+      <MenuItem link="/home" title={"Trang"}/>
       <MenuItem link={"/service"} title="Dịch vụ"/>
       <MenuItem link={"/product"} title="Sản phẩm"/>
       <MenuItem link={"/about-us"} title="Giới thiệu"/>
