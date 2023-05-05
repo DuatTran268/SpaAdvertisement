@@ -1,11 +1,11 @@
 import Sidebar from "../../../components/admin/sidebar/Sidebar"
 import Navbar from "../../../components/admin/navbar/Navbar"
-import Widget from "../../../components/admin/widget/Widget"
 import Chart from "../../../components/admin/chart/Chart"
 import Featured from "../../../components/admin/featured/Featured"
 import "./home.scss"
 import Table from "../../../components/admin/table/Table"
 import Login from "../login/Login"
+import DashboardItem from "../../../components/admin/dashboard/Dashboard"
 
 const AdminHome = () => {
   return (
@@ -14,10 +14,8 @@ const AdminHome = () => {
       <div className="homeContainer">
         <Navbar/>
         <div className="widgets">
-          <Widget type="user"/>
-          <Widget type="order"/>
-          <Widget type="earning"/>
-          <Widget type="balance"/>
+          <DashboardItem type="user"/>
+          
         </div>
         <div className="charts">
           <Featured/>

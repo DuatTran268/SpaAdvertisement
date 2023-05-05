@@ -13,9 +13,21 @@ const ServicePost = () => {
   const [serviceType, setServiceType] = useState(null);
   const { slug } = params;
 
-  let imageUrl = !serviceType || isEmptyOrSpaces(serviceType.imageUrl)
-  ? process.env.PUBLIC_URL + "/images/imagedefault.jpg"
-  : `https://localhost:7024/${serviceType.imageUrl}`;
+  // let imageUrl = !serviceType || isEmptyOrSpaces(serviceType.imageUrl)
+  // ? process.env.PUBLIC_URL + "/images/imagedefault.jpg"
+  // : `https://localhost:7024/${serviceType.imageUrl}`;
+
+  const getImage = (path) => {
+
+    console.log(path)
+    if (!path) {
+      // set default image
+      return `https://placehold.co/200x200?text=Image-not-found`;
+    } 
+
+    return `https://localhost:7024/${path}`;
+  }
+
 
   useEffect(() => {
     document.title = "Chi tiết dịch vụ";
@@ -42,7 +54,7 @@ const ServicePost = () => {
               <h2 className="text-danger col">{serviceType.name}</h2>
             </div>
             <div className="text-center mt-3 mb-3">
-              <Image className="" src={imageUrl} />
+              <Image className="" src={getImage(serviceType.imageUrl)} />
             </div>
             <h5 className="text-success">{serviceType.shortDescription}</h5>
             <p>{serviceType.description}</p>

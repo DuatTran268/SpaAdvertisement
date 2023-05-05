@@ -10,6 +10,8 @@ import {
 } from "../../../../api/ServiceTypeApi";
 import { isEmptyOrSpaces } from "../../../../Utils/Utils";
 
+
+
 const EditServiceType = () => {
   const [validated, setValidated] = useState(false);
   const initialState = {
@@ -67,6 +69,17 @@ const EditServiceType = () => {
       });
     }
   };
+
+  const getImage = (path) => {
+
+    console.log(path)
+    if (!path) {
+      // set default image
+      return `https://placehold.co/200x200?text=Image-not-found`;
+    } 
+
+    return `https://localhost:7024/${path}`;
+  }
 
   return (
     <div className="list">
@@ -247,7 +260,7 @@ const EditServiceType = () => {
                 </Form.Label>
                 <div className="col-sm-10">
                   <img
-                    src={`https://localhost:7024/${serviceType.imageUrl}`}
+                    src={getImage(serviceType.imageUrl)}
                     alt={serviceType.title}
                   />
                 </div>

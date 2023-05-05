@@ -92,6 +92,25 @@ const EditBooking = () => {
             </div>
 
             <div className="row mb-3">
+              <Form.Label className="col-sm-2 col-form-label">Email</Form.Label>
+              <div className="col-sm-10">
+                <Form.Control
+                  type="text"
+                  name="email"
+                  title="Url Slug"
+                  required
+                  value={booking.email || ""}
+                  onChange={(e) =>
+                    setBooking({ ...booking, email: e.target.value })
+                  }
+                />
+                <Form.Control.Feedback type="invalid">
+                  Không được bỏ trống
+                </Form.Control.Feedback>
+              </div>
+            </div>
+
+            <div className="row mb-3">
               <Form.Label className="col-sm-2 col-form-label">UrlSlug</Form.Label>
               <div className="col-sm-10">
                 <Form.Control
@@ -161,6 +180,25 @@ const EditBooking = () => {
                   value={booking.noteMessage || ""}
                   onChange={(e) =>
                     setBooking({ ...booking, noteMessage: e.target.value })
+                  }
+                />
+                <Form.Control.Feedback type="invalid">
+                  Không được bỏ trống
+                </Form.Control.Feedback>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <Form.Label className="col-sm-2 col-form-label">Trạng thái</Form.Label>
+              <div className="col-sm-10">
+                <Form.Control
+                  type="text"
+                  name="status"
+                  title="Trạng thái"
+                  required
+                  value={booking.status || ""}
+                  onChange={(e) =>
+                    setBooking({ ...booking, status: e.target.value })
                   }
                 />
                 <Form.Control.Feedback type="invalid">

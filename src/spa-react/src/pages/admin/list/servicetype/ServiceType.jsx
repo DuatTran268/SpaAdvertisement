@@ -20,10 +20,7 @@ const AdminServiceType = () => {
 
 
   
-  let imageUrl = !serviceTypeFilter || isEmptyOrSpaces(serviceTypeFilter.imageUrl)
-  ? process.env.PUBLIC_URL + "/images/imagedefault.jpg"
-  : `https://localhost:7024/${serviceTypeFilter.imageUrl}`;
-
+    
   let { id } = useParams,
     p = 1,
     ps = 20;
@@ -56,6 +53,16 @@ const AdminServiceType = () => {
     }
   };
 
+  const getImage = (path) => {
+
+    console.log(path)
+    if (!path) {
+      // set default image
+      return `https://placehold.co/200x200?text=Image-not-found`;
+    } 
+
+    return `https://localhost:7024/${path}`;
+  }
 
 
   return(
@@ -84,7 +91,7 @@ const AdminServiceType = () => {
                     servieTypeList.map((item, index) => (
                       <tr key={index}>
                         <td className="text-center">
-                          <Image src={imageUrl} width={60}/>
+                          <Image src={getImage(item.imageUrl)} width={60}/>
                         </td>
                         <td>{item.name}</td>
                         <td>{item.shortDescription}</td>

@@ -12,6 +12,8 @@ const EditUser = () => {
       fullName: "",
       urlSlug: "",
       email: "",
+      password: "",
+      roleId: "",
     },
     [user, setUser] = useState(initialState);
 
@@ -115,6 +117,49 @@ const EditUser = () => {
                   value={user.email || ""}
                   onChange={(e) =>
                     setUser({ ...user, email: e.target.value })
+                  }
+                />
+                <Form.Control.Feedback type="invalid">
+                  Không được bỏ trống
+                </Form.Control.Feedback>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <Form.Label className="col-sm-2 col-form-label">
+                Password
+              </Form.Label>
+              <div className="col-sm-10">
+                <Form.Control
+                  type="text"
+                  name="password"
+                  title="Password"
+                  required
+                  value={user.password || ""}
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
+                />
+                <Form.Control.Feedback type="invalid">
+                  Không được bỏ trống
+                </Form.Control.Feedback>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <Form.Label className="col-sm-2 col-form-label">
+                Role Id
+              </Form.Label>
+              <div className="col-sm-10">
+                <Form.Control
+                  type="text"
+                  name="roleId"
+                  title="RoleId"
+                  required
+                  placeholder="Nhập 1: cho Role là Admin, 2 cho Role là User"
+                  value={user.roleId || ""}
+                  onChange={(e) =>
+                    setUser({ ...user, roleId: e.target.value })
                   }
                 />
                 <Form.Control.Feedback type="invalid">

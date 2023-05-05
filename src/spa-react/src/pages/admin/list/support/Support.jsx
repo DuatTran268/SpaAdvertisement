@@ -64,16 +64,13 @@ const AdminSupport = () => {
 
     async function changeStatusCall(id) {
       // await changeCallStatus(id)
-      if (window.confirm("Bạn có muốn thay đổi trạng thái")) {
-        const response = await changeCallStatus(id);
-        if (response){
-          alert("Thay đổi trạng thái cuộc gọi thành công");
-          window.location.reload(true);
-        }
-        else{
-          alert("Thay đổi trạng thái thất bại")
-        }
-      } 
+      const response = await changeCallStatus(id);
+      if (response) {
+        alert("Thay đổi trạng thái cuộc gọi thành công");
+        // window.location.reload(true);
+      } else {
+        alert("Thay đổi trạng thái thất bại");
+      }
     }
   };
 
@@ -116,14 +113,19 @@ const AdminSupport = () => {
                           <td>{item.fullName}</td>
                           <td>{item.phoneNumber}</td>
                           <td>
-                            <div className="text-center" onClick={(e) => handleChangeCallStatus(e, item.id)}>
+                            <div
+                              className="text-center"
+                              onClick={(e) =>
+                                handleChangeCallStatus(e, item.id)
+                              }
+                            >
                               {item.status ? (
-                                <FontAwesomeIcon icon={faPhoneSlash} color="red" />
-                              ) : (
                                 <FontAwesomeIcon
-                                  icon={faPhone}
-                                  color="green"
+                                  icon={faPhoneSlash}
+                                  color="red"
                                 />
+                              ) : (
+                                <FontAwesomeIcon icon={faPhone} color="green" />
                               )}
                             </div>
                           </td>

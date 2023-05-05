@@ -10,7 +10,7 @@ import { getAllServiceType } from "../../../api/ServiceApi";
 const ServiceTypeFilter = () => {
   const serviceTypeFilter = useSelector(state => state.serviceTypeFilter),
   dispatch = useDispatch(),
-  [filter, setFilter] = useState();
+  [filter, setFilter] = useState({});
   
   const handleReset = (e) => {
     dispatch(reset());
@@ -23,7 +23,7 @@ const ServiceTypeFilter = () => {
   useEffect(() => {
     getAllServiceType().then((data) => {
       if (data){
-        setFilter(data)
+        setFilter({data})
       }
       else{
         setFilter([]);
@@ -45,7 +45,7 @@ const ServiceTypeFilter = () => {
       <Form.Control 
       type="text"
       placeholder="Nhập tên"
-      name="fullName"
+      name="name"
       value={serviceTypeFilter}
       onChange = {(e) => dispatch(updateName(e.target.value))}
       />
