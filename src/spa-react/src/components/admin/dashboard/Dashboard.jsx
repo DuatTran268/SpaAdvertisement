@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { getAllDashboard } from "../../../api/Dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faTruck, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faFaceGrinHearts, faPhone, faServer, faTruck, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const DashboardItem = () => {
   const [dashboardItem, setDashboardItem] = useState({});
@@ -27,35 +27,35 @@ const DashboardItem = () => {
         <div className="text-danger">
           <h3>Số user</h3>
           <FontAwesomeIcon icon={faUser} fontSize={30} />
-          <span className="text-success px-5">{dashboardItem.countUser}</span>
+          <span className="text-success px-5 display-6">{dashboardItem.countUser}</span>
         </div>
       </div>
       <div className="card-body">
         <div className="text-danger">
           <h3>Loại dịch vụ</h3>
-          <FontAwesomeIcon icon={faUser} fontSize={30} />
-          <span className="text-success px-5">{dashboardItem.countCustomerSupport}</span>
+          <FontAwesomeIcon icon={faServer} fontSize={30} />
+          <span className="text-success px-5 display-6">{dashboardItem.countServiceType}</span>
         </div>
       </div>
       <div className="card-body">
         <div className="text-danger">
           <h3>Dịch vụ</h3>
-          <FontAwesomeIcon icon={faUser} fontSize={30} />
-          <span className="text-success px-5">{dashboardItem.countUser}</span>
+          <FontAwesomeIcon icon={faFaceGrinHearts} fontSize={30} />
+          <span className="text-success px-5 display-6">{dashboardItem.countService}</span>
         </div>
       </div>
       <div className="card-body">
         <div className="text-danger">
           <h3>Hỗ trợ</h3>
           <FontAwesomeIcon icon={faPhone} fontSize={30} />
-          <span className="text-success px-5">{dashboardItem.countUser}</span>
+          <span className="text-success px-5 display-6">{dashboardItem.countCustomerSupport}</span>
         </div>
       </div>
       <div className="card-body">
         <div className="text-danger">
           <h3>Đặt hàng</h3>
           <FontAwesomeIcon icon={faTruck} fontSize={30} />
-          <span className="text-success px-5">{dashboardItem.countUser}</span>
+          <span className="text-success px-5 display-6">{dashboardItem.countBooking}</span>
         </div>
       </div>
     </>
