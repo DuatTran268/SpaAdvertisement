@@ -25,7 +25,10 @@ const AdminUser = () => {
   useEffect(() => {
     document.title = "Quản lý người dùng";
 
-    getFilterUser(userFilter ,ps , p).then((data) => {
+    getFilterUser(
+      userFilter.fullName,
+      userFilter.email
+       ,ps , p).then((data) => {
       if (data) {
         console.log("check data:  ", data);
         setUserList(data.items);
@@ -34,7 +37,7 @@ const AdminUser = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [userFilter, p, ps]);
+  }, [userFilter, ps, p]);
 
   // delete
   const handleDeleteUser = (e, id) => {
@@ -59,7 +62,7 @@ const AdminUser = () => {
         <div className="container mt-5">
           
 
-          {/* <UserFilter/> */}
+          <UserFilter/>
 
           {isVisibleLoading ? (
             <Loading />

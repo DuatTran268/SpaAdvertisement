@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const serviceTypeFilterReducer = createSlice({
-  name: "serviceTypeFilter",
+  name: "userFilter",
   initialState,
   reducers: {
     reset: (state, action) => {
