@@ -106,25 +106,32 @@ public static class UserEndpoint
 		IRoleRepositoty roleRepositoty,
 		IMapper mapper)
 	{
-		var user = await userRepository.GetUserByIdAsync(id);
-		if (user == null)
+		User user;
+		if (id != 0)
 		{
-			return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
-				$"Không tìm thấy id '{id}' của user"));
-		}
-		if (await roleRepositoty.GetRoleByIdAsync(model.RoleId) == null)
-		{
-			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-				$"Không tìm thấy role có id '{model.RoleId}'"));
-		}
-		if (await userRepository.CheckSlugExistedAsync(0, model.UrlSlug))
-		{
-			return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-				$"Slug '{model.UrlSlug}' đã được sử dụng"));
-		}
+			user = await userRepository.GetUserByIdAsync(id);
+			if (user == null)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
+					$"Không tìm thấy id '{id}' của user"));
+			}
+			if (await roleRepositoty.GetRoleByIdAsync(model.RoleId) == null)
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+					$"Không tìm thấy role có id '{model.RoleId}'"));
+			}
+			if (await userRepository.CheckSlugExistedAsync(0, model.UrlSlug))
+			{
+				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+					$"Slug '{model.UrlSlug}' đã được sử dụng"));
+			}
 
-		mapper.Map(model, user);
-		user.Id = id;
+		}
+		else
+			user = new User();
+			mapper.Map(model, user);
+			user.Id = id;
+
 
 		return await userRepository.CreateOrUpdateUserAsync(user)
 			? Results.Ok(ApiResponse.Success($"Thay đổi thành công user có id = {id}"))
