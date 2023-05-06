@@ -17,6 +17,7 @@ import {
   faPhoneSlash,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import SupportFilter from "../../../../components/admin/filter/SupportFilterModel";
 
 const AdminSupport = () => {
   const [supportList, setSupportList] = useState([]);
@@ -81,6 +82,7 @@ const AdminSupport = () => {
         <div className="listContainer">
           <Navbar />
           <div className="container mt-5">
+          <SupportFilter/>
             {isVisibleLoading ? (
               <Loading />
             ) : (
