@@ -41,7 +41,7 @@ const AdminService = () => {
         const response = await deleteService(id);
         if (response) {
           alert("Đã xoá danh mục");
-          // window.location.reload(true);
+          window.location.reload(true);
         } else alert("Đã xảy ra lỗi xoá danh mục này");
       }
     }
@@ -88,9 +88,9 @@ const AdminService = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={3}>
+                      <td colSpan={4}>
                         <h4 className="text-danger text-center">
-                          Không tìm thấy user nào
+                          Không tìm thấy dịch vụ nào
                         </h4>
                       </td>
                     </tr>

@@ -3,14 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Form} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {reset, updateName} from "../../../Redux/Reducer"
-import { getAllUser } from "../../../api/User";
-import { getAllService } from "../../../api/ServiceApi";
-import { getServiceFilter } from "../../../api/ServiceTypeApi";
+
 
 
 
 const ServiceFilter = () => {
-  const  [name, setName] = useState('');
   const serviceFilter = useSelector(state => state.serviceFilter),
   dispatch = useDispatch();
   
@@ -19,23 +16,7 @@ const ServiceFilter = () => {
     dispatch(reset());
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
-  // useEffect(() => {
-  //   getServiceFilter().then((data) => {
-  //     if (data){
-  //       console.log("check data: ", data);
-  //       setServiceTypeFilter({})
-  //     }
-  //     else{
-  //       setServiceTypeFilter([]);
-  //     }
-  //   })
-  // }, [])
-
-
+  
   return (
     <Form method="get"
     onReset={handleReset}

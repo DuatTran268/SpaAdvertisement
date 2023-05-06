@@ -5,6 +5,7 @@ import { delete_api, get_api, put_api } from "./Method";
 
 export function getFilterServiceType(
   name = '',
+  price = '',
   pageSize = 10,
   pageNumber = 1,
   sortColumn = '',
@@ -12,6 +13,7 @@ export function getFilterServiceType(
 ) {
   let url = new URL(`https://localhost:7024/api/servicetypes/required`);
   name !== '' && url.searchParams.append('Name', name);
+  price !== '' && url.searchParams.append('Price', price);
   sortColumn !== '' && url.searchParams.append('SortColumn', sortColumn);
   sortOrder !== '' && url.searchParams.append('SortOrder', sortColumn);
   url.searchParams.append('PageSize', pageSize);

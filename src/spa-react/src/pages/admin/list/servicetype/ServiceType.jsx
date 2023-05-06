@@ -9,17 +9,13 @@ import { Image, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ServiceTypeFilter from "../../../../components/admin/filter/ServiceTypeFilterModel";
-import { isEmptyOrSpaces } from "../../../../Utils/Utils";
 
 
 
 const AdminServiceType = () => {
   const [servieTypeList, setServiceTypeList] = useState([]);
   const [isVisibleLoading, setIsVisibleLoading] = useState(true),
-    serviceTypeFilter = useSelector((state) => state.serviceFilter);
-
-
-  
+    serviceTypeFilter = useSelector((state) => state.serviceTypeFilter);
     
   let { id } = useParams,
     p = 1,
@@ -28,7 +24,9 @@ const AdminServiceType = () => {
   useEffect(() => {
     document.title = "Quản lý dịch vụ";
 
-    getFilterServiceType(serviceTypeFilter, ps, p).then((data) => {
+    getFilterServiceType(
+      serviceTypeFilter.name,
+      serviceTypeFilter.price, ps, p).then((data) => {
       if (data) {
         setServiceTypeList(data.items);
       } else {
@@ -36,7 +34,7 @@ const AdminServiceType = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [serviceTypeFilter, p, ps]);
+  }, [serviceTypeFilter, ps, p]);
 
   // delete
   const handleDeleteUser = (e, id) => {
