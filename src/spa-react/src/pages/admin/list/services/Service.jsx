@@ -12,6 +12,8 @@ import ServiceFilter from "../../../../components/admin/filter/ServieFilterModel
 
 const AdminService = () => {
   const [servieList, setServiceList] = useState([]);
+  const [reRender, setRender] = useState(false);
+
   const [isVisibleLoading, setIsVisibleLoading] = useState(true),
     serviceFilter = useSelector((state) => state.serviceFilter);
 
@@ -30,7 +32,7 @@ const AdminService = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [serviceFilter, ps, p,]);
+  }, [serviceFilter, ps, p, reRender]);
 
   // delete
   const handleDeleteUser = (e, id) => {
@@ -41,7 +43,7 @@ const AdminService = () => {
         const response = await deleteService(id);
         if (response) {
           alert("Đã xoá danh mục");
-          window.location.reload(true);
+          setRender(true);
         } else alert("Đã xảy ra lỗi xoá danh mục này");
       }
     }

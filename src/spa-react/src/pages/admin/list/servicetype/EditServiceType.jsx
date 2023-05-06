@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../../../components/admin/navbar/Navbar";
 import Sidebar from "../../../../components/admin/sidebar/Sidebar";
 import { Button, Form } from "react-bootstrap";
@@ -23,12 +23,14 @@ const EditServiceType = () => {
       description: "",
       price: "",
       service: {
-        id: ""
+        id: "",
       },
       serviceId: "",
     },
     [serviceType, setServiceType] = useState(initialState),
     [filter, setFilter] = useState({ serviceList: [] });
+
+  const navigate = useNavigate();
 
   let { id } = useParams();
   id = id ?? 0;
@@ -46,7 +48,7 @@ const EditServiceType = () => {
 
     getServiceFilter().then((data) => {
       if (data) {
-        setFilter({ 
+        setFilter({
           serviceList: data.serviceList,
         });
       } else {
@@ -54,6 +56,7 @@ const EditServiceType = () => {
       }
     });
   }, []);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,6 +69,7 @@ const EditServiceType = () => {
       updateServiceType(id, data).then((data) => {
         if (data) {
           alert("Đã lưu thành công");
+          navigate('/admin/servicetype/');
         } else {
           alert("Xảy ra lỗi khi lưu");
         }
@@ -74,15 +78,16 @@ const EditServiceType = () => {
   };
 
   const getImage = (path) => {
-
-    console.log(path)
+    console.log(path);
     if (!path) {
       // set default image
       return `https://placehold.co/200x200?text=Image-not-found`;
-    } 
+    }
 
     return `https://localhost:7024/${path}`;
-  }
+  };
+
+  
 
   return (
     <div className="list">
@@ -216,9 +221,14 @@ const EditServiceType = () => {
                 <Form.Select
                   name="serviceId"
                   title="Service Id"
-                  value={serviceType.serviceId ? serviceType.serviceId : serviceType.service?.id }
+                  value={serviceType.serviceId}
                   required
-                  onChange={(e) => setServiceType({ ...serviceType, serviceId: e.target.value })}
+                  onChange={(e) =>
+                    setServiceType({
+                      ...serviceType,
+                      serviceId: e.target.value,
+                    })
+                  }
                 >
                   <option value="">--Loại dịch vụ--</option>
                   {filter.serviceList.length > 0 &&
