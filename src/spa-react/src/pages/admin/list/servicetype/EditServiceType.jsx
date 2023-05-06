@@ -22,9 +22,6 @@ const EditServiceType = () => {
       shortDescription: "",
       description: "",
       price: "",
-      service: {
-        id: "",
-      },
       serviceId: "",
     },
     [serviceType, setServiceType] = useState(initialState),

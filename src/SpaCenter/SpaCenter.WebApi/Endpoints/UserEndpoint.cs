@@ -1,4 +1,5 @@
 ﻿using MapsterMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SpaCenter.Core.Collections;
 using SpaCenter.Core.DTO;
 using SpaCenter.Core.Entities;
@@ -6,6 +7,7 @@ using SpaCenter.Services.Manages.Roles;
 using SpaCenter.Services.Manages.Users;
 using SpaCenter.WebApi.Filters;
 using SpaCenter.WebApi.Models;
+using SpaCenter.WebApi.Models.ServiceTypes;
 using SpaCenter.WebApi.Models.Users;
 using System.Net;
 
@@ -46,6 +48,9 @@ public static class UserEndpoint
 			.Produces(401)
 			.Produces<ApiResponse<string>>();
 
+		routeGroupBuilder.MapGet("/get-filter", GetFilterRoleAsync)
+			.WithName("GetFilterRoleAsync")
+			.Produces<ApiResponse<UserFilterModel>>();
 
 		return app;
 
@@ -129,8 +134,8 @@ public static class UserEndpoint
 		}
 		else
 			user = new User();
-			mapper.Map(model, user);
-			user.Id = id;
+		mapper.Map(model, user);
+		user.Id = id;
 
 
 		return await userRepository.CreateOrUpdateUserAsync(user)
@@ -146,5 +151,22 @@ public static class UserEndpoint
 		return await userRepository.DeleteUserByIdAsync(id)
 			? Results.Ok(ApiResponse.Success($"Đã xoá user có id = {id}"))
 			: Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy user có id = {id}"));
+	}
+
+	// get filter
+	private static async Task<IResult> GetFilterRoleAsync(
+		IRoleRepositoty roleRepositoty)
+	{
+		var model = new UserFilterModel()
+		{
+			RoleList = (await roleRepositoty.GetRoleNotRequired())
+			.Select(u => new SelectListItem()
+			{
+				Text = u.Name,
+				Value = u.Id.ToString()
+			})
+		};
+
+		return Results.Ok(ApiResponse.Success(model));
 	}
 }

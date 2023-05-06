@@ -39,3 +39,9 @@ export async function updateUser(id = 0, formData) {
 export async function deleteUser(id = 0) {
   return delete_api(`https://localhost:7024/api/users/${id}`);
 }
+
+
+
+export async function getUserFilter() {
+  return get_api(`https://localhost:7024/api/users/get-filter`);
+}

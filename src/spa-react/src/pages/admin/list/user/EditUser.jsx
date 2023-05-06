@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {  useParams , Link, useNavigate} from "react-router-dom";
-import { getUserById, updateUser } from "../../../../api/User";
+import { getUserById, getUserFilter, updateUser } from "../../../../api/User";
 import { Button, Form} from "react-bootstrap";
 import Navbar from "../../../../components/admin/navbar/Navbar";
 import Sidebar from "../../../../components/admin/sidebar/Sidebar";
@@ -15,7 +15,8 @@ const EditUser = () => {
       password: "",
       roleId: "",
     },
-    [user, setUser] = useState(initialState);
+    [user, setUser] = useState(initialState),
+    [filter, setFilter] = useState({roleList: []});
 
   const navigate = useNavigate();
 
@@ -33,6 +34,17 @@ const EditUser = () => {
         setUser(initialState);
       }
     });
+
+    getUserFilter().then((data) => {
+      if (data) {
+        setFilter({
+          roleList: data.roleList
+        });
+      }
+      else{
+        setFilter({roleList: []});
+      }
+    })
   }, []);
 
   const handleSubmit = (e) => {
@@ -149,7 +161,7 @@ const EditUser = () => {
               </div>
             </div>
 
-            <div className="row mb-3">
+            {/* <div className="row mb-3">
               <Form.Label className="col-sm-2 col-form-label">
                 Role Id
               </Form.Label>
@@ -157,16 +169,47 @@ const EditUser = () => {
                 <Form.Control
                   type="text"
                   name="roleId"
-                  title="RoleId"
+                  title="Role Id"
                   required
                   placeholder="Nhập 1: cho Role là Admin, 2 cho Role là User"
-                  value={user.roleId || ""}
+                  value={user.roleId}
                   onChange={(e) =>
                     setUser({ ...user, roleId: e.target.value })
                   }
                 />
                 <Form.Control.Feedback type="invalid">
                   Không được bỏ trống
+                </Form.Control.Feedback>
+              </div>
+            </div> */}
+
+            <div className="row mb-3">
+              <Form.Label className="col-sm-2 col-form-label">
+                Thuộc dịch vụ
+              </Form.Label>
+              <div className="col-sm-10">
+                <Form.Select
+                  name="roleId"
+                  title="role Id"
+                  value={user.roleId}
+                  required
+                  onChange={(e) =>
+                    setUser({
+                      ...user,
+                      roleId: e.target.value,
+                    })
+                  }
+                >
+                  <option value="">-- Vai trò--</option>
+                  {filter.roleList.length > 0 &&
+                    filter.roleList.map((item, index) => (
+                      <option key={index} value={item.value}>
+                        {item.text}
+                      </option>
+                    ))}
+                </Form.Select>
+                <Form.Control.Feedback type="invalid">
+                  Không được bỏ trống.
                 </Form.Control.Feedback>
               </div>
             </div>
