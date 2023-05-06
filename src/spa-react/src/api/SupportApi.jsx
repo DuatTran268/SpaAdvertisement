@@ -1,6 +1,7 @@
 import { delete_api, get_api } from "./Method";
 
 export function getFilterSupport(
+  fullName = '',
   phoneNumber = '',
   pageSize = 10,
   pageNumber = 1,
@@ -8,7 +9,8 @@ export function getFilterSupport(
   sortOrder = ''
 ) {
   let url = new URL(`https://localhost:7024/api/supports`);
-  phoneNumber !== '' && url.searchParams.append('Name', phoneNumber);
+  fullName !== '' && url.searchParams.append('FullName', fullName);
+  phoneNumber !== '' && url.searchParams.append('PhoneNumber', phoneNumber);
   sortColumn !== '' && url.searchParams.append('SortColumn', sortColumn);
   sortOrder !== '' && url.searchParams.append('SortOrder', sortColumn);
   url.searchParams.append('PageSize', pageSize);

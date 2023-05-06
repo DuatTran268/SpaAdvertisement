@@ -34,6 +34,18 @@ const UserFilter = () => {
       />
     </Form.Group>
     <Form.Group className="col-auto">
+      <Form.Label className="visually-hidden">
+        Email
+      </Form.Label>
+      <Form.Control 
+      type="text"
+      placeholder="Nhập email"
+      name="email"
+      value={userFilter.email}
+      onChange = {(e) => dispatch(updateEmail(e.target.value))}
+      />
+    </Form.Group>
+    <Form.Group className="col-auto">
         <Link to={`/admin/users/edit`} className="btn btn-success ms-2">Thêm mới</Link>
       </Form.Group>
     </Form>

@@ -28,25 +28,23 @@ const SupportFilter = () => {
       <Form.Control 
       type="text"
       placeholder="Nhập tên"
-      name="fullName"
-      value={supportFilter.fullName}
+      name="name"
+      value={supportFilter.name}
       onChange = {(e) => dispatch(updateFullName(e.target.value))}
       />
     </Form.Group>
-
     <Form.Group className="col-auto">
       <Form.Label className="visually-hidden">
-        Tên
+        Số điện thoại
       </Form.Label>
       <Form.Control 
       type="text"
-      placeholder="Nhập tên"
+      placeholder="Nhập số điện thoại"
       name="phoneNumber"
       value={supportFilter.phoneNumber}
       onChange = {(e) => dispatch(updatePhoneNumber(e.target.value))}
       />
     </Form.Group>
-
     <Form.Group className="col-auto">
         <Link to={`/admin/support/edit`} className="btn btn-success ms-2">Thêm mới</Link>
       </Form.Group>

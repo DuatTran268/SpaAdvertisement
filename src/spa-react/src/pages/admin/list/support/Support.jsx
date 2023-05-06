@@ -12,7 +12,6 @@ import Loading from "../../../../components/Loading";
 import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEdit,
   faPhone,
   faPhoneSlash,
   faTrash,
@@ -21,8 +20,13 @@ import SupportFilter from "../../../../components/admin/filter/SupportFilterMode
 
 const AdminSupport = () => {
   const [supportList, setSupportList] = useState([]);
+  const [reRender, setRender] = useState(false);
+
   const [isVisibleLoading, setIsVisibleLoading] = useState(true),
     supportFilter = useSelector((state) => state.supportFilter);
+
+  // redender sau mỗi lần xoá
+  
 
   let { id } = useParams,
     p = 1,
@@ -31,7 +35,10 @@ const AdminSupport = () => {
   useEffect(() => {
     document.title = "Quản lý hỗ trợ khách hàng";
 
-    getFilterSupport(supportFilter, ps, p).then((data) => {
+    getFilterSupport(
+      supportFilter.fullName,
+      supportFilter.phoneNumber
+      , ps, p).then((data) => {
       if (data) {
         setSupportList(data.items);
       } else {
@@ -39,7 +46,7 @@ const AdminSupport = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [supportFilter, ps, p]);
+  }, [supportFilter, ps, p, reRender]);
 
   // delete
   const handleDeleteUser = (e, id) => {
@@ -50,7 +57,8 @@ const AdminSupport = () => {
         const response = await deleteSupport(id);
         if (response) {
           alert("Đã xoá khách hàng cần hỗ trợ");
-          window.location.reload(true);
+          
+          setRender(true);
         } else alert("Đã xảy ra lỗi xoá khách hàng này");
       }
     }
@@ -66,9 +74,12 @@ const AdminSupport = () => {
     async function changeStatusCall(id) {
       // await changeCallStatus(id)
       const response = await changeCallStatus(id);
+      setRender(true);
       if (response) {
         alert("Thay đổi trạng thái cuộc gọi thành công");
-        // window.location.reload(true);
+        window.location.reload(true);
+        // setRender(true);
+        
       } else {
         alert("Thay đổi trạng thái thất bại");
       }
@@ -145,9 +156,9 @@ const AdminSupport = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={3}>
+                        <td colSpan={4}>
                           <h4 className="text-danger text-center">
-                            Không tìm thấy user nào
+                            Không tìm thấy khách hàng cần hỗ trợ nào
                           </h4>
                         </td>
                       </tr>
