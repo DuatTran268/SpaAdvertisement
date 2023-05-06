@@ -22,7 +22,7 @@ const AdminService = () => {
   useEffect(() => {
     document.title = "Quản lý dịch vụ";
 
-    getFilterService(serviceFilter, ps, p).then((data) => {
+    getFilterService(serviceFilter.name, ps, p).then((data) => {
       if (data) {
         setServiceList(data.items);
       } else {
@@ -30,7 +30,7 @@ const AdminService = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [serviceFilter, p, ps]);
+  }, [serviceFilter, ps, p,]);
 
   // delete
   const handleDeleteUser = (e, id) => {
@@ -41,7 +41,7 @@ const AdminService = () => {
         const response = await deleteService(id);
         if (response) {
           alert("Đã xoá danh mục");
-          window.location.reload(true);
+          // window.location.reload(true);
         } else alert("Đã xảy ra lỗi xoá danh mục này");
       }
     }

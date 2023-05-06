@@ -11,6 +11,8 @@ const UserFilter = () => {
   const useFilter = useSelector(state => state.useFilter),
   dispatch = useDispatch(),
   [filter, setFilter] = useState();
+  // const [fullName, setFullName] = useState(''),
+  // [email, setEmail] = useState('');
   
   const handleReset = (e) => {
     dispatch(reset());

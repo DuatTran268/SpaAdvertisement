@@ -2,13 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   name: "",
-  fullName: "",
-  phoneNumber: "",
-  email: "",
 };
 
-const filterSpa = createSlice({
-  name: "filterSpa",
+const serviceFilterReducer = createSlice({
+  name: "serviceFilter",
   initialState,
   reducers: {
     reset: (state, action) => {
@@ -22,27 +19,6 @@ const filterSpa = createSlice({
       };
     },
 
-    updateFullName: (state, action) => {
-      return {
-        ...state,
-        fullName: action.payload,
-      };
-    },
-
-    updatePhoneNumber: (state, action) => {
-      return {
-        ...state,
-        phoneNumber: action.payload,
-      };
-    },
-
-    updateEmail: (state, action) => {
-      return {
-        ...state,
-        month: action.payload,
-      };
-    },
-
   },
 });
 
@@ -50,13 +26,10 @@ const filterSpa = createSlice({
 export const {
   reset, 
   updateName,
-  updateFullName,
-  updateEmail,
-  updatePhoneNumber
   
-} = filterSpa.actions;
+} = serviceFilterReducer.actions;
 
-export const reducer = filterSpa.reducer;
+export const serviceReducer = serviceFilterReducer.reducer;
 
 
 // return {

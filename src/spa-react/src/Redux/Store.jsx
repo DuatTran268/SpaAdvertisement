@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {reducer}from './Reducer'
+import { serviceReducer }from './Reducer'
 
 const store = configureStore({
   reducer : {
-    postFilter: reducer,
+    serviceFilter: serviceReducer,
   },
 });
 

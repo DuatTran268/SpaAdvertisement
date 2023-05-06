@@ -2,31 +2,35 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {reset, updateName} from "../../../Redux/Reducer"
-import { getAllServiceType } from "../../../api/ServiceApi";
+import { getServiceFilter } from "../../../api/ServiceTypeApi";
+
 
 
 
 const ServiceTypeFilter = () => {
-  const serviceTypeFilter = useSelector(state => state.serviceTypeFilter),
-  dispatch = useDispatch(),
-  [filter, setFilter] = useState({});
+  // const serviceTypeFilter = useSelector(state => state.serviceTypeFilter),
+  // dispatch = useDispatch(),
+  // [filter, setFilter] = useState({});
+  const [text, setText] = useState('');
+  const [servicesTypeFilter, setServiceTypeFilter] = useState([]);
   
-  const handleReset = (e) => {
-    dispatch(reset());
-  }
+  
+  // const handleReset = (e) => {
+  //   dispatch(reset());
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   useEffect(() => {
-    getAllServiceType().then((data) => {
+    getServiceFilter().then((data) => {
       if (data){
-        setFilter({data})
+        console.log("check data: ", data);
+        setServiceTypeFilter({})
       }
       else{
-        setFilter([]);
+        setServiceTypeFilter([]);
       }
     })
   }, [])
@@ -34,7 +38,6 @@ const ServiceTypeFilter = () => {
 
   return (
     <Form method="get"
-    onReset={handleReset}
     onSubmit={handleSubmit}
     className="row gy-2 gx-3 align-items-center p-2"
     >
@@ -46,13 +49,13 @@ const ServiceTypeFilter = () => {
       type="text"
       placeholder="Nhập tên"
       name="name"
-      value={serviceTypeFilter}
-      onChange = {(e) => dispatch(updateName(e.target.value))}
+      value={text}
+      onChange = {(e) => setText(e.target.value)}
       />
     </Form.Group>
     <Form.Group className="col-auto">
         <Button variant="danger" type="submit">
-          Xoá Lọc
+          Tìm kiếm
         </Button>
         <Link to={`/admin/servicetype/edit`} className="btn btn-success ms-2">Thêm mới</Link>
       </Form.Group>

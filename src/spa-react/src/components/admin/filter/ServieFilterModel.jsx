@@ -5,13 +5,15 @@ import { Link } from "react-router-dom";
 import {reset, updateName} from "../../../Redux/Reducer"
 import { getAllUser } from "../../../api/User";
 import { getAllService } from "../../../api/ServiceApi";
+import { getServiceFilter } from "../../../api/ServiceTypeApi";
 
 
 
 const ServiceFilter = () => {
+  const  [name, setName] = useState('');
   const serviceFilter = useSelector(state => state.serviceFilter),
-  dispatch = useDispatch(),
-  [filter, setFilter] = useState();
+  dispatch = useDispatch();
+  
   
   const handleReset = (e) => {
     dispatch(reset());
@@ -21,22 +23,22 @@ const ServiceFilter = () => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    getAllService().then((data) => {
-      if (data){
-        setFilter(data)
-      }
-      else{
-        setFilter([]);
-      }
-    })
-  }, [])
+  // useEffect(() => {
+  //   getServiceFilter().then((data) => {
+  //     if (data){
+  //       console.log("check data: ", data);
+  //       setServiceTypeFilter({})
+  //     }
+  //     else{
+  //       setServiceTypeFilter([]);
+  //     }
+  //   })
+  // }, [])
 
 
   return (
     <Form method="get"
     onReset={handleReset}
-    onSubmit={handleSubmit}
     className="row gy-2 gx-3 align-items-center p-2"
     >
     <Form.Group className="col-auto">
@@ -47,14 +49,11 @@ const ServiceFilter = () => {
       type="text"
       placeholder="Nhập tên"
       name="name"
-      value={serviceFilter}
+      value={serviceFilter.name}
       onChange = {(e) => dispatch(updateName(e.target.value))}
       />
     </Form.Group>
     <Form.Group className="col-auto">
-        <Button variant="danger" type="submit">
-          Xoá Lọc
-        </Button>
         <Link to={`/admin/service/edit`} className="btn btn-success ms-2">Thêm mới</Link>
       </Form.Group>
     </Form>

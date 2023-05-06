@@ -55,3 +55,4 @@ export async function getServiceById(id = 0) {
 export async function updateService(id = 0, formData) {
   return put_api(`https://localhost:7024/api/services/${id}`, formData);
 }
+

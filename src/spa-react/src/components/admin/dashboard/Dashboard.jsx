@@ -11,8 +11,9 @@ const DashboardItem = () => {
     featchData();
     async function featchData() {
       const response = await getAllDashboard();
+      console.log("response: ", response);
       if (response) {
-        console.log("response check coi sao : ", response);
+        console.log("response check: ", response);
         setDashboardItem(response);
       } else {
         setDashboardItem({});
@@ -26,35 +27,35 @@ const DashboardItem = () => {
         <div className="text-danger">
           <h3>Số user</h3>
           <FontAwesomeIcon icon={faUser} fontSize={30} />
-          <span className="text-success px-5">5{dashboardItem.countUser}</span>
+          <span className="text-success px-5">{dashboardItem.countUser}</span>
         </div>
       </div>
       <div className="card-body">
         <div className="text-danger">
           <h3>Loại dịch vụ</h3>
           <FontAwesomeIcon icon={faUser} fontSize={30} />
-          <span className="text-success px-5">5{dashboardItem.countUser}</span>
+          <span className="text-success px-5">{dashboardItem.countCustomerSupport}</span>
         </div>
       </div>
       <div className="card-body">
         <div className="text-danger">
           <h3>Dịch vụ</h3>
           <FontAwesomeIcon icon={faUser} fontSize={30} />
-          <span className="text-success px-5">5{dashboardItem.countUser}</span>
+          <span className="text-success px-5">{dashboardItem.countUser}</span>
         </div>
       </div>
       <div className="card-body">
         <div className="text-danger">
           <h3>Hỗ trợ</h3>
           <FontAwesomeIcon icon={faPhone} fontSize={30} />
-          <span className="text-success px-5">5{dashboardItem.countUser}</span>
+          <span className="text-success px-5">{dashboardItem.countUser}</span>
         </div>
       </div>
       <div className="card-body">
         <div className="text-danger">
           <h3>Đặt hàng</h3>
           <FontAwesomeIcon icon={faTruck} fontSize={30} />
-          <span className="text-success px-5">5{dashboardItem.countUser}</span>
+          <span className="text-success px-5">{dashboardItem.countUser}</span>
         </div>
       </div>
     </>

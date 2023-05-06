@@ -57,7 +57,10 @@ const AdminUser = () => {
       <div className="listContainer">
         <Navbar />
         <div className="container mt-5">
-          <UserFilter/>
+          
+
+          {/* <UserFilter/> */}
+
           {isVisibleLoading ? (
             <Loading />
           ) : (
