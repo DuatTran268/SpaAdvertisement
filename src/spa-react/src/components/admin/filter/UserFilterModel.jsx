@@ -28,8 +28,8 @@ const UserFilter = () => {
       <Form.Control 
       type="text"
       placeholder="Nhập tên"
-      name="name"
-      value={userFilter.name}
+      name="fullName"
+      value={userFilter.fullName}
       onChange = {(e) => dispatch(updateFullName(e.target.value))}
       />
     </Form.Group>

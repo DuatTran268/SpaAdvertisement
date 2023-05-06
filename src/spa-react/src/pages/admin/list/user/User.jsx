@@ -95,7 +95,7 @@ const AdminUser = () => {
                   <tr>
                     <td colSpan={3}>
                       <h4 className="text-danger text-center">
-                        Không tìm thấy user nào
+                        Không tìm thấy người dùng nào
                       </h4>
                     </td>
                   </tr>

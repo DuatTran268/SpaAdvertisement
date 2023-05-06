@@ -69,7 +69,7 @@ const EditServiceType = () => {
       updateServiceType(id, data).then((data) => {
         if (data) {
           alert("Đã lưu thành công");
-          navigate('/admin/servicetype/');
+          navigate(`/admin/servicetype/`);
         } else {
           alert("Xảy ra lỗi khi lưu");
         }

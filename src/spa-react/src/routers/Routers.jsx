@@ -58,8 +58,8 @@ function Routers() {
           <Route path="/admin/users/edit" element={<EditUser/>}/>
           <Route path="/admin/users/edit/:id" element={<EditUser/>}/>
 
-          <Route path="/admin/products" element={<AdminProduct/>}/>
-          <Route path="/admin/cart" element={<AdminCart/>}/>
+          {/* <Route path="/admin/products" element={<AdminProduct/>}/> */}
+          {/* <Route path="/admin/cart" element={<AdminCart/>}/> */}
           <Route path="/admin/setting" element={<AdminSetting/>}/>
           <Route path="/admin/service" element={<AdminService/>}/>
           <Route path="/admin/service/edit" element={<EditService/>}/>

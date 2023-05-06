@@ -14,6 +14,8 @@ import ServiceTypeFilter from "../../../../components/admin/filter/ServiceTypeFi
 
 const AdminServiceType = () => {
   const [servieTypeList, setServiceTypeList] = useState([]);
+  const [reRender, setRender] = useState(false);
+
   const [isVisibleLoading, setIsVisibleLoading] = useState(true),
     serviceTypeFilter = useSelector((state) => state.serviceTypeFilter);
     
@@ -34,7 +36,7 @@ const AdminServiceType = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [serviceTypeFilter, ps, p]);
+  }, [serviceTypeFilter, ps, p, reRender]);
 
   // delete
   const handleDeleteUser = (e, id) => {
@@ -45,7 +47,7 @@ const AdminServiceType = () => {
         const response = await deleteServiceType(id);
         if (response) {
           alert("Đã xoá danh mục");
-          window.location.reload(true);
+          setRender(true);
         } else alert("Đã xảy ra lỗi xoá danh mục này");
       }
     }
@@ -111,7 +113,7 @@ const AdminServiceType = () => {
                     <tr>
                       <td colSpan={6}>
                         <h4 className="text-danger text-center">
-                          Không tìm thấy user nào
+                          Không tìm thấy loại dịch vụ nào 
                         </h4>
                       </td>
                     </tr>

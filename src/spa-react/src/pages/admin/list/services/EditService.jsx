@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getServiceById, updateService } from "../../../../api/ServiceApi";
 
 import Navbar from "../../../../components/admin/navbar/Navbar";
@@ -17,6 +17,8 @@ const EditService = () => {
     shortDescription: "",
   },
   [service, setService] = useState(initialState);
+
+  const navigate = useNavigate();
 
   let { id } = useParams();
   id = id ?? 0;
@@ -45,6 +47,7 @@ const EditService = () => {
       updateService(id, data).then((data) => {
         if (data) {
           alert("Đã lưu thành công");
+          navigate(`/admin/service`);
         } else {
           alert("Xảy ra lỗi khi lưu");
         }

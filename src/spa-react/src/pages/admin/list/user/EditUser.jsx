@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  useParams , Link} from "react-router-dom";
+import {  useParams , Link, useNavigate} from "react-router-dom";
 import { getUserById, updateUser } from "../../../../api/User";
 import { Button, Form} from "react-bootstrap";
 import Navbar from "../../../../components/admin/navbar/Navbar";
@@ -16,6 +16,8 @@ const EditUser = () => {
       roleId: "",
     },
     [user, setUser] = useState(initialState);
+
+  const navigate = useNavigate();
 
   let { id } = useParams();
   id = id ?? 0;
@@ -44,6 +46,7 @@ const EditUser = () => {
       updateUser(id, data).then((data) => {
         if (data) {
           alert("Đã lưu thành công");
+          navigate(`/admin/users`)
         } else {
           alert("Xảy ra lỗi khi lưu");
         }
