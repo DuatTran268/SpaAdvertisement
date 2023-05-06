@@ -3,6 +3,7 @@ using SpaCenter.Services.Manages.Services;
 using SpaCenter.Services.Manages.ServiceTypes;
 using SpaCenter.Services.Manages.Supports;
 using SpaCenter.Services.Manages.Users;
+using SpaCenter.WebApi.Models;
 using SpaCenter.WebApi.Models.Dashboards;
 
 namespace SpaCenter.WebApi.Endpoints
@@ -38,7 +39,7 @@ namespace SpaCenter.WebApi.Endpoints
 			
 			};
 
-			return Results.Ok(result);
+			return Results.Ok(ApiResponse.Success(result));
 		}
 
 	}

@@ -109,7 +109,15 @@ namespace SpaCenter.Services.Manages.Bookings
                     || bt.PriceTotal.Contains(query.PriceTotal)
                     || bt.UrlSlug.Contains(query.Name));
                 }
-                return bookingQuery;
+                if (!string.IsNullOrWhiteSpace(query.Email))
+                {
+                    bookingQuery = bookingQuery.Where(b => b.Email == query.Email);
+                }
+				if (!string.IsNullOrWhiteSpace(query.PhoneNumber))
+				{
+					bookingQuery = bookingQuery.Where(b => b.PhoneNumber == query.PhoneNumber);
+				}
+				return bookingQuery;
             }
         }
 

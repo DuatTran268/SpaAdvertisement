@@ -22,7 +22,10 @@ const EditServiceType = () => {
       shortDescription: "",
       description: "",
       price: "",
-      serviceId: {},
+      service: {
+        id: ""
+      },
+      serviceId: "",
     },
     [serviceType, setServiceType] = useState(initialState),
     [filter, setFilter] = useState({ serviceList: [] });
@@ -43,7 +46,7 @@ const EditServiceType = () => {
 
     getServiceFilter().then((data) => {
       if (data) {
-        setFilter({
+        setFilter({ 
           serviceList: data.serviceList,
         });
       } else {
@@ -90,6 +93,7 @@ const EditServiceType = () => {
           <Form
             method="post"
             encType=""
+            // encType="multipart/form-data"
             onSubmit={handleSubmit}
             noValidate
             validated={validated}
@@ -212,7 +216,7 @@ const EditServiceType = () => {
                 <Form.Select
                   name="serviceId"
                   title="Service Id"
-                  value={serviceType.serviceId}
+                  value={serviceType.serviceId ? serviceType.serviceId : serviceType.service?.id }
                   required
                   onChange={(e) => setServiceType({ ...serviceType, serviceId: e.target.value })}
                 >
@@ -247,9 +251,9 @@ const EditServiceType = () => {
                     })
                   }
                 />
-                <Form.Control.Feedback type="invalid">
+                {/* <Form.Control.Feedback type="invalid">
                   Không được bỏ trống.
-                </Form.Control.Feedback>
+                </Form.Control.Feedback> */}
               </div>
             </div>
 

@@ -10,5 +10,6 @@ namespace SpaCenter.Core.DTO
 	{
 		public string Name { get; set; } = "";
 		public string ServiceTypeSlug { get; set; } = "";
+		public string Price { get; set; } = "";
 	}
 }
