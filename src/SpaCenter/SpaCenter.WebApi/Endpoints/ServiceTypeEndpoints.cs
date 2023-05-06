@@ -76,7 +76,7 @@ namespace SpaCenter.WebApi.Endpoints
 				.WithName("GetFilterServiceAsync")
 				.Produces<ApiResponse<ServiceTypeFilterModel>>();
 
-			
+
 			return app;
 		}
 
@@ -91,7 +91,7 @@ namespace SpaCenter.WebApi.Endpoints
 		}
 
 		private static async Task<IResult> GetServiceTypes(
-			[AsParameters] ServiceTypeFilterModel model, 
+			[AsParameters] ServiceTypeFilterModel model,
 			IServiceTypeRepository typeRepository)
 		{
 			var servicetypeList = await typeRepository.GetPagedTypeAsync(model, model.Name, model.Price);
@@ -147,23 +147,28 @@ namespace SpaCenter.WebApi.Endpoints
 		private static async Task<IResult> UpdateServices(int id, ServiceTypeEditModel model,
 		 IServiceTypeRepository typeRepository, IServiceRepository serviceRepository, IMapper mapper)
 		{
-			var type = await typeRepository.GetTypeByIdAsync(id);
-			if (type == null)
+			ServiceType type;
+			if (id != 0)
 			{
-				return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
-					$"Không tìm thấy id '{id}' của loại DV"));
+				type = await typeRepository.GetTypeByIdAsync(id);
+				if (type == null)
+				{
+					return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
+						$"Không tìm thấy id '{id}' của loại DV"));
+				}
+				if (await serviceRepository.GetServiceByIdAsync(model.ServiceId) == null)
+				{
+					return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+						$"Không tìm thấy DV có id '{model.ServiceId}'"));
+				}
+				if (await typeRepository.IsTypeSlugExistedAsync(0, model.UrlSlug))
+				{
+					return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
+						$"Slug '{model.UrlSlug}' đã được sử dụng"));
+				}
 			}
-			if (await serviceRepository.GetServiceByIdAsync(model.ServiceId) == null)
-			{
-				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-					$"Không tìm thấy DV có id '{model.ServiceId}'"));
-			}
-			if (await typeRepository.IsTypeSlugExistedAsync(0, model.UrlSlug))
-			{
-				return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict,
-					$"Slug '{model.UrlSlug}' đã được sử dụng"));
-			}
-
+			else
+				type = new ServiceType();
 			mapper.Map(model, type);
 			type.Id = id;
 
