@@ -40,35 +40,23 @@ const ServiceType = () => {
   return (
     <>
       <div className="container">
-        <>
+        <div className="text-center">
+          <h3 className="text-success mb-5 mt-5">Chọn dịch vụ cho bạn</h3>
+          <h5 className="text-danger mb-3">Hãy chọn các loại dịch vụ dưới đây</h5>
+        </div>
+        <div className="mt-5 mb-5">
           <Tabs
             defaultActiveKey="profile"
             id="fill-tab-example"
-            className="mb-3"
+            className="mb-5"
             fill
           >
             {serviceList.map((item, index) => (
               <Tab eventKey={item.urlSlug} title={item.name} key={index}>
-                <ButtonGroup>
+                <div className="wrapper row">
                   {item.serviceTypes.map((serviceType, i) => (
-                    <div key={i}>
-                        <DropdownButton
-                          id={serviceType.urlSlug}
-                          title={serviceType.name}
-                        >
-                          <div className="">
-                          {serviceType.name}
-                          {serviceType.shortDescription}
-
-                          </div>
-                          {/* <Dropdown.Item>
-                          </Dropdown.Item>
-                          <Dropdown.Item >
-                          </Dropdown.Item> */}
-                        </DropdownButton>
-
-
-                      {/* <div className="list-service-item ">
+                    <div className="col-6 mb-3" key={i}>
+                      <div className="list-service-item">
                         <div
                           className="list-service-title"
                           onClick={() => toggle(i)}
@@ -83,7 +71,7 @@ const ServiceType = () => {
                         >
                           <div className="list-service-description">
                             <Link
-                              to={`/service/${item.urlSlug}`}
+                              to={`/service/${serviceType.urlSlug}`}
                               className="text-decoration-none"
                             >
                               {serviceType.shortDescription}
@@ -92,7 +80,7 @@ const ServiceType = () => {
 
                           <div className="row d-flex align-items-center">
                             <div className="price col-6 text-danger">
-                              {item.price} VNĐ
+                              {serviceType.price} VNĐ
                             </div>
                             <div className="list-service-button col-6">
                               <Link to={`/service/booking`}>
@@ -101,14 +89,14 @@ const ServiceType = () => {
                             </div>
                           </div>
                         </div>
-                      </div> */}
+                      </div>
                     </div>
                   ))}
-                </ButtonGroup>
+                </div>
               </Tab>
             ))}
           </Tabs>
-        </>
+        </div>
       </div>
     </>
   );
