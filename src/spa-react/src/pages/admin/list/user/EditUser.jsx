@@ -162,28 +162,6 @@ const EditUser = () => {
               </div>
             </div>
 
-            {/* <div className="row mb-3">
-              <Form.Label className="col-sm-2 col-form-label">
-                Role Id
-              </Form.Label>
-              <div className="col-sm-10">
-                <Form.Control
-                  type="text"
-                  name="roleId"
-                  title="Role Id"
-                  required
-                  placeholder="Nhập 1: cho Role là Admin, 2 cho Role là User"
-                  value={user.roleId}
-                  onChange={(e) =>
-                    setUser({ ...user, roleId: e.target.value })
-                  }
-                />
-                <Form.Control.Feedback type="invalid">
-                  Không được bỏ trống
-                </Form.Control.Feedback>
-              </div>
-            </div> */}
-
             <div className="row mb-3">
               <Form.Label className="col-sm-2 col-form-label">
                 Vai trò
