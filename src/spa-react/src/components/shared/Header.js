@@ -5,6 +5,8 @@ import logo from './images/logo.png';
 import MainMenu from "./MainMenu";
 import Cart from "./Cart";
 import SearchForm from "./SearchForm";
+import BtnLogin from "./BtnLogin";
+import BtnRegister from "./BtnRegister";
 
 
 const Header = () => {
@@ -28,8 +30,12 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
             <MainMenu />
+          </div>
+          <div className="collapse navbar-collapse justify-content-around">
             <SearchForm />
             <Cart/>
+            <BtnLogin/>
+            <BtnRegister/>
           </div>
         </div>
       </nav>

@@ -1,4 +1,6 @@
-﻿namespace SpaCenter.WebApi.Models.Services
+﻿using SpaCenter.WebApi.Models.ServiceTypes;
+
+namespace SpaCenter.WebApi.Models.Services
 {
     public class ServiceDto
     {
@@ -6,5 +8,6 @@
         public string Name { get; set; }
         public string UrlSlug { get; set; }
         public string ShortDescription { get; set; }
+        public IList<ServiceTypeDto> ServiceTypes { get; set; }
     }
 }

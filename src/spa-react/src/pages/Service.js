@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ServiceType from "../components/servicestype/servicetype";
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 
 const Service = () => {
   useState(() =>{
@@ -8,7 +10,9 @@ const Service = () => {
 
   return (
     <>
+      <Header/>
       <ServiceType/>
+      <Footer/>
     </>
   );
 }

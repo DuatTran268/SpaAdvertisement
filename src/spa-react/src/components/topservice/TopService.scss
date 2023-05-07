@@ -42,5 +42,19 @@
       transform: scale(1.1);
     }
   }
+
+  &-item{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
   
+}
+.top-service-image,
+.top-service-img{
+  width: 12rem;
+  height: 12rem;
 }

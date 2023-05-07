@@ -2,13 +2,16 @@ import React from "react";
 import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { useCart } from "react-use-cart";
 
-const Cart = ({CartItem}) =>{
+const Cart = () =>{
+  const {totalItems} = useCart();
+
   return(
-    <div>
-      <Link className="text-danger cart" to={'/cart'}>
-        <FontAwesomeIcon icon={faBagShopping} fontSize={20} className="bg-success"/>
-        {/* <span>{CartItem.length === 0 ? "" : CartItem.length}</span> */}
+    <div className="cart">
+      <Link className="text-danger cart-icon" to={'/cart'}>
+        <FontAwesomeIcon icon={faBagShopping} fontSize={26}/>
+        <span className="bg-danger">{totalItems}</span>
       </Link>
 
     </div>

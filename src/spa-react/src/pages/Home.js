@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import BookService from "../components/booking/Bookservice";
+import BookService from "../components/booking/RegisterSupport";
 import TopService from "../components/topservice/TopService";
 import Slide from "../components/sliderbanner/Slider";
 import './pages.scss'
-import Product from "../components/product/Product"
+import Products from "../components/product/Products"
 import Galley from "../components/galley/Galley";
-
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 
 const Home = () => {
   useEffect(() => {
@@ -14,6 +15,7 @@ const Home = () => {
 
   return (
     <div>
+      <Header/>
       <div className="home_slide">
         <Slide />
         <div className="home_slide-service">
@@ -24,11 +26,12 @@ const Home = () => {
         <TopService/>
       </div>
       <div className="top_product">
-        <Product/>
+        <Products/>
       </div>
       <div className="galley">
         <Galley/>
       </div>
+      <Footer/>
     </div>
   );
 };

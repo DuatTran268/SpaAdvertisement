@@ -19,14 +19,51 @@ namespace SpaCenter.Services.Manages.Services
             _memoryCache = memoryCache;
         }
 
-        public Task<bool> AddOrUpdateAsync(Service service, CancellationToken cancellationToken = default)
+
+		public  async Task<IList<ServiceItem>> GetServiceNotRequiredAsync(CancellationToken cancellationToken = default)
+		{
+            IQueryable<Service> services = _context.Set<Service>();
+            return await services.OrderBy(s => s.Name).Select(s => new ServiceItem()
+            {
+                Id = s.Id,
+                Name = s.Name,
+                UrlSlug = s.UrlSlug,
+                ShortDescription = s.ShortDescription,
+            }).ToListAsync(cancellationToken);
+		}
+
+
+		public async Task<IList<T>> GetServiceAsync<T>(Func<IQueryable<Service>, 
+            IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		{
+            IQueryable<Service> services = _context.Set<Service>()
+                .Include(st => st.ServiceTypes)
+                .OrderBy(s => s.Id)
+                ;
+            return await mapper(services).ToListAsync(cancellationToken);
+		}
+
+
+		public async Task<bool> AddOrUpdateAsync(Service service, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (service.Id > 0)
+            {
+                _context.Services.Update(service);
+                _memoryCache.Remove($"author.by-id.{service.Id}");
+            }
+            else
+            {
+                _context.Services.Add(service);
+            }
+
+            return await _context.SaveChangesAsync(cancellationToken) > 0;
         }
 
-        public Task<bool> DeleteAuthorAsync(int serviceId, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteServiceAsync(int serviceId, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.Services
+             .Where(x => x.Id == serviceId)
+             .ExecuteDeleteAsync(cancellationToken) > 0;
         }
 
         public async Task<IList<Service>> GetAllService(CancellationToken cancellationToken = default)
@@ -87,9 +124,10 @@ namespace SpaCenter.Services.Manages.Services
             return await mapper(serviceQuery).ToPagedListAsync(pagingParams, cancellationToken);
         }
 
-        public async Task<Service> GetServiceByIdAsync(int serviceId)
+        public async Task<Service> GetServiceByIdAsync(int serviceId, CancellationToken cancellationToken = default)
         {
-            return await _context.Set<Service>().FindAsync(serviceId);
+            return await _context.Set<Service>().Include(s => s.ServiceTypes).
+                FirstOrDefaultAsync(x => x.Id == serviceId, cancellationToken);
         }
 
         public async Task<Service> GetServiceBySlugAsync(string slug, CancellationToken cancellationToken = default)
@@ -98,9 +136,56 @@ namespace SpaCenter.Services.Manages.Services
              .FirstOrDefaultAsync(a => a.UrlSlug == slug, cancellationToken);
         }
 
-        public Task<bool> IsServiceSlugExistedAsync(int serviceId, string slug, CancellationToken cancellationToken = default)
+		public async Task<bool> IsServiceSlugExistedAsync(int serviceId, string slug, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.Services
+            .AnyAsync(x => x.Id != serviceId && x.UrlSlug == slug, cancellationToken);
         }
-    }
+
+		public async Task<IPagedList<T>> GetPagedServiceAsync<T>(ServiceQuery query, IPagingParams pagingParams, Func<IQueryable<Service>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		{
+            IQueryable<Service> serviceFindQuery = FilterService(query);
+            IQueryable<T> queryResult = mapper(serviceFindQuery);
+            return await queryResult.ToPagedListAsync(pagingParams, cancellationToken);
+
+		}
+        private IQueryable<Service> FilterService(ServiceQuery query)
+        {
+            IQueryable<Service> serviceQuery = _context.Set<Service>()
+                .Include(s => s.ServiceTypes);
+            {
+                if (!string.IsNullOrEmpty(query.Name))
+                {
+                    serviceQuery = serviceQuery.Where(st => st.Name.Contains(query.Name)
+                    || st.ShortDescription.Contains(query.Name)
+                    || st.UrlSlug.Contains(query.ServiceSlug)
+                    );
+                }
+                if (!string.IsNullOrWhiteSpace(query.Name))
+                {
+                    serviceQuery = serviceQuery.Where(s => s.Name == query.Name);
+                }
+                if (!string.IsNullOrWhiteSpace(query.ServiceSlug))
+                {
+                    serviceQuery = serviceQuery.Where(s => s.UrlSlug == query.ServiceSlug);
+                }
+
+                return serviceQuery;
+            }
+        }
+
+		public async Task<int> CountTotalServiceAsync(CancellationToken cancellationToken = default)
+		{
+            return await _context.Set<Service>().CountAsync(cancellationToken);
+		}
+
+		public async Task<IList<T>> GetlimitNServiceAsync<T>(int n, Func<IQueryable<Service>, IQueryable<T>> mapper, CancellationToken cancellationToken = default)
+		{
+            IQueryable<Service> rdServiceQuery = _context.Set<Service>()
+                .OrderBy(s => Guid.NewGuid())
+                .Take(n);
+
+            return await mapper(rdServiceQuery).ToListAsync(cancellationToken);
+		}
+	}
 }

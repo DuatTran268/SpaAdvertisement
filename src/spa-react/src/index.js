@@ -1,13 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { DarkModeContextProvider } from "./components/admin/context/darkModeReducer";
+import { Provider } from "react-redux";
+import store from "./Redux/Store";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <DarkModeContextProvider>
+        <App />
+      </DarkModeContextProvider>
+    </Provider>
   </React.StrictMode>
 );
 

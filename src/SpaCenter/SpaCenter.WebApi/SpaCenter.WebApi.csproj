@@ -23,8 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+<!--<<<<<<< HEAD-->
     <Folder Include="Filters\" />
-    <Folder Include="Validations\" />
+<!--=======-->
     <Folder Include="wwwroot\uploads\pictures\" />
   </ItemGroup>
 

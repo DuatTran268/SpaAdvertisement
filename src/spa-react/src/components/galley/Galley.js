@@ -28,8 +28,8 @@ const Galley = () => {
         <div className="popup-media"
           style={{ display: file ? "block" : "none" }}>
           <span onClick={() => setFile(null)}>&times;</span>
-          {Dgalley.map((file) => (
-            <>{<img src={file.image} alt={file.image} />}</>
+          {Dgalley.map((file, index) => (
+            <>{<img src={file.image} alt={file.image} key={index}/>}</>
           ))}
         </div>
       </div>

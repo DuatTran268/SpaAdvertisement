@@ -1,12 +1,16 @@
-import React from "react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import Ddata from "../../data/Dtopservice";
-import "./TopService.scss";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import { getNRamdomLitmitServiceType } from "../../api/ServiceApi";
+import "./TopService.scss";
+// import image from "../../../public/images/imagedefault.jpg";
 
 const TopService = () => {
+
+
+
   const serviceSetting = {
     dots: false,
     infinite: true,
@@ -21,6 +25,33 @@ const TopService = () => {
     },
   };
 
+  const [topNService, setTopNService] = useState([]);
+
+  useEffect(() => {
+    getNRamdomLitmitServiceType().then((data) => {
+      if (data){
+        setTopNService(data);
+        console.log("data: ", data);
+      }
+      else{
+        setTopNService([]);
+      }
+    });
+  }, [])
+
+
+  const getImage = (path) => {
+
+    console.log(path)
+    if (!path) {
+      // set default image
+      return `https://placehold.co/200x200?text=Image-not-found`;
+    } 
+
+    return `https://localhost:7024/${path}`;
+  }
+
+
   return (
     <>
       <div className="container">
@@ -34,21 +65,22 @@ const TopService = () => {
         </div>
 
         <Slider {...serviceSetting}>
-          {Ddata.map((value) => {
+          {topNService.map((value, index) => {
             return (
               <>
-                <div className="container">
+                <div className="container"  key={index}>
                   <div className="top-service">
-                    <div className="text-center">
-                      <Link className="text-decoration-none" to={`/service`}>
+                    <div className="top-service-item">
+                      <Link className="text-decoration-none" to={`/service/${value.urlSlug}`}>
                         <h5 className="top-service-title mb-3">{value.name}</h5>
                       </Link>
                       <div className="top-service-image rounded-circle">
-                        <Link to={`/service`}>
+                        <Link to={`/service/${value.urlSlug}`}>
                           <img
-                            src={value.image}
-                            alt="item top service"
-                            className="top-service-img "
+                            src={getImage(value.imageUrl)}
+                            alt={value.name}
+                            className="top-service-img"
+                            
                           />
                         </Link>
                       </div>
