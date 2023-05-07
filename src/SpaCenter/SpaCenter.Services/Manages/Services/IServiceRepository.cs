@@ -45,6 +45,11 @@ namespace SpaCenter.Services.Manages.Services
         //Task<IList<ServiceItem>> TopServicesAsync(int numService, CancellationToken cancellationToken = default);
 
         Task<int> CountTotalServiceAsync(CancellationToken cancellationToken = default);
-    
+
+        // get limit
+        Task<IList<T>> GetlimitNServiceAsync<T>(int n,
+            Func<IQueryable<Service>, IQueryable<T>> mapper,
+            CancellationToken cancellationToken = default);
+
     }
 }

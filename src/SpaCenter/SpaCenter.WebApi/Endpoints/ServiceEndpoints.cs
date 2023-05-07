@@ -9,6 +9,7 @@ using SpaCenter.Services.Manages.Services;
 using SpaCenter.WebApi.Filters;
 using SpaCenter.WebApi.Models;
 using SpaCenter.WebApi.Models.Services;
+using SpaCenter.WebApi.Models.ServiceTypes;
 using System.Net;
 
 namespace SpaCenter.WebApi.Endpoints
@@ -43,37 +44,26 @@ namespace SpaCenter.WebApi.Endpoints
             .Produces<ApiResponse<string>>();
 
             routeGroupBuilder.MapDelete("/{id:int}", DeleteService)
-                         .WithName("DeleteService")
-                         .Produces(401)
-                         .Produces<ApiResponse<string>>();
+                .WithName("DeleteService")
+                .Produces(401)
+                .Produces<ApiResponse<string>>();
 
-            //routeGroupBuilder.MapGet("/top/{limit:int}", GetTopServicesAsync)
-            //             .WithName("GetTopServicesAsync")
-            //             .Produces<PagedList<Service>>();
-
+            
             routeGroupBuilder.MapGet("/slug/{slug:regex(^[a-z0-9_-]+$)}", GetServiceTypeBySlugOfService)
                 .WithName("GetServiceTypeBySlugOfService")
                 .Produces<ApiResponse<PaginationResult<ServiceDto>>>();
 
-
+			// get random litmit service
+			routeGroupBuilder.MapGet("random/{limit:int}", GetNRandomlimitServiceTypeAsync)
+			    .WithName("GetNRandomlimitServiceTypeAsync")
+			    .Produces<ApiResponse<IList<ServiceDto>>>();
 
 			return app;
         }
 
-        // Top những dịch vụ được ưu chuộng nhất
-        //private static async Task<IResult> GetTopServicesAsync(int limit, IServiceRepository serviceRepository)
-        //{
-        //    var author = await serviceRepository.TopServicesAsync(limit);
-
-        //    return Results.Ok(ApiResponse.Success(author));
-        //}
-
-        //Method xử lý yêu cầu tìm danh sách các dịch vụ
-        
+       
         private static async Task<IResult> GetServiceNotRequired(IServiceRepository serviceRepository)
         {
-            //var serviceList = await serviceRepository.GetServiceNotRequiredAsync();
-            //return Results.Ok(ApiResponse.Success(serviceList));
             var service = await serviceRepository.GetServiceAsync(
                 services => services.ProjectToType<ServiceDto>());
             return Results.Ok(ApiResponse.Success(service));
@@ -172,6 +162,17 @@ namespace SpaCenter.WebApi.Endpoints
                 ? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tồn tại slug '{slug}' "))
                 : Results.Ok(ApiResponse.Success(pagingnationResult));
 
+        }
+
+        // get ramdom litmit service
+        public static async Task<IResult> GetNRandomlimitServiceTypeAsync(
+            int limit, IServiceRepository serviceRepository, 
+            ILogger<IResult> logger)
+        {
+            var rdLitmitService = await serviceRepository.GetlimitNServiceAsync(
+                limit, s => s.ProjectToType<ServiceDto>());
+
+            return Results.Ok(ApiResponse.Success(rdLitmitService));
         }
     }
 }

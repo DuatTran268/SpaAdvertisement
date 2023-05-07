@@ -1,7 +1,7 @@
 import { delete_api, get_api, put_api } from "./Method";
 
 export async function getAllService(){
-  return get_api (`https://localhost:7024/api/services`)
+  return get_api (`https://localhost:7024/api/services/random/8`)
 }
 
 export async function getServiceBySlug(urlSlug = ''){

@@ -40,7 +40,7 @@ const ServiceType = () => {
       <div className="container">
         <div className="text-center">
           <h3 className="text-success mb-5 mt-5">Chọn dịch vụ cho bạn</h3>
-          <h5 className="text-danger mb-3">Hãy chọn các loại dịch vụ dưới đây</h5>
+          <h5 className="text-danger mb-3">Chọn cho bạn một trong các loại dịch vụ dưới đây</h5>
         </div>
         <div className="mt-5 mb-5">
           <Tabs
