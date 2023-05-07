@@ -45,9 +45,9 @@ const SupportFilter = () => {
       onChange = {(e) => dispatch(updatePhoneNumber(e.target.value))}
       />
     </Form.Group>
-    <Form.Group className="col-auto">
+    {/* <Form.Group className="col-auto">
         <Link to={`/admin/support/edit`} className="btn btn-success ms-2">Thêm mới</Link>
-      </Form.Group>
+      </Form.Group> */}
     </Form>
   );
 }

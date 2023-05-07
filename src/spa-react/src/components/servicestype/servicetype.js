@@ -5,10 +5,8 @@ import { getAllService } from "../../api/ServiceApi";
 
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import { Button, ButtonGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
+
 
 // import Sonnet from "../../components/Sonnet";
 
@@ -82,7 +80,7 @@ const ServiceType = () => {
                             <div className="price col-6 text-danger">
                               {serviceType.price} VNĐ
                             </div>
-                            <div className="list-service-button col-6">
+                            <div className="list-service-button col-6 text-end">
                               <Link to={`/service/booking`}>
                                 <div className="btn btn-success ">Book now</div>
                               </Link>
@@ -103,3 +101,6 @@ const ServiceType = () => {
 };
 
 export default ServiceType;
+
+
+// mai sửa limit cho service

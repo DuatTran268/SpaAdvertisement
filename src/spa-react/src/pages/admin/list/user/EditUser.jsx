@@ -185,7 +185,7 @@ const EditUser = () => {
 
             <div className="row mb-3">
               <Form.Label className="col-sm-2 col-form-label">
-                Thuộc dịch vụ
+                Vai trò
               </Form.Label>
               <div className="col-sm-10">
                 <Form.Select

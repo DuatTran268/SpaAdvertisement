@@ -15,6 +15,8 @@ import { useSelector } from "react-redux";
 
 const AdminUser = () => {
   const [userList, setUserList] = useState([]);
+  const [reRender, setRender] = useState(false);
+  
   const [isVisibleLoading, setIsVisibleLoading] = useState(true),
   userFilter = useSelector((state) => state.userFilter);
 
@@ -37,7 +39,7 @@ const AdminUser = () => {
       }
       setIsVisibleLoading(false);
     });
-  }, [userFilter, ps, p]);
+  }, [userFilter, ps, p, reRender]);
 
   // delete
   const handleDeleteUser = (e, id) => {
@@ -48,7 +50,8 @@ const AdminUser = () => {
         const response = await deleteUser(id);
         if (response) {
           alert("Đã xoá danh mục");
-          window.location.reload(true);
+          // window.location.reload(true);
+          setRender(true);
         } else alert("Đã xảy ra lỗi xoá danh mục này");
       }
     }
