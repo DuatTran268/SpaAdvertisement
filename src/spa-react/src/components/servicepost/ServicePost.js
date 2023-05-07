@@ -52,7 +52,7 @@ const ServicePost = () => {
               <h2 className="text-danger col">{serviceType.name}</h2>
             </div>
             <div className="text-center mt-3 mb-3">
-              <Image className="" src={getImage(serviceType.imageUrl)} />
+              <Image className="image-width" src={getImage(serviceType.imageUrl)}/>
             </div>
             <h5 className="text-success">{serviceType.shortDescription}</h5>
             <p>{serviceType.description}</p>

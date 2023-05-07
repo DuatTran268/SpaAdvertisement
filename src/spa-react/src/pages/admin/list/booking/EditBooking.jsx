@@ -64,6 +64,7 @@ const EditBooking = () => {
         <div className="listContainer">
           <Navbar />
           <div className="container mt-5">
+          <h3 className="text-success mb-5">Thêm/cập nhật đặt lịch dịch vụ</h3>
           <Form
             method="post"
             encType=""

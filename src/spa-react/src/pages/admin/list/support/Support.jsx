@@ -93,6 +93,7 @@ const AdminSupport = () => {
         <div className="listContainer">
           <Navbar />
           <div className="container mt-5">
+          <h3 className="text-success">Quản lý hỗ trợ khách hàng</h3>
           <SupportFilter/>
             {isVisibleLoading ? (
               <Loading />

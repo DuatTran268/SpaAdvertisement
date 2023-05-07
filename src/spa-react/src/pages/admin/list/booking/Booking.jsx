@@ -73,6 +73,7 @@ const AdminBooking = () => {
       <div className="listContainer">
         <Navbar />
         <div className="container mt-5">
+        <h3 className="text-success">Quản lý lịch đặt dịch vụ</h3>
         {isVisibleLoading ? (
               <Loading/>
             ) : (

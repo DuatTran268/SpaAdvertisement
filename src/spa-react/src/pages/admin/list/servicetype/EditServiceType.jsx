@@ -92,6 +92,7 @@ const EditServiceType = () => {
       <div className="listContainer">
         <Navbar />
         <div className="container mt-5">
+        <h3 className="text-success mb-5">Thêm/cập nhật loại dịch vụ</h3>
           <Form
             method="post"
             encType=""
@@ -273,6 +274,7 @@ const EditServiceType = () => {
                   <img
                     src={getImage(serviceType.imageUrl)}
                     alt={serviceType.title}
+                    style={{width: "50%"}}
                   />
                 </div>
               </div>

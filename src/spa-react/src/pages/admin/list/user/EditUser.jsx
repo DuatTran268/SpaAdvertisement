@@ -73,6 +73,7 @@ const EditUser = () => {
         <div className="listContainer">
           <Navbar />
           <div className="container mt-5">
+          <h3 className="text-success mb-5">Thêm/cập nhật người dùng</h3>
           <Form
             method="post"
             encType=""

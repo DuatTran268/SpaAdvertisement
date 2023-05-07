@@ -71,6 +71,7 @@ const AdminServiceType = () => {
         <div className="listContainer">
           <Navbar />
           <div className="container mt-5">
+          <h3 className="text-success">Quản lý loại dịch vụ</h3>
             <ServiceTypeFilter/>
             {isVisibleLoading ? (
               <Loading />
